@@ -3,7 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: 'AIzaSyCDtC8vjyO1qq3eUVlm1caTBvX9tw6AJA4',
+    authDomain: 'touch-meuble.firebaseapp.com',
+    projectId: 'touch-meuble',
+    storageBucket: 'touch-meuble.appspot.com',
+    messagingSenderId: '908767451346',
+    appId: '1:908767451346:web:7e6b8b06db5f96eb99350b',
+  },
 };
 
 /*
