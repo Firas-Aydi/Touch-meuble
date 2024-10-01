@@ -71,10 +71,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "Touch-meuble:build:production"
+              "buildTarget": "Touch-meuble:build:production"
             },
             "development": {
-              "browserTarget": "Touch-meuble:build:development"
+              "buildTarget": "Touch-meuble:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -82,7 +82,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Touch-meuble:build"
+            "buildTarget": "Touch-meuble:build"
           }
         },
         "test": {
