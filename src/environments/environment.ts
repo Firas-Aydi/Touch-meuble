@@ -10,7 +10,7 @@ export const environment = {
     projectId: 'touch-meuble',
     storageBucket: 'touch-meuble.appspot.com',
     messagingSenderId: '908767451346',
-    appId: '1:908767451346:web:7e6b8b06db5f96eb99350b',
+    appId: '1:908767451346:web:5d26a73d331804ab99350b',
   },
 };
 

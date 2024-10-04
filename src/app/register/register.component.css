@@ -1,0 +1,331 @@
+/* Main container styles */
+.container {
+    /* max-width: 800px; */
+    margin: 0 auto;
+    /* padding: 30px 20px; */
+    /* background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); */
+}
+
+/* Card styles */
+.card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Image section (left) */
+.bg-register-image {
+    background-size: cover;
+    background-position: center;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    min-height: 400px;
+    animation: slideInLeft 1s ease-in-out;
+}
+
+/* Form section (right) */
+.col-lg-7 {
+    background-color: white;
+    padding: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Headline */
+.text-center h1{
+    font-size: 28px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    animation: fadeInDown 0.8s ease-out;
+}
+/* Form fields */
+.form-control-user {
+    border: 2px solid #ddd;
+    padding: 15px 20px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.form-control-user:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+    outline: none;
+}
+
+/* Buttons */
+.btn-user {
+    border-radius: 50px;
+    padding: 10px 30px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.btn-user:hover {
+    background-color: #007bff;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.5);
+}
+
+/* Social buttons */
+.btn-google, .btn-facebook {
+    border-radius: 50px;
+    padding: 10px 30px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.btn-google:hover {
+    background-color: #db4437;
+    color: white;
+    box-shadow: 0 4px 10px rgba(219, 68, 55, 0.5);
+}
+
+.btn-facebook:hover {
+    background-color: #4267b2;
+    color: white;
+    box-shadow: 0 4px 10px rgba(66, 103, 178, 0.5);
+}
+
+/* Hyperlink styles */
+a.small {
+    color: #007bff;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+a.small:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.login-box form p-button{
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    color: #b79726;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: .5s;
+    margin-top: 40px;
+    letter-spacing: 4px
+}
+
+/* .login-box p-button:hover {
+    background: #f49803;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #f4c803,
+        0 0 25px #bd9d0b,
+        0 0 50px #f4e403,
+        0 0 100px #d5cf1e;
+} */
+
+.login-box p-button span {
+    position: absolute;
+    display: block;
+}
+
+.login-box p-button span:nth-child(1) {
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #f4c003);
+    animation: btn-anim1 1s linear infinite;
+}
+
+@keyframes btn-anim1 {
+    0% {
+        left: -100%;
+    }
+
+    50%,
+    100% {
+        left: 100%;
+    }
+}
+
+.login-box p-button span:nth-child(2) {
+    top: -100%;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, #f4bc03);
+    animation: btn-anim2 1s linear infinite;
+    animation-delay: .25s
+}
+
+@keyframes btn-anim2 {
+    0% {
+        top: -100%;
+    }
+
+    50%,
+    100% {
+        top: 100%;
+    }
+}
+
+.login-box p-button span:nth-child(3) {
+    bottom: 0;
+    right: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(270deg, transparent, #f4dc03);
+    animation: btn-anim3 1s linear infinite;
+    animation-delay: .5s
+}
+
+@keyframes btn-anim3 {
+    0% {
+        right: -100%;
+    }
+
+    50%,
+    100% {
+        right: 100%;
+    }
+}
+
+.login-box p-button span:nth-child(4) {
+    bottom: -100%;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(360deg, transparent, #f4b003);
+    animation: btn-anim4 1s linear infinite;
+    animation-delay: .75s
+}
+
+@keyframes btn-anim4 {
+    0% {
+        bottom: -100%;
+    }
+
+    50%,
+    100% {
+        bottom: 100%;
+    }
+}
+
+.forgot-password-link {
+    text-align: right; /* Aligns the text to the right */
+    margin-top: 10px; /* Adjusts the spacing above the link */
+}
+
+.forgot-password-link a {
+    color: #007bff; /* Link color (Bootstrap primary) */
+    font-size: 0.875rem; /* Small font size */
+    text-decoration: none; /* Removes underline */
+}
+
+.forgot-password-link a:hover {
+    text-decoration: underline; /* Adds underline on hover */
+}
+
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideInLeft {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* New Animations */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes slideInRight {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Register Page Specific Styles */
+.register-container {
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Input Fields Animation */
+.input-field {
+    animation: slideInRight 0.5s ease forwards;
+}
+
+/* Button Animation */
+.bounce-button {
+    animation: bounce 1s infinite;
+}
+
+

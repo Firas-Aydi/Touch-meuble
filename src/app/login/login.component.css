@@ -1,0 +1,300 @@
+/* Global Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    color: #444;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Container Styles */
+.login-container {
+    /* max-width: 1800px; */
+    margin: auto;
+}
+
+/* Card Styling */
+.login-card {
+    border-radius: 15px;
+    overflow: hidden;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* .card-body {
+    padding: 0;
+} */
+
+/* Image Section */
+.bg-image-section {
+    background-image: url('../../assets/Login2.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 100%;
+    height: auto;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    animation: slideInLeft 1s ease-in-out;
+}
+
+/* Form Section */
+.p-5 {
+    padding: 3rem !important;
+}
+
+.text-center h1 {
+    font-size: 28px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    animation: fadeInDown 0.8s ease-out;
+}
+
+/* Input Fields */
+.form-control-user {
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.form-control-user:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
+}
+
+/* p-button Styles */
+.btn-user {
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #3498db;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+.btn-google, .btn-facebook {
+    background-color: #e74c3c;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.btn-facebook {
+    background-color: #3b5998;
+}
+
+.btn-google:hover, .btn-facebook:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+/* Custom Checkbox */
+.custom-control-input:checked ~ .custom-control-label::before {
+    background-color: #3498db;
+    border-color: #3498db;
+}
+
+.custom-control-label {
+    margin-left: 5px;
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideInLeft {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .bg-image-section {
+        display: none;
+    }
+
+    .p-5 {
+        padding: 2rem !important;
+    }
+}
+
+
+
+
+
+
+.login-box form p-button {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    color: #b79726;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: .5s;
+    margin-top: 40px;
+    letter-spacing: 4px
+}
+
+/* .login-box p-button:hover {
+    background: #f49803;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #f4c803,
+        0 0 25px #bd9d0b,
+        0 0 50px #f4e403,
+        0 0 100px #d5cf1e;
+} */
+
+.login-box p-button span {
+    position: absolute;
+    display: block;
+}
+
+.login-box p-button span:nth-child(1) {
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #f4c003);
+    animation: btn-anim1 1s linear infinite;
+}
+
+@keyframes btn-anim1 {
+    0% {
+        left: -100%;
+    }
+
+    50%,
+    100% {
+        left: 100%;
+    }
+}
+
+.login-box p-button span:nth-child(2) {
+    top: -100%;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, #f4bc03);
+    animation: btn-anim2 1s linear infinite;
+    animation-delay: .25s
+}
+
+@keyframes btn-anim2 {
+    0% {
+        top: -100%;
+    }
+
+    50%,
+    100% {
+        top: 100%;
+    }
+}
+
+.login-box p-button span:nth-child(3) {
+    bottom: 0;
+    right: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(270deg, transparent, #f4dc03);
+    animation: btn-anim3 1s linear infinite;
+    animation-delay: .5s
+}
+
+@keyframes btn-anim3 {
+    0% {
+        right: -100%;
+    }
+
+    50%,
+    100% {
+        right: 100%;
+    }
+}
+
+.login-box p-button span:nth-child(4) {
+    bottom: -100%;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(360deg, transparent, #f4b003);
+    animation: btn-anim4 1s linear infinite;
+    animation-delay: .75s
+}
+
+@keyframes btn-anim4 {
+    0% {
+        bottom: -100%;
+    }
+
+    50%,
+    100% {
+        bottom: 100%;
+    }
+}
+
+.forgot-password-link {
+    text-align: right; /* Aligns the text to the right */
+    margin-top: 10px; /* Adjusts the spacing above the link */
+}
+
+.forgot-password-link a {
+    color: #007bff; /* Link color (Bootstrap primary) */
+    font-size: 0.875rem; /* Small font size */
+    text-decoration: none; /* Removes underline */
+}
+
+.forgot-password-link a:hover {
+    text-decoration: underline; /* Adds underline on hover */
+}
+/* Hyperlink styles */
+a.small {
+    color: #007bff;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+a.small:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}

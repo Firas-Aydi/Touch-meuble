@@ -1,1 +1,100 @@
-<p>login works!</p>
+<div class="container login-container">
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
+        <div class="col-xl-10 col-lg-12 col-md-9">
+            <div class="card o-hidden border-0 shadow-lg my-5 login-card">
+                <div class="card-body p-0">
+                    <!-- Nested Row within Card Body -->
+                    <div class="row">
+                        <!-- Image Section -->
+                        <div class="col-lg-6 d-none d-lg-block bg-image-section"></div>
+
+                        <!-- Form Section -->
+                        <div class="col-lg-6">
+                            <div class="p-5">
+                                <div class="text-center">
+                                    <h1 class="h4 mb-4">Welcome Back!</h1>
+                                </div>
+                                <form [formGroup]="loginForm" (ngSubmit)="login()">
+                                    <div class="form-group">
+                                        <p-floatLabel>
+                                            <input pInputText formControlName="email" type="email" name="email"
+                                                class="form-control form-control-user" id="exampleInputEmail"
+                                                aria-describedby="emailHelp" placeholder="" autocomplete="email" />
+                                            <label for="exampleInputEmail">Enter Email Address...</label>
+                                        </p-floatLabel>
+                                        <div *ngIf="getEmail()?.invalid && getEmail()?.touched" class="text-danger">
+                                            <small *ngIf="getEmail()?.errors?.['required']">Email is required</small>
+                                            <small *ngIf="getEmail()?.errors?.['email']">Enter a valid email</small>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="form-group">
+                                        <p-floatLabel>
+                                            <!-- <div class="position-relative"> -->
+                                            <input pInputText [type]="passwordFieldType" formControlName="password"
+                                                class="form-control form-control-user pr-5" id="exampleInputPassword"
+                                                autocomplete="current-password" />
+                                            <!-- Icon placed inside the input border -->
+                                            <i class="fas"
+                                                [ngClass]="passwordFieldType === 'password' ? 'fa-eye' : 'fa-eye-slash'"
+                                                (click)="togglePasswordVisibility()"
+                                                style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;">
+                                            </i>
+                                            <!-- </div> -->
+                                            <label for="exampleInputPassword">Enter Password...</label>
+                                        </p-floatLabel>
+                                        <div *ngIf="getPassword()?.invalid && getPassword()?.touched"
+                                            class="text-danger">
+                                            <small *ngIf="getPassword()?.errors?.['required']">Password is
+                                                required</small>
+                                            <small *ngIf="getPassword()?.errors?.['minlength']">Password must be at
+                                                least 6 characters</small>
+                                        </div>
+                                    </div>
+                                    <div class="forgot-password-link">
+                                        <a class="small" routerLink="/resetpassword">Forgot Password?</a>
+                                    </div>
+                                    <div *ngIf="errorMessage" class="error-message" style="color: red;">
+                                        {{ errorMessage }}
+                                    </div>
+                                    <div class="login-box">
+                                        <form>
+                                            <div style="text-align: center;">
+                                                <p-button type="submit" [disabled]="loginForm.invalid" [text]="true"
+                                                    (click)="login()">
+                                                    <span></span>
+                                                    <span></span>
+                                                    <span></span>
+                                                    <span></span>
+                                                    Login
+                                                </p-button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <hr>
+                                    <div class="row mt-2">
+                                        <a (click)="sighInGoogle()" style="text-decoration: none;cursor: pointer;">
+                                            <div class="card shadow text-center">
+                                                <div class="card-body" style="font-size: 20px;">
+                                                    <img style="height: 24px; margin: 5px;"
+                                                        src="../../assets/icon-google.png" alt="google">Sign In with
+                                                    Google
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <hr>
+                                    <div class="text-center">
+                                        <a class="small" routerLink="/register">Create an Account!</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
