@@ -1,0 +1,23 @@
+<!-- category-management.component.html -->
+<div class="container">
+    <h2>Gestion des Catégories</h2>
+    <form [formGroup]="categoryForm" (ngSubmit)="addCategory()">
+      <input formControlName="categoryId" type="hidden">
+      <div>
+        <label>Nom de la Catégorie</label>
+        <input formControlName="name" required>
+      </div>
+      <button type="submit">Ajouter Catégorie</button>
+      <button type="button" (click)="updateCategory()">Modifier Catégorie</button>
+    </form>
+  
+    <h3>Liste des Catégories</h3>
+    <ul>
+      <li *ngFor="let category of categories">
+        {{ category.name }}
+        <button (click)="editCategory(category)">Modifier</button>
+        <button (click)="deleteCategory(category.categoryId)">Supprimer</button>
+      </li>
+    </ul>
+  </div>
+  

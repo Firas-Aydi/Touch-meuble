@@ -1,0 +1,68 @@
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+}
+
+.card {
+    border-radius: 15px;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+/* Button Styles */
+.btn {
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Image Styles */
+.img-thumbnail {
+    border-radius: 10px;
+}
+
+/* Table Styles */
+.table {
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
+.table th {
+    background-color: #007bff;
+    color: white;
+}
+
+.table tr:hover {
+    background-color: #e9ecef;
+}
+
+/* Input Styles */
+.form-control {
+    border-radius: 10px;
+    border: 1px solid #ced4da;
+}
+
+/* Error Styles */
+.invalid-feedback {
+    display: none;
+}
+
+input:invalid ~ .invalid-feedback,
+textarea:invalid ~ .invalid-feedback {
+    display: block;
+}
+
+.color-box {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 4px; /* Carré avec coins arrondis */
+    border: 1px solid #ddd;
+    margin-right: 5px;
+}

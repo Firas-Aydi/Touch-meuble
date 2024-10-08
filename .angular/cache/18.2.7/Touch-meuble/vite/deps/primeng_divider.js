@@ -2,7 +2,7 @@ import {
   CommonModule,
   NgClass,
   NgStyle
-} from "./chunk-KQC5ACNB.js";
+} from "./chunk-RAHGJ7ZA.js";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -20,7 +20,8 @@ import {
   ɵɵprojection,
   ɵɵprojectionDef,
   ɵɵproperty
-} from "./chunk-DX5Z3QRA.js";
+} from "./chunk-PQBBU74R.js";
+import "./chunk-LUNXRB7M.js";
 import "./chunk-NTERNHDG.js";
 import "./chunk-35ENWJA4.js";
 

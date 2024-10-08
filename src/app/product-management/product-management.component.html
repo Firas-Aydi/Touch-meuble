@@ -1,0 +1,188 @@
+<div class="container-fluid">
+    <!-- Formulaire d'ajout/modification de produit -->
+    <div class="row">
+        <div class="col-12 mt-5">
+            <div class="card border-0 shadow p-4">
+                <div class="form-floating mb-3 text-center">
+                    <h4 class="text-center text-primary">{{ isEdit ? 'Modifier' : 'Ajouter' }} Produit</h4>
+                </div>
+                <form [formGroup]="productForm" (ngSubmit)="addOrUpdateProduct()">
+                    <div class="row">
+                        <!-- Nom du produit -->
+                        <div class="col-md-4 mb-3">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="productName" formControlName="name"
+                                    required>
+                                <label for="productName">Nom du produit</label>
+                                <div *ngIf="productForm.get('name')?.invalid && (productForm.get('name')?.touched || productForm.get('name')?.dirty)"
+                                    class="text-danger">
+                                    Le nom du produit est requis.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Prix du produit -->
+                        <div class="col-md-4 mb-3">
+                            <div class="form-floating">
+                                <input type="number" class="form-control" id="productPrice" formControlName="price"
+                                    required>
+                                <label for="productPrice">Prix</label>
+                                <div *ngIf="productForm.get('price')?.invalid && (productForm.get('price')?.touched || productForm.get('price')?.dirty)"
+                                    class="text-danger">
+                                    Le prix est requis.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stock du produit -->
+                        <div class="col-md-4 mb-3">
+                            <div class="form-floating">
+                                <input type="number" class="form-control" id="productStock" formControlName="stock"
+                                    required>
+                                <label for="productStock">Stock</label>
+                                <div *ngIf="productForm.get('stock')?.invalid && (productForm.get('stock')?.touched || productForm.get('stock')?.dirty)"
+                                    class="text-danger">
+                                    Le stock est requis.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="col-md-12 mb-3">
+                            <div class="form-floating">
+                                <textarea class="form-control" id="productDescription" formControlName="description"
+                                    required></textarea>
+                                <label for="productDescription">Description</label>
+                                <div *ngIf="productForm.get('description')?.invalid && (productForm.get('description')?.touched || productForm.get('description')?.dirty)"
+                                    class="text-danger">
+                                    La description est requise.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dimensions -->
+                        <div class="col-md-4 mb-3">
+                            <div class="form-floating">
+                                <input type="text" id="productDimensions" formControlName="dimensions"
+                                    class="form-control" required>
+                                <label for="productDimensions">Dimensions</label>
+                                <div *ngIf="productForm.get('dimensions')?.invalid && (productForm.get('dimensions')?.touched || productForm.get('dimensions')?.dirty)"
+                                    class="text-danger">
+                                    Les dimensions sont requises.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Matériau -->
+                        <div class="col-md-4 mb-3">
+                            <div class="form-floating">
+                                <input type="text" id="material" formControlName="material" class="form-control"
+                                    required>
+                                <label for="material">Matériau</label>
+                                <div *ngIf="productForm.get('material')?.invalid && (productForm.get('material')?.touched || productForm.get('material')?.dirty)"
+                                    class="text-danger">
+                                    Le matériau est requis.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Couleur -->
+                        <div class="col-md-4 mb-3">
+                            <div class="form-floating">
+                                <input type="color" id="color" (change)="addColor($event)" formControlName="colors"
+                                    class="form-control" required>
+                                <label for="color">Couleur</label>
+                                <div *ngIf="productForm.get('color')?.invalid && (productForm.get('color')?.touched || productForm.get('color')?.dirty)"
+                                    class="text-danger">
+                                    La couleur est requise.
+                                </div>
+                                <div *ngFor="let color of productForm.get('colors')?.value" style="display: flex; align-items: center; margin-bottom: 5px;">
+                                    <span class="color-box" [ngStyle]="{'background-color': color, 'width': '20px', 'height': '20px', 'border-radius': '50%', 'display': 'inline-block', 'margin-right': '5px'}"></span>
+                                    <button type="button" class="btn btn-danger" (click)="removeColor(color)"
+                                        style="width: 20px; height: 20px; padding: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-left: 5px;">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                        <!-- Téléchargement d'images -->
+                        <div class="col-md-12 mb-3">
+                            <div class="form-floating">
+                                <input type="file" class="form-control" (change)="onFileChange($event)"
+                                    id="productImage" accept="image/*" multiple required>
+                                <label for="productImage">Images</label>
+                                <div *ngIf="productForm.get('images')?.invalid && (productForm.get('images')?.touched || productForm.get('images')?.dirty)"
+                                    class="text-danger">
+                                    Les images sont requises.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Boutons d'action -->
+                        <div class="col-md-12 text-center">
+                            <button type="submit" class="btn btn-outline-success" *ngIf="!isEdit">Ajouter
+                                Produit</button>
+                            <button type="submit" class="btn btn-outline-primary" *ngIf="isEdit">Modifier
+                                Produit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Liste des produits -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <h5 class="text-danger">Liste des produits</h5>
+            <div class="card p-3 shadow">
+                <div class="card-body">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Prix</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Stock</th>
+                                <th scope="col">Dimensions</th>
+                                <th scope="col">Matériau</th>
+                                <th scope="col">Couleur</th>
+                                <th scope="col">Images</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let product of products">
+                                <td>{{ product.name }}</td>
+                                <td>{{ product.price }}</td>
+                                <td>{{ product.description }}</td>
+                                <td>{{ product.stock }}</td>
+                                <td>{{ product.dimensions }}</td>
+                                <td>{{ product.material }}</td>
+                                <td>
+                                    <div *ngFor="let color of product.colors">
+                                        <span class="color-box" [ngStyle]="{'background-color': color}"></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div *ngIf="product.images && product.images.length > 0">
+                                        <img *ngFor="let image of product.images" [src]="image" alt="Image du produit"
+                                            class="img-fluid img-thumbnail me-2" style="max-width: 100px;">
+                                    </div>
+                                </td>
+                                <td>
+                                    <button class="btn btn-outline-warning"
+                                        (click)="editProduct(product)">Modifier</button>
+                                    <button class="btn btn-danger"
+                                        (click)="product.productId ? deleteProduct(product.productId) : null">Supprimer</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

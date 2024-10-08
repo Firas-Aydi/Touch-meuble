@@ -1,0 +1,35 @@
+<!-- pack-management.component.html -->
+<div class="container">
+    <h2>Gestion des Packs</h2>
+    <form [formGroup]="packForm" (ngSubmit)="addPack()">
+      <input formControlName="packId" type="hidden">
+      <div>
+        <label>Nom du Pack</label>
+        <input formControlName="name" required>
+      </div>
+      <div>
+        <label>Description</label>
+        <textarea formControlName="description" required></textarea>
+      </div>
+      <div>
+        <label>Prix</label>
+        <input formControlName="price" type="number" required>
+      </div>
+      <div>
+        <label>Catégories (IDs)</label>
+        <input formControlName="items" required>
+      </div>
+      <button type="submit">Ajouter Pack</button>
+      <button type="button" (click)="updatePack()">Modifier Pack</button>
+    </form>
+  
+    <h3>Liste des Packs</h3>
+    <ul>
+      <li *ngFor="let pack of packs">
+        {{ pack.name }} - {{ pack.price }} €
+        <button (click)="editPack(pack)">Modifier</button>
+        <button (click)="deletePack(pack.packId)">Supprimer</button>
+      </li>
+    </ul>
+  </div>
+  

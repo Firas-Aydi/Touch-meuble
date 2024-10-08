@@ -2,14 +2,14 @@ import {
   AutoFocus,
   BaseIcon,
   DomHandler
-} from "./chunk-JOBD3477.js";
+} from "./chunk-LSAN3MGF.js";
 import {
   ObjectUtils,
   PrimeNGConfig,
   PrimeTemplate,
   SharedModule,
   UniqueComponentId
-} from "./chunk-MA7RSM2R.js";
+} from "./chunk-B3UFGGYB.js";
 import {
   DOCUMENT,
   NgClass,
@@ -17,7 +17,7 @@ import {
   NgStyle,
   NgTemplateOutlet,
   isPlatformBrowser
-} from "./chunk-KQC5ACNB.js";
+} from "./chunk-RAHGJ7ZA.js";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -69,7 +69,8 @@ import {
   ɵɵtemplate,
   ɵɵtext,
   ɵɵtextInterpolate
-} from "./chunk-DX5Z3QRA.js";
+} from "./chunk-PQBBU74R.js";
+import "./chunk-LUNXRB7M.js";
 import "./chunk-NTERNHDG.js";
 import "./chunk-35ENWJA4.js";
 

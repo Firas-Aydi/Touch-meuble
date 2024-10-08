@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
-import { AuthService } from '../shared/auth.service';
+import { AuthService } from '../services/auth.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 interface UserData {
   role: string;
