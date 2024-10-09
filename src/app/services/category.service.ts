@@ -12,7 +12,9 @@ export class CategoryService {
 
   // Ajouter une catégorie
   addCategory(category: Category) {
-    return this.firestore.collection('categories').add(category);
+    const categoryId = this.firestore.createId(); // Générez l'ID ici
+    category.categoryId = categoryId; 
+    return this.firestore.collection('categories').doc(categoryId).set(category);
   }
 
   // Modifier une catégorie

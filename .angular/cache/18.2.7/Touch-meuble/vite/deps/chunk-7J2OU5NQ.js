@@ -1,9 +1,6 @@
 import {
-  firebase
-} from "./chunk-VXWY3GT5.js";
-import {
   VERSION as VERSION2
-} from "./chunk-TAXPQPEG.js";
+} from "./chunk-E44UHIM3.js";
 import {
   Inject,
   InjectionToken,
@@ -17,7 +14,10 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-PQBBU74R.js";
+} from "./chunk-KDR5S3NA.js";
+import {
+  firebase
+} from "./chunk-VXWY3GT5.js";
 
 // node_modules/@angular/fire/fesm2022/angular-fire-compat.mjs
 var noopFunctions = ["ngOnDestroy"];
@@ -181,4 +181,4 @@ export {
   AngularFireModule,
   ɵcacheInstance
 };
-//# sourceMappingURL=chunk-HSPGM2X4.js.map
+//# sourceMappingURL=chunk-7J2OU5NQ.js.map

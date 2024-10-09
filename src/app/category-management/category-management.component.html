@@ -1,23 +1,193 @@
-<!-- category-management.component.html -->
-<div class="container">
-    <h2>Gestion des Catégories</h2>
-    <form [formGroup]="categoryForm" (ngSubmit)="addCategory()">
-      <input formControlName="categoryId" type="hidden">
-      <div>
-        <label>Nom de la Catégorie</label>
-        <input formControlName="name" required>
+<div class="container-fluid">
+  <h2>Gestion des Catégories</h2>
+  <div class="row">
+    <div class="col-12 mt-5">
+      <div class="card border-0 shadow p-4">
+        <div class="form-floating mb-3 text-center">
+          <h4 class="text-center text-primary">{{ isEdit ? 'Modifier' : 'Ajouter' }} Catégorie</h4>
+        </div>
+        <form [formGroup]="categoryForm" (ngSubmit)="addOrUpdateProduct()">
+          <div class="row">
+
+            <!-- Hidden input for the categoryId -->
+            <input formControlName="categoryId" type="hidden">
+
+            <!-- Category Name Field -->
+            <div class="col-md-4 mb-3">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="categoryName" formControlName="name" required>
+                <label for="categoryName">Nom de la Catégorie</label>
+                <div
+                  *ngIf="categoryForm.get('name')?.invalid && (categoryForm.get('name')?.touched || categoryForm.get('name')?.dirty)"
+                  class="text-danger">
+                  Le nom de la catégorie est requis.
+                </div>
+              </div>
+            </div>
+
+
+            <!-- Prix du category -->
+            <div class="col-md-4 mb-3">
+              <div class="form-floating">
+                <input type="number" class="form-control" id="productPrice" formControlName="price" required>
+                <label for="productPrice">Prix</label>
+                <div
+                  *ngIf="categoryForm.get('price')?.invalid && (categoryForm.get('price')?.touched || categoryForm.get('price')?.dirty)"
+                  class="text-danger">
+                  Le prix est requis.
+                </div>
+              </div>
+            </div>
+
+            <!-- Category Colors Management -->
+            <div class="col-md-4 mb-3">
+              <div class="form-floating">
+                <input type="color" id="color" (change)="addColor($event)" class="form-control" required>
+                <label for="color">Couleur</label>
+                <div
+                  *ngIf="categoryForm.get('colors')?.invalid && (categoryForm.get('colors')?.touched || categoryForm.get('colors')?.dirty)"
+                  class="text-danger">
+                  La couleur est requise.
+                </div>
+
+                <!-- Container for color boxes -->
+                <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px;">
+                  <div *ngFor="let color of categoryForm.get('colors')?.value"
+                    style="display: flex; align-items: center;">
+                    <span class="color-box"
+                      [ngStyle]="{'background-color': color, 'width': '20px', 'height': '20px', 'border-radius': '50%', 'display': 'inline-block', 'margin-right': '5px'}"></span>
+                    <button type="button" class="btn btn-danger" (click)="removeColor(color)"
+                      style="width: 20px; height: 20px; padding: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-left: 5px;">
+                      <i class="fa-solid fa-xmark"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- Description -->
+            <div class="col-md-6 mb-3">
+              <div class="form-floating">
+                <textarea class="form-control" id="productDescription" formControlName="description"
+                  required></textarea>
+                <label for="productDescription">Description</label>
+                <div
+                  *ngIf="categoryForm.get('description')?.invalid && (categoryForm.get('description')?.touched || categoryForm.get('description')?.dirty)"
+                  class="text-danger">
+                  La description est requise.
+                </div>
+              </div>
+            </div>
+
+            <!-- Téléchargement d'images -->
+            <div class="col-md-6 mb-3">
+              <div class="form-floating">
+                <input type="file" class="form-control" (change)="onFileChange($event)" id="categoryImage"
+                  accept="image/*" multiple required>
+                <label for="categoryImage">Images</label>
+                <div
+                  *ngIf="categoryForm.get('images')?.invalid && (categoryForm.get('images')?.touched || categoryForm.get('images')?.dirty)"
+                  class="text-danger">
+                  Les images sont requises.
+                </div>
+
+                <!-- Container for images -->
+                <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px;">
+                  <div *ngFor="let img of categoryForm.get('images')?.value" style="position: relative;">
+                    <img [src]="img" alt="Image du Catégorie" class="img-fluid img-thumbnail" style="max-width: 100px;">
+                    <button type="button" class="btn btn-danger badge position-absolute" (click)="removeImage(img)"
+                      style="width: 20px; height: 20px; padding: 0; border-radius: 50%; align-items: center; justify-content: center; top: 0; right: 0;">
+                      <i class="fa-solid fa-xmark"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="productSelection">Sélectionner des Produits</label>
+              <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 5px;">
+
+                <div *ngFor="let product of products">
+                  <input type="checkbox" [value]="product.productId" (change)="onProductSelect($event, product)" />
+                  {{ product.name }} - {{ product.price }} TND
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="categoryForm.get('items')?.value.length > 0" class="mt-3">
+              <h5>Produits sélectionnés :</h5>
+              <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 5px;">
+                <div *ngFor="let productName of getSelectedProductNames()" class="selected-product">
+                  <span>{{ productName }}</span>
+                  <!-- <button type="button" class="btn btn-danger btn-sm" (click)="removeProduct(productName)">X</button> -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Boutons d'action -->
+            <div class="col-md-12 text-center">
+              <button type="submit" class="btn btn-outline-success" *ngIf="!isEdit">Ajouter
+                Catégorie</button>
+              <button type="submit" class="btn btn-outline-primary" *ngIf="isEdit">Modifier
+                Catégorie</button>
+            </div>
+          </div>
+        </form>
       </div>
-      <button type="submit">Ajouter Catégorie</button>
-      <button type="button" (click)="updateCategory()">Modifier Catégorie</button>
-    </form>
-  
-    <h3>Liste des Catégories</h3>
-    <ul>
-      <li *ngFor="let category of categories">
-        {{ category.name }}
-        <button (click)="editCategory(category)">Modifier</button>
-        <button (click)="deleteCategory(category.categoryId)">Supprimer</button>
-      </li>
-    </ul>
+    </div>
   </div>
-  
+
+  <!-- Category List Display -->
+  <div class="mb-3">
+    <h4>Liste des Catégories</h4>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <!-- <th>ID</th> -->
+          <th>Nom</th>
+          <th>Prix</th>
+          <th>Description</th>
+          <th>Images</th>
+          <th>Produits</th>
+          <th>Couleurs</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let category of categories">
+          <!-- <td>{{ category.categoryId }}</td> -->
+          <td>{{ category.name }}</td>
+          <td>{{ category.price }} TND</td>
+          <td>{{ category.description }}</td>
+          <td>
+            <div style="display: flex; flex-wrap: wrap;">
+              <img *ngFor="let img of category.images" [src]="img" alt="Image de la catégorie"
+                class="img-fluid img-thumbnail me-2" style="max-width: 100px; margin-bottom: 5px;">
+            </div>
+          </td>
+          <td>
+            <ul>
+              <li *ngFor="let productId of category.items">
+                {{ getProductById(productId)?.name || 'Produit introuvable' }} -
+                {{ getProductById(productId)?.price || '0' }} TND
+              </li>
+            </ul>
+          </td>
+
+          <td>
+            <div style="display: flex; flex-wrap: wrap;">
+              <span *ngFor="let color of category.colors" class="color-box"
+                [ngStyle]="{'background-color': color, 'width': '20px', 'height': '20px', 'border-radius': '50%', 'margin-right': '5px'}"></span>
+            </div>
+          </td>
+          <td>
+            <button type="button" class="btn btn-primary btn-sm" (click)="editCategory(category)">Modifier</button>
+            <button class="btn btn-danger"
+              (click)="category.categoryId ? deleteCategory(category.categoryId) : null">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

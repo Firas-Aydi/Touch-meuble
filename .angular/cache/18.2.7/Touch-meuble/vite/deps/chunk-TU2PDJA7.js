@@ -1,10 +1,10 @@
 import {
   ObjectUtils
-} from "./chunk-B3UFGGYB.js";
+} from "./chunk-3Q4A64JF.js";
 import {
   DOCUMENT,
   isPlatformBrowser
-} from "./chunk-RAHGJ7ZA.js";
+} from "./chunk-LWCYPPMW.js";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -25,7 +25,7 @@ import {
   ɵɵdefineNgModule,
   ɵɵprojection,
   ɵɵprojectionDef
-} from "./chunk-PQBBU74R.js";
+} from "./chunk-KDR5S3NA.js";
 
 // node_modules/primeng/fesm2022/primeng-dom.mjs
 var DomHandler = class _DomHandler {
@@ -891,4 +891,4 @@ export {
   AutoFocusModule,
   BaseIcon
 };
-//# sourceMappingURL=chunk-LSAN3MGF.js.map
+//# sourceMappingURL=chunk-TU2PDJA7.js.map

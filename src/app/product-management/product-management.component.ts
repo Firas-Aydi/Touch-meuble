@@ -75,19 +75,19 @@ export class ProductManagementComponent implements OnInit {
 
     const colorsArray = this.productForm.get('colors')?.value || []; // Vérification pour éviter le null
     if (!colorsArray.includes(color)) {
-        colorsArray.push(color);
-        this.productForm.patchValue({ colors: colorsArray });
+      colorsArray.push(color);
+      this.productForm.patchValue({ colors: colorsArray });
     }
-}
+  }
 
-removeImage(image: string) {
-  const imagesArray = this.productForm.get('images')?.value || [];
-  const index = imagesArray.indexOf(image);
-  if (index > -1) {
+  removeImage(image: string) {
+    const imagesArray = this.productForm.get('images')?.value || [];
+    const index = imagesArray.indexOf(image);
+    if (index > -1) {
       imagesArray.splice(index, 1); // Supprime l'image du tableau
       this.productForm.patchValue({ images: imagesArray }); // Met à jour le FormGroup
+    }
   }
-}
 
   removeColor(color: string) {
     const colorsArray = this.productForm.get('colors')?.value;

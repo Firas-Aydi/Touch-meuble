@@ -1,23 +1,25 @@
 import {
-  getApps,
-  registerVersion
-} from "./chunk-4DY6MUNU.js";
-import {
   Injectable,
   NgZone,
   Version,
-  queueScheduler,
   setClassMetadata,
   ɵɵdefineInjectable,
   ɵɵinject
-} from "./chunk-PQBBU74R.js";
+} from "./chunk-KDR5S3NA.js";
+import {
+  queueScheduler
+} from "./chunk-46PD6PMB.js";
 import {
   Observable,
   asyncScheduler,
   observeOn,
   subscribeOn,
   tap
-} from "./chunk-LUNXRB7M.js";
+} from "./chunk-D5YRXC5P.js";
+import {
+  getApps,
+  registerVersion
+} from "./chunk-4DY6MUNU.js";
 
 // node_modules/firebase/app/dist/esm/index.esm.js
 var name = "firebase";
@@ -251,4 +253,4 @@ firebase/app/dist/esm/index.esm.js:
    * limitations under the License.
    *)
 */
-//# sourceMappingURL=chunk-TAXPQPEG.js.map
+//# sourceMappingURL=chunk-E44UHIM3.js.map

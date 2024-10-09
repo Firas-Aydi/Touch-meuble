@@ -1,6 +1,6 @@
 import {
   FirebaseApp
-} from "./chunk-YWI7TYQF.js";
+} from "./chunk-RV6KW6OI.js";
 import {
   FIREBASE_APP_NAME,
   FIREBASE_OPTIONS,
@@ -8,10 +8,7 @@ import {
   ɵcacheInstance,
   ɵfirebaseAppFactory,
   ɵlazySDKProxy
-} from "./chunk-HSPGM2X4.js";
-import {
-  firebase
-} from "./chunk-VXWY3GT5.js";
+} from "./chunk-7J2OU5NQ.js";
 import {
   VERSION,
   keepUnstableUntilFirst,
@@ -21,25 +18,10 @@ import {
   ɵgetAllInstancesOf,
   ɵgetDefaultInstanceOf,
   ɵzoneWrap
-} from "./chunk-TAXPQPEG.js";
-import {
-  Component,
-  Deferred,
-  ErrorFactory,
-  Logger,
-  _getProvider,
-  _registerComponent,
-  base64,
-  getApp,
-  getGlobal,
-  getModularInstance,
-  isIndexedDBAvailable,
-  registerVersion,
-  uuidv4
-} from "./chunk-4DY6MUNU.js";
+} from "./chunk-E44UHIM3.js";
 import {
   isPlatformServer
-} from "./chunk-RAHGJ7ZA.js";
+} from "./chunk-LWCYPPMW.js";
 import {
   Inject,
   Injectable,
@@ -48,13 +30,15 @@ import {
   NgZone,
   Optional,
   PLATFORM_ID,
-  merge,
   setClassMetadata,
   ɵɵdefineInjectable,
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-PQBBU74R.js";
+} from "./chunk-KDR5S3NA.js";
+import {
+  merge
+} from "./chunk-46PD6PMB.js";
 import {
   Observable,
   Subject,
@@ -71,7 +55,25 @@ import {
   switchMap,
   switchMapTo,
   timer
-} from "./chunk-LUNXRB7M.js";
+} from "./chunk-D5YRXC5P.js";
+import {
+  firebase
+} from "./chunk-VXWY3GT5.js";
+import {
+  Component,
+  Deferred,
+  ErrorFactory,
+  Logger,
+  _getProvider,
+  _registerComponent,
+  base64,
+  getApp,
+  getGlobal,
+  getModularInstance,
+  isIndexedDBAvailable,
+  registerVersion,
+  uuidv4
+} from "./chunk-4DY6MUNU.js";
 import {
   __async
 } from "./chunk-35ENWJA4.js";
@@ -1001,7 +1003,7 @@ var AngularFireAuth = class _AngularFireAuth {
   credential;
   constructor(options, name2, platformId, zone, schedulers, useEmulator, settings, tenantId, languageCode, useDeviceLanguage, persistence, _appCheckInstances) {
     const logins = new Subject();
-    const auth = of(void 0).pipe(observeOn(schedulers.outsideAngular), switchMap(() => zone.runOutsideAngular(() => import("./index.esm-XSOEYADY.js"))), map(() => ɵfirebaseAppFactory(options, zone, name2)), map((app) => ɵauthFactory(app, zone, useEmulator, tenantId, languageCode, useDeviceLanguage, settings, persistence)), shareReplay({
+    const auth = of(void 0).pipe(observeOn(schedulers.outsideAngular), switchMap(() => zone.runOutsideAngular(() => import("./index.esm-D76MJR7E.js"))), map(() => ɵfirebaseAppFactory(options, zone, name2)), map((app) => ɵauthFactory(app, zone, useEmulator, tenantId, languageCode, useDeviceLanguage, settings, persistence)), shareReplay({
       bufferSize: 1,
       refCount: false
     }));
@@ -1286,4 +1288,4 @@ export {
    * limitations under the License.
    *)
 */
-//# sourceMappingURL=chunk-UFRYAUE6.js.map
+//# sourceMappingURL=chunk-GV4ASELF.js.map

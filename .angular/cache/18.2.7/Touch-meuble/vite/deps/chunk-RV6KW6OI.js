@@ -1,17 +1,7 @@
 import {
   VERSION as VERSION2,
   ɵzoneWrap
-} from "./chunk-TAXPQPEG.js";
-import {
-  deleteApp,
-  getApp,
-  getApps,
-  initializeApp,
-  initializeServerApp,
-  onLog,
-  registerVersion,
-  setLogLevel
-} from "./chunk-4DY6MUNU.js";
+} from "./chunk-E44UHIM3.js";
 import {
   Inject,
   InjectionToken,
@@ -23,13 +13,23 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-PQBBU74R.js";
+} from "./chunk-KDR5S3NA.js";
 import {
   concatMap,
   distinct,
   from,
   timer
-} from "./chunk-LUNXRB7M.js";
+} from "./chunk-D5YRXC5P.js";
+import {
+  deleteApp,
+  getApp,
+  getApps,
+  initializeApp,
+  initializeServerApp,
+  onLog,
+  registerVersion,
+  setLogLevel
+} from "./chunk-4DY6MUNU.js";
 
 // node_modules/@angular/fire/fesm2022/angular-fire-app.mjs
 var FirebaseApp = class {
@@ -103,4 +103,4 @@ export {
   FirebaseApp,
   FirebaseApps
 };
-//# sourceMappingURL=chunk-YWI7TYQF.js.map
+//# sourceMappingURL=chunk-RV6KW6OI.js.map
