@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from '../services/product.service';
 import { Product } from '../models/product.model';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -44,23 +44,21 @@ export class ProductManagementComponent implements OnInit {
   }
 
   // Method to handle file changes
-  onFileChange(event: Event) {
-    const files: FileList | null = (event.target as HTMLInputElement).files;
+  onFileChange(event: any) {
+    const files: FileList = event.target.files;
     const imagesArray: string[] = [];
 
-    if (files) {
-      // Loop through selected files and read them as DataURLs
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const reader = new FileReader();
+    // Loop through selected files and read them as DataURLs
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const reader = new FileReader();
 
-        reader.onload = (e) => {
-          imagesArray.push(e.target?.result as string); // Convert image to base64
-          this.productForm.patchValue({ images: imagesArray });
-        };
+      reader.onload = (e) => {
+        imagesArray.push(e.target?.result as string); // Convert image to base64
+        this.productForm.patchValue({ images: imagesArray });
+      };
 
-        reader.readAsDataURL(file); // Read the image file as data URL
-      }
+      reader.readAsDataURL(file); // Read the image file as data URL
     }
   }
 
@@ -71,25 +69,28 @@ export class ProductManagementComponent implements OnInit {
       this.addProduct();
     }
   }
-
-  get colors(): FormArray {
-    return this.productForm.get('colors') as FormArray;
-}
-
   addColor(event: Event) {
     const input = event.target as HTMLInputElement; // Cast du type
     const color = input.value; // Récupération de la couleur
 
-    const colorsArray = this.productForm.get('colors')?.value ?? []; // Vérification pour éviter le null
-    if (color && !colorsArray.includes(color)) {
-      // Ajout de la vérification de null
-      colorsArray.push(color);
-      this.productForm.patchValue({ colors: colorsArray });
+    const colorsArray = this.productForm.get('colors')?.value || []; // Vérification pour éviter le null
+    if (!colorsArray.includes(color)) {
+        colorsArray.push(color);
+        this.productForm.patchValue({ colors: colorsArray });
     }
+}
+
+removeImage(image: string) {
+  const imagesArray = this.productForm.get('images')?.value || [];
+  const index = imagesArray.indexOf(image);
+  if (index > -1) {
+      imagesArray.splice(index, 1); // Supprime l'image du tableau
+      this.productForm.patchValue({ images: imagesArray }); // Met à jour le FormGroup
   }
+}
 
   removeColor(color: string) {
-    const colorsArray = this.productForm.get('colors')?.value ?? []; // Vérification pour éviter le null
+    const colorsArray = this.productForm.get('colors')?.value;
     const index = colorsArray.indexOf(color);
     if (index > -1) {
       colorsArray.splice(index, 1);
@@ -118,6 +119,7 @@ export class ProductManagementComponent implements OnInit {
         });
     }
   }
+
   // Edit product logic
   editProduct(product: Product) {
     this.isEdit = true;
@@ -126,6 +128,7 @@ export class ProductManagementComponent implements OnInit {
 
   // Update product logic
   updateProduct() {
+    this.productForm.markAllAsTouched();
     if (this.productForm.valid) {
       const productId = this.productForm.value.productId;
 

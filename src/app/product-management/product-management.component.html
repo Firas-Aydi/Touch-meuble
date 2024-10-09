@@ -89,21 +89,23 @@
                         <!-- Couleur -->
                         <div class="col-md-4 mb-3">
                             <div class="form-floating">
-                                <input type="color" id="color" (change)="addColor($event)" formControlName="colors"
-                                    class="form-control" required>
+                                <input type="color" id="color" (change)="addColor($event)" class="form-control"
+                                    required>
                                 <label for="color">Couleur</label>
-                                <div *ngIf="productForm.get('color')?.invalid && (productForm.get('color')?.touched || productForm.get('color')?.dirty)"
+                                <div *ngIf="productForm.get('colors')?.invalid && (productForm.get('colors')?.touched || productForm.get('colors')?.dirty)"
                                     class="text-danger">
                                     La couleur est requise.
                                 </div>
-                                <div *ngFor="let color of productForm.get('colors')?.value" style="display: flex; align-items: center; margin-bottom: 5px;">
-                                    <span class="color-box" [ngStyle]="{'background-color': color, 'width': '20px', 'height': '20px', 'border-radius': '50%', 'display': 'inline-block', 'margin-right': '5px'}"></span>
+                                <div *ngFor="let color of productForm.get('colors')?.value"
+                                    style="display: flex; align-items: center; margin-bottom: 5px;">
+                                    <span class="color-box"
+                                        [ngStyle]="{'background-color': color, 'width': '20px', 'height': '20px', 'border-radius': '50%', 'display': 'inline-block', 'margin-right': '5px'}"></span>
                                     <button type="button" class="btn btn-danger" (click)="removeColor(color)"
                                         style="width: 20px; height: 20px; padding: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-left: 5px;">
                                         <i class="fa-solid fa-xmark"></i>
                                     </button>
                                 </div>
-                                
+
                             </div>
                         </div>
 
@@ -116,6 +118,15 @@
                                 <div *ngIf="productForm.get('images')?.invalid && (productForm.get('images')?.touched || productForm.get('images')?.dirty)"
                                     class="text-danger">
                                     Les images sont requises.
+                                </div>
+                                <div *ngFor="let img of productForm.get('images')?.value"
+                                    style="display: flex; align-items: center; margin-bottom: 5px;">
+                                    <img [src]="img" alt="Image du produit" class="img-fluid img-thumbnail me-2"
+                                        style="max-width: 100px;">
+                                    <button type="button" class="btn btn-danger" (click)="removeImage(img)"
+                                        style="width: 20px; height: 20px; padding: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-left: 5px;">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
