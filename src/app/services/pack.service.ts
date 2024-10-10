@@ -13,7 +13,7 @@ export class PackService {
   addPack(pack: Pack) {
     const packId = this.firestore.createId(); // Générez l'ID ici
     pack.packId = packId;
-    return this.firestore.collection('categories').doc(packId).set(packId);
+    return this.firestore.collection('packs').doc(packId).set(pack);
   }
 
   // Modifier un pack

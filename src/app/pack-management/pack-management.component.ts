@@ -1,8 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { PackService } from '../services/pack.service';
 import { Pack } from '../models/pack.model';
 import { CommonModule } from '@angular/common';
+import { Category } from '../models/category.model';
+import { CategoryService } from '../services/category.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-pack-management',
@@ -15,9 +23,14 @@ export class PackManagementComponent implements OnInit {
   packForm: FormGroup;
   packs: Pack[] = [];
   isEdit: boolean = false;
-  selectedFiles: File[] = [];
+  categories: Category[] = [];
+  images: string[] = [];
 
-  constructor(private fb: FormBuilder, private packService: PackService) {
+  constructor(
+    private fb: FormBuilder,
+    private packService: PackService,
+    private categoryService: CategoryService
+  ) {
     this.packForm = this.fb.group({
       packId: [''],
       name: ['', Validators.required],
@@ -31,6 +44,42 @@ export class PackManagementComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadPacks();
+    this.loadCategories();
+  }
+  loadCategories() {
+    this.categoryService.getAllCategories().subscribe((data) => {
+      this.categories = data;
+    });
+  }
+  getCategoryById(categoryId: string): Category | undefined {
+    return this.categories.find(
+      (category) => category.categoryId === categoryId
+    );
+  }
+  getSelectedCategoryNames(): string[] {
+    const selectedCategoryIds = this.packForm.get('items')?.value || [];
+    return selectedCategoryIds.map(
+      (categoryId: string) =>
+        this.categories.find((c) => c.categoryId === categoryId)?.name ||
+        'Unknown category'
+    );
+  }
+  onCategorySelect(event: any, category: Category) {
+    const selectedCategories = this.packForm.get('items')?.value || [];
+
+    if (event.target.checked) {
+      // Add product to the selection
+      selectedCategories.push(category.categoryId);
+    } else {
+      // Remove product from the selection
+      const index = selectedCategories.indexOf(category.categoryId);
+      if (index > -1) {
+        selectedCategories.splice(index, 1);
+      }
+    }
+
+    // Update the form value
+    this.packForm.patchValue({ items: selectedCategories });
   }
 
   loadPacks() {
@@ -38,7 +87,6 @@ export class PackManagementComponent implements OnInit {
       this.packs = data;
     });
   }
-
   addPack() {
     this.packForm.markAllAsTouched();
     if (this.packForm.valid) {
@@ -59,25 +107,68 @@ export class PackManagementComponent implements OnInit {
     this.packForm.markAllAsTouched();
     if (this.packForm.valid) {
       const packId = this.packForm.value.packId;
-      this.packService.updatePack(packId, this.packForm.value).then(() => {
-        this.packForm.reset();
-        this.isEdit = false;
-        this.loadPacks();
-      });
+      this.packService
+        .getPackById(packId)
+        .pipe(take(1))
+        .subscribe((pack) => {
+          if (pack) {
+            this.packService
+              .updatePack(packId, this.packForm.value)
+              .then(() => {
+                console.log('Mise à jour réussie');
+                this.packForm.reset();
+                this.isEdit = false;
+                this.loadPacks();
+              })
+              .catch((error) => {
+                console.error(
+                  'Erreur lors de la mise à jour du pack: ',
+                  error.message
+                );
+                alert(
+                  'Une erreur est survenue lors de la mise à jour du pack: ' +
+                    error.message
+                );
+              });
+          } else {
+            console.error('No product found with this packId: ', packId);
+            alert("Pack introuvable. Il n'existe pas.");
+          }
+        });
+    } else {
+      console.log('erreur: formulaire non valide');
     }
   }
 
   deletePack(packId: string) {
-    this.packService.deletePack(packId).then(() => {
-      this.loadPacks();
-    });
+    if (packId) {
+      this.packService
+        .deletePack(packId)
+        .then(() => {
+          this.loadPacks();
+        })
+        .catch((error) => {
+          console.error('Erreur lors de la suppression du pack: ', error);
+          alert('Une erreur est survenue lors de la suppression du pack.');
+        });
+    } else {
+      console.error('pack ID is undefined. Cannot delete pack.');
+    }
   }
-
   onFileChange(event: any) {
-    if (event.target.files) {
-      this.selectedFiles = Array.from(event.target.files);
-      const imageUrls = this.selectedFiles.map((file) => URL.createObjectURL(file));
-      this.packForm.patchValue({ images: imageUrls });
+    const files: FileList = event.target.files;
+    const imagesArray: string[] = [];
+    // Loop through selected files and read them as DataURLs
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        imagesArray.push(e.target?.result as string); // Convert image to base64
+        this.packForm.patchValue({ images: imagesArray });
+      };
+
+      reader.readAsDataURL(file); // Read the image file as data URL
     }
   }
 
@@ -99,8 +190,9 @@ export class PackManagementComponent implements OnInit {
   }
 
   addColor(event: any) {
-    const input = event.target;
+    const input = event.target as HTMLInputElement;
     const color = input.value;
+    
     const colorsArray = this.packForm.get('colors')?.value || [];
     if (!colorsArray.includes(color)) {
       colorsArray.push(color);
@@ -116,4 +208,14 @@ export class PackManagementComponent implements OnInit {
       this.packForm.patchValue({ colors: colorsArray });
     }
   }
+  removeCategory(categoryName: string) {
+    const currentItems = this.packForm.get('items')?.value || [];
+    
+    // Find the index of the category to remove based on the name
+    const updatedItems = currentItems.filter((item: string) => this.getCategoryById(item)?.name !== categoryName);
+  
+    // Update the form with the new list
+    this.packForm.get('items')?.setValue(updatedItems);
+  }
+  
 }

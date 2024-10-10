@@ -26,21 +26,21 @@ export class CategoryManagementComponent implements OnInit {
   categories: Category[] = [];
   images: string[] = [];
   isEdit: boolean = false;
-  products: Product[] = []; 
+  products: Product[] = [];
 
   constructor(
     private fb: FormBuilder,
     private categoryService: CategoryService,
-    private productService: ProductService 
+    private productService: ProductService
   ) {
     this.categoryForm = this.fb.group({
       categoryId: [''],
-  name: ['', Validators.required],
-  price: ['', Validators.required],
-  description: ['', Validators.required],
-  items: [[], Validators.required], // List of selected products
-  colors: [[], Validators.required],
-  images: [[], Validators.required],
+      name: ['', Validators.required],
+      price: ['', Validators.required],
+      description: ['', Validators.required],
+      items: [[], Validators.required], // List of selected products
+      colors: [[], Validators.required],
+      images: [[], Validators.required],
     });
   }
 
@@ -48,7 +48,7 @@ export class CategoryManagementComponent implements OnInit {
     this.loadCategories();
     this.loadProducts(); // Fetch available products
   }
-  
+
   loadCategories() {
     this.categoryService.getAllCategories().subscribe((data) => {
       this.categories = data;
@@ -58,23 +58,25 @@ export class CategoryManagementComponent implements OnInit {
     // Assuming you have a ProductService to fetch products
     this.productService.getAllProducts().subscribe((data: Product[]) => {
       this.products = data; // Assign available products
-      console.log("tProducts: ", this.products)
+      console.log('tProducts: ', this.products);
     });
   }
   getProductById(productId: string): Product | undefined {
     return this.products.find((product) => product.productId === productId);
   }
-  
+
   getSelectedProductNames(): string[] {
     const selectedProductIds = this.categoryForm.get('items')?.value || [];
-    return selectedProductIds.map((productId: string) =>
-      this.products.find((p) => p.productId === productId)?.name || 'Unknown Product'
+    return selectedProductIds.map(
+      (productId: string) =>
+        this.products.find((p) => p.productId === productId)?.name ||
+        'Unknown Product'
     );
   }
-  
+
   onProductSelect(event: any, product: Product) {
     const selectedProducts = this.categoryForm.get('items')?.value || [];
-  
+
     if (event.target.checked) {
       // Add product to the selection
       selectedProducts.push(product.productId);
@@ -85,11 +87,11 @@ export class CategoryManagementComponent implements OnInit {
         selectedProducts.splice(index, 1);
       }
     }
-  
+
     // Update the form value
     this.categoryForm.patchValue({ items: selectedProducts });
   }
-  
+
   addCategory() {
     this.categoryForm.markAllAsTouched();
     if (this.categoryForm.valid) {
@@ -121,17 +123,17 @@ export class CategoryManagementComponent implements OnInit {
               })
               .catch((error) => {
                 console.error(
-                  'Erreur lors de la mise à jour du produit: ',
+                  'Erreur lors de la mise à jour du category: ',
                   error.message
                 );
                 alert(
-                  'Une erreur est survenue lors de la mise à jour du produit: ' +
+                  'Une erreur est survenue lors de la mise à jour du category: ' +
                     error.message
                 );
               });
           } else {
-            console.error('No product found with this productId: ', categoryId);
-            alert("Produit introuvable. Il n'existe pas.");
+            console.error('No product found with this categoryId: ', categoryId);
+            alert("category introuvable. Il n'existe pas.");
           }
         });
     } else {
@@ -147,11 +149,11 @@ export class CategoryManagementComponent implements OnInit {
           this.loadCategories();
         })
         .catch((error) => {
-          console.error('Erreur lors de la suppression du produit: ', error);
-          alert('Une erreur est survenue lors de la suppression du produit.');
+          console.error('Erreur lors de la suppression du category: ', error);
+          alert('Une erreur est survenue lors de la suppression du category.');
         });
     } else {
-      console.error('Product ID is undefined. Cannot delete product.');
+      console.error('category ID is undefined. Cannot delete category.');
     }
   }
 
@@ -210,5 +212,14 @@ export class CategoryManagementComponent implements OnInit {
       imagesArray.splice(index, 1); // Supprime l'image du tableau
       this.categoryForm.patchValue({ images: imagesArray }); // Met à jour le FormGroup
     }
+  }
+  removeProduct(categoryName: string) {
+    const currentItems = this.categoryForm.get('items')?.value || [];
+    
+    // Find the index of the category to remove based on the name
+    const updatedItems = currentItems.filter((item: string) => this.getProductById(item)?.name !== categoryName);
+  
+    // Update the form with the new list
+    this.categoryForm.get('items')?.setValue(updatedItems);
   }
 }
