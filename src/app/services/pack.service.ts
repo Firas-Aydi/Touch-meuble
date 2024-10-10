@@ -4,15 +4,16 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Pack } from '../models/pack.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PackService {
-
-  constructor(private firestore: AngularFirestore) { }
+  constructor(private firestore: AngularFirestore) {}
 
   // Ajouter un pack
   addPack(pack: Pack) {
-    return this.firestore.collection('packs').add(pack);
+    const packId = this.firestore.createId(); // Générez l'ID ici
+    pack.packId = packId;
+    return this.firestore.collection('categories').doc(packId).set(packId);
   }
 
   // Modifier un pack

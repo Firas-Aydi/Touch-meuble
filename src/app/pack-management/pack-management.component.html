@@ -1,35 +1,77 @@
-<!-- pack-management.component.html -->
 <div class="container">
-    <h2>Gestion des Packs</h2>
-    <form [formGroup]="packForm" (ngSubmit)="addPack()">
-      <input formControlName="packId" type="hidden">
-      <div>
-        <label>Nom du Pack</label>
-        <input formControlName="name" required>
+  <h2>Gestion des Packs</h2>
+
+  <form [formGroup]="packForm" (ngSubmit)="addOrUpdatePack()">
+    <div class="mb-3">
+      <label for="name">Nom du Pack</label>
+      <input id="name" type="text" class="form-control" formControlName="name" />
+    </div>
+
+    <div class="mb-3">
+      <label for="description">Description</label>
+      <textarea id="description" class="form-control" formControlName="description"></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="price">Prix</label>
+      <input id="price" type="number" class="form-control" formControlName="price" />
+    </div>
+
+    <div class="mb-3">
+      <label for="images">Images</label>
+      <input id="images" type="file" class="form-control" (change)="onFileChange($event)" multiple />
+      <div class="image-preview mt-2">
+        <img *ngFor="let img of packForm.get('images')?.value" [src]="img" class="img-thumbnail" />
       </div>
-      <div>
-        <label>Description</label>
-        <textarea formControlName="description" required></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="items">Produits</label>
+      <input id="items" type="text" class="form-control" formControlName="items" />
+    </div>
+
+    <div class="mb-3">
+      <label for="colors">Couleurs</label>
+      <input id="colors" type="color" class="form-control" (change)="addColor($event)" />
+      <div class="color-box mt-2">
+        <span *ngFor="let color of packForm.get('colors')?.value" [ngStyle]="{'background-color': color}"
+          class="color-circle"></span>
       </div>
-      <div>
-        <label>Prix</label>
-        <input formControlName="price" type="number" required>
-      </div>
-      <div>
-        <label>Catégories (IDs)</label>
-        <input formControlName="items" required>
-      </div>
-      <button type="submit">Ajouter Pack</button>
-      <button type="button" (click)="updatePack()">Modifier Pack</button>
-    </form>
-  
-    <h3>Liste des Packs</h3>
-    <ul>
-      <li *ngFor="let pack of packs">
-        {{ pack.name }} - {{ pack.price }} €
-        <button (click)="editPack(pack)">Modifier</button>
-        <button (click)="deletePack(pack.packId)">Supprimer</button>
-      </li>
-    </ul>
-  </div>
-  
+    </div>
+
+    <button type="submit" class="btn btn-primary">Sauvegarder</button>
+  </form>
+
+  <table class="table mt-4">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Description</th>
+        <th>Prix</th>
+        <th>Images</th>
+        <th>Produits</th>
+        <th>Couleurs</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let pack of packs">
+        <td>{{ pack.name }}</td>
+        <td>{{ pack.description }}</td>
+        <td>{{ pack.price }} TND</td>
+        <td>
+          <img *ngFor="let img of pack.images" [src]="img" class="img-thumbnail" />
+        </td>
+        <td>{{ pack.items.join(', ') }}</td>
+        <td>
+          <span *ngFor="let color of pack.colors" [ngStyle]="{'background-color': color}" class="color-circle"></span>
+        </td>
+        <td>
+          <button class="btn btn-warning" (click)="editPack(pack)">Modifier</button>
+          <div *ngIf="packForm.get('name')?.invalid && (packForm.get('name')?.touched || packForm.get('name')?.dirty)"
+            class="text-danger"> </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
