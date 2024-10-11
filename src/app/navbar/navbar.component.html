@@ -22,8 +22,11 @@
           <a class="nav-link chic-link" aria-current="page" routerLink="products-management">Gestion des Meubles</a>
         </li>
         <li class="nav-item" *ngIf="isUser && userType === 'admin'">
-          <a class="nav-link chic-link" aria-current="page" routerLink="categories-management">Gestion des catégories</a>
+          <a class="nav-link chic-link" aria-current="page" routerLink="salons-management">Gestion des Salons</a>
         </li>
+        <!-- <li class="nav-item" *ngIf="isUser && userType === 'admin'">
+          <a class="nav-link chic-link" aria-current="page" routerLink="categories-management">Gestion des catégories</a>
+        </li> -->
         <li class="nav-item" *ngIf="isUser && userType === 'admin'">
           <a class="nav-link chic-link" aria-current="page" routerLink="packs-management">Gestion des packs</a>
         </li>

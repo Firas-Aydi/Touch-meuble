@@ -9,8 +9,8 @@
                 <form [formGroup]="salonForm" (ngSubmit)="addOrUpdateProduct()">
                     <div class="row">
 
-                        <!-- Hidden input for the categoryId -->
-                        <input formControlName="categoryId" type="hidden">
+                        <!-- Hidden input for the salonId -->
+                        <input formControlName="salonId" type="hidden">
 
                         <!-- salon Name Field -->
                         <div class="col-md-4 mb-3">
@@ -48,6 +48,45 @@
                                 <div *ngIf="salonForm.get('price')?.invalid && (salonForm.get('price')?.touched || salonForm.get('price')?.dirty)"
                                     class="text-danger">
                                     Le prix est requis.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stock du produit -->
+                        <div class="col-md-4 mb-3">
+                            <div class="form-floating">
+                                <input type="number" class="form-control" id="productStock" formControlName="stock"
+                                    required>
+                                <label for="productStock">Stock</label>
+                                <div *ngIf="salonForm.get('stock')?.invalid && (salonForm.get('stock')?.touched || salonForm.get('stock')?.dirty)"
+                                    class="text-danger">
+                                    Le stock est requis.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dimensions -->
+                        <div class="col-md-4 mb-3">
+                            <div class="form-floating">
+                                <input type="text" id="productDimensions" formControlName="dimensions"
+                                    class="form-control" required>
+                                <label for="productDimensions">Dimensions</label>
+                                <div *ngIf="salonForm.get('dimensions')?.invalid && (salonForm.get('dimensions')?.touched || salonForm.get('dimensions')?.dirty)"
+                                    class="text-danger">
+                                    Les dimensions sont requises.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Matériau -->
+                        <div class="col-md-4 mb-3">
+                            <div class="form-floating">
+                                <input type="text" id="material" formControlName="material" class="form-control"
+                                    required>
+                                <label for="material">Matériau</label>
+                                <div *ngIf="salonForm.get('material')?.invalid && (salonForm.get('material')?.touched || salonForm.get('material')?.dirty)"
+                                    class="text-danger">
+                                    Le matériau est requis.
                                 </div>
                             </div>
                         </div>
@@ -164,6 +203,9 @@
                     <th>Type</th>
                     <th>Prix</th>
                     <th>Description</th>
+                    <th scope="col">Stock</th>
+                    <th scope="col">Dimensions</th>
+                    <th scope="col">Matériau</th>
                     <th>Images</th>
                     <th>Produits</th>
                     <th>Couleurs</th>
@@ -172,11 +214,14 @@
             </thead>
             <tbody>
                 <tr *ngFor="let salon of salons">
-                    <!-- <td>{{ salon.categoryId }}</td> -->
+                    <!-- <td>{{ salon.salonId }}</td> -->
                     <td>{{ salon.name }}</td>
                     <td>{{ salon.type }}</td>
                     <td>{{ salon.price }} TND</td>
                     <td>{{ salon.description }}</td>
+                    <td>{{ salon.stock }}</td>
+                    <td>{{ salon.dimensions }}</td>
+                    <td>{{ salon.material }}</td>
                     <td>
                         <div style="display: flex; flex-wrap: wrap;">
                             <img *ngFor="let img of salon.images" [src]="img" alt="Image de la Salon"
