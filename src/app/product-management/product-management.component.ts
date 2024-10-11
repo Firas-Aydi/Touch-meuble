@@ -30,6 +30,7 @@ export class ProductManagementComponent implements OnInit {
       material: ['', Validators.required],
       images: [[], Validators.required], // Images array
       colors: [[], Validators.required],
+      type: [[], Validators.required],
     });
   }
 

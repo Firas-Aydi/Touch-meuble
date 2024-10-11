@@ -25,7 +25,7 @@ import { ButtonModule } from 'primeng/button';
 
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { HomeComponent } from './home/home.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 import { VarifyEmailComponent } from './varify-email/varify-email.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -37,7 +37,7 @@ import { PackDetailsComponent } from './pack-details/pack-details.component';
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    DashboardComponent,
+    HomeComponent,
     ResetpasswordComponent,
     VarifyEmailComponent,
     NavbarComponent,

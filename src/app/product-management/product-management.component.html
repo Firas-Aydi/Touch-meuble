@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <h2>Gestion des Produits</h2>
+    <h2>Gestion des Produits</h2>
 
     <!-- Formulaire d'ajout/modification de produit -->
     <div class="row">
@@ -19,6 +19,19 @@
                                 <div *ngIf="productForm.get('name')?.invalid && (productForm.get('name')?.touched || productForm.get('name')?.dirty)"
                                     class="text-danger">
                                     Le nom du produit est requis.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Type du produit -->
+                        <div class="col-md-4 mb-3">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="productName" formControlName="type"
+                                    required>
+                                <label for="productType">Type du produit</label>
+                                <div *ngIf="productForm.get('type')?.invalid && (productForm.get('type')?.touched || productForm.get('type')?.dirty)"
+                                    class="text-danger">
+                                    Le type du produit est requis.
                                 </div>
                             </div>
                         </div>
@@ -49,19 +62,6 @@
                             </div>
                         </div>
 
-                        <!-- Description -->
-                        <div class="col-md-12 mb-3">
-                            <div class="form-floating">
-                                <textarea class="form-control" id="productDescription" formControlName="description"
-                                    required></textarea>
-                                <label for="productDescription">Description</label>
-                                <div *ngIf="productForm.get('description')?.invalid && (productForm.get('description')?.touched || productForm.get('description')?.dirty)"
-                                    class="text-danger">
-                                    La description est requise.
-                                </div>
-                            </div>
-                        </div>
-
                         <!-- Dimensions -->
                         <div class="col-md-4 mb-3">
                             <div class="form-floating">
@@ -88,8 +88,21 @@
                             </div>
                         </div>
 
+                        <!-- Description -->
+                        <div class="col-md-12 mb-3">
+                            <div class="form-floating">
+                                <textarea class="form-control" id="productDescription" formControlName="description"
+                                    required></textarea>
+                                <label for="productDescription">Description</label>
+                                <div *ngIf="productForm.get('description')?.invalid && (productForm.get('description')?.touched || productForm.get('description')?.dirty)"
+                                    class="text-danger">
+                                    La description est requise.
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Couleur -->
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-6 mb-3">
                             <div class="form-floating">
                                 <input type="color" id="color" (change)="addColor($event)" class="form-control"
                                     required>
@@ -112,7 +125,7 @@
                         </div>
 
                         <!-- Téléchargement d'images -->
-                        <div class="col-md-12 mb-3">
+                        <div class="col-md-6 mb-3">
                             <div class="form-floating">
                                 <input type="file" class="form-control" (change)="onFileChange($event)"
                                     id="productImage" accept="image/*" multiple required>
@@ -121,14 +134,18 @@
                                     class="text-danger">
                                     Les images sont requises.
                                 </div>
-                                <div *ngFor="let img of productForm.get('images')?.value"
-                                    style="display: flex; align-items: center; margin-bottom: 5px;">
-                                    <img [src]="img" alt="Image du produit" class="img-fluid img-thumbnail me-2"
-                                        style="max-width: 100px;">
-                                    <button type="button" class="btn btn-danger" (click)="removeImage(img)"
-                                        style="width: 20px; height: 20px; padding: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-left: 5px;">
-                                        <i class="fa-solid fa-xmark"></i>
-                                    </button>
+                                <!-- Container for images -->
+                                <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px;">
+                                    <div *ngFor="let img of productForm.get('images')?.value"
+                                        style="position: relative;">
+                                        <img [src]="img" alt="Image du produit" class="img-fluid img-thumbnail me-2"
+                                            style="max-width: 100px;">
+                                        <button type="button" class="btn btn-danger badge position-absolute"
+                                            (click)="removeImage(img)"
+                                            style="width: 20px; height: 20px; padding: 0; border-radius: 50%; align-items: center; justify-content: center; top: 0; right: 0;">
+                                            <i class="fa-solid fa-xmark"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -156,6 +173,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">Nom</th>
+                                <th scope="col">Type</th>
                                 <th scope="col">Prix</th>
                                 <th scope="col">Description</th>
                                 <th scope="col">Stock</th>
@@ -169,6 +187,7 @@
                         <tbody>
                             <tr *ngFor="let product of products">
                                 <td>{{ product.name }}</td>
+                                <td>{{ product.type }}</td>
                                 <td>{{ product.price }}</td>
                                 <td>{{ product.description }}</td>
                                 <td>{{ product.stock }}</td>

@@ -1,5 +1,4 @@
 // pack.model.ts
-import { Category } from './category.model';
 
 export interface Pack {
   packId?: string; // Identifiant du pack

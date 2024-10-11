@@ -1,6 +1,4 @@
 // category.model.ts
-import { Product } from './product.model';
-
 export interface Category {
   categoryId?: string; // Identifiant de la catégorie
   name: string;
@@ -9,4 +7,5 @@ export interface Category {
   images: string[];
   items: string[]; // Liste des produits dans cette catégorie
   colors: string[];
+  type:string
 }

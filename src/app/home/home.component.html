@@ -1,0 +1,168 @@
+<!-- HEADER -->
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img src="assets/Smart Ways I.png" alt="Touch Meuble Logo" style="width: 50px;">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="packs">Packs</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="categories">Catégories</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="about-us">À propos de nous</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="contact">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="blog">Blog</a>
+            </li>
+          </ul>
+          <form class="d-flex mx-3">
+            <input class="form-control me-2" type="search" placeholder="Recherche..." aria-label="Search">
+          </form>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="login"><i class="fas fa-user"></i> Compte</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="cart"><i class="fas fa-shopping-cart"></i> Panier</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  
+  <!-- MAIN BANNER -->
+  <section class="banner">
+    <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="assets/lit-double.png" class="d-block w-100" alt="Pack Karina">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Découvrez le Pack Karina</h5>
+            <p>Chambre à coucher, Salon, Salle à manger – Tout dans un seul pack.</p>
+            <a class="btn btn-primary" href="packs/karina">Voir le Pack</a>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="assets/Meuble-tv.webp" class="d-block w-100" alt="Living Room">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Salon chic et moderne</h5>
+            <p>Découvrez notre collection de salons pour un intérieur élégant.</p>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      </button>
+    </div>
+  </section>
+  
+  <!-- SECTION: Nos Packs -->
+  <section class="nos-packs py-5">
+    <div class="container">
+      <h2 class="text-center mb-5">Nos Packs</h2>
+      <div class="row">
+        <div class="col-lg-4 col-md-6 mb-4" *ngFor="let pack of packs">
+          <div class="card h-100">
+            <img [src]="pack.images[0]" class="card-img-top" alt="{{ pack.name }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ pack.name }}</h5>
+              <p class="card-text">{{ pack.description }}</p>
+              <p class="text-success fw-bold">{{ pack.price }} TND</p>
+              <a href="packs/{{ pack.id }}" class="btn btn-outline-primary">Voir le pack</a>
+              <button class="btn btn-outline-success ms-2">Ajouter au panier</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- SECTION: Catégories -->
+  <section class="categories py-5 bg-light">
+    <div class="container">
+      <h2 class="text-center mb-5">Catégories</h2>
+      <div class="row">
+        <div class="col-lg-3 col-md-6 mb-4" *ngFor="let category of categories">
+          <div class="card h-100">
+            <img [src]="category.images[0]" class="card-img-top" alt="{{ category.name }}">
+            <div class="card-body text-center">
+              <h5 class="card-title">{{ category.name }}</h5>
+              <a href="categories/{{ category.id }}" class="btn btn-primary">Voir la catégorie</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- SECTION: Promotions -->
+  <section class="promotions py-5">
+    <div class="container">
+      <h2 class="text-center mb-5">Promotions</h2>
+      <div class="alert alert-success text-center">
+        <strong>Jusqu'à -20% sur les Packs</strong> – Ne manquez pas nos offres spéciales !
+      </div>
+    </div>
+  </section>
+  
+  <!-- SECTION: Témoignages -->
+  <section class="testimonials py-5 bg-light">
+    <div class="container">
+      <h2 class="text-center mb-5">Avis Clients</h2>
+      <div class="row">
+        <div class="col-lg-4 col-md-6 mb-4" *ngFor="let testimonial of testimonials">
+          <div class="card h-100">
+            <div class="card-body text-center">
+              <p class="card-text">"{{ testimonial.text }}"</p>
+              <h5 class="card-title">{{ testimonial.name }}</h5>
+              <p class="text-muted">{{ testimonial.pack }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- FOOTER -->
+  <footer class="py-5 bg-dark text-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4">
+          <h5>Contactez-nous</h5>
+          <p><i class="fas fa-phone"></i> +216 123 456 789</p>
+          <p><i class="fas fa-envelope"></i> contact&#64;touchmeuble.tn</p>
+          <p><i class="fas fa-map-marker-alt"></i> Tunis, Tunisie</p>
+        </div>
+        <div class="col-lg-4">
+          <h5>Liens utiles</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-light">Politique de confidentialité</a></li>
+            <li><a href="#" class="text-light">Mentions légales</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 text-center">
+          <h5>Suivez-nous</h5>
+          <a href="#" class="text-light me-3"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="text-light me-3"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="text-light"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  

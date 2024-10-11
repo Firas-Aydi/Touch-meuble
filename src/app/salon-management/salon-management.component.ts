@@ -1,4 +1,3 @@
-// category-management.component.ts
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -7,34 +6,33 @@ import {
   FormArray,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { CategoryService } from '../services/category.service';
-import { Category } from '../models/category.model';
+import { SalonService } from '../services/salon.service';
+import { Salon } from '../models/salon.model';
 import { Product } from '../models/product.model';
 import { CommonModule } from '@angular/common';
 import { take } from 'rxjs';
 import { ProductService } from '../services/product.service';
-
 @Component({
-  selector: 'app-category-management',
+  selector: 'app-salon',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './category-management.component.html',
-  styleUrls: ['./category-management.component.css'],
+  templateUrl: './salon-management.component.html',
+  styleUrl: './salon-management.component.css',
 })
-export class CategoryManagementComponent implements OnInit {
-  categoryForm: FormGroup;
-  categories: Category[] = [];
+export class SalonManagementComponent implements OnInit {
+  salonForm: FormGroup;
+  salons: Salon[] = [];
   images: string[] = [];
   isEdit: boolean = false;
   products: Product[] = [];
 
   constructor(
     private fb: FormBuilder,
-    private categoryService: CategoryService,
+    private salonService: SalonService,
     private productService: ProductService
   ) {
-    this.categoryForm = this.fb.group({
-      categoryId: [''],
+    this.salonForm = this.fb.group({
+      salonId: [''],
       name: ['', Validators.required],
       price: ['', Validators.required],
       description: ['', Validators.required],
@@ -44,39 +42,35 @@ export class CategoryManagementComponent implements OnInit {
       type: [[], Validators.required],
     });
   }
-
   ngOnInit(): void {
-    this.loadCategories();
+    this.loadSalon();
     this.loadProducts(); // Fetch available products
   }
-
-  loadCategories() {
-    this.categoryService.getAllCategories().subscribe((data) => {
-      this.categories = data;
+  loadSalon() {
+    this.salonService.getSalons().subscribe((data) => {
+      this.salons = data;
     });
   }
   loadProducts() {
     // Assuming you have a ProductService to fetch products
     this.productService.getAllProducts().subscribe((data: Product[]) => {
       this.products = data; // Assign available products
-      console.log('tProducts: ', this.products);
+      console.log('Products: ', this.products);
     });
   }
   getProductById(productId: string): Product | undefined {
     return this.products.find((product) => product.productId === productId);
   }
-
   getSelectedProductNames(): string[] {
-    const selectedProductIds = this.categoryForm.get('items')?.value || [];
+    const selectedProductIds = this.salonForm.get('items')?.value || [];
     return selectedProductIds.map(
       (productId: string) =>
         this.products.find((p) => p.productId === productId)?.name ||
         'Unknown Product'
     );
   }
-
   onProductSelect(event: any, product: Product) {
-    const selectedProducts = this.categoryForm.get('items')?.value || [];
+    const selectedProducts = this.salonForm.get('items')?.value || [];
 
     if (event.target.checked) {
       // Add product to the selection
@@ -90,51 +84,50 @@ export class CategoryManagementComponent implements OnInit {
     }
 
     // Update the form value
-    this.categoryForm.patchValue({ items: selectedProducts });
+    this.salonForm.patchValue({ items: selectedProducts });
   }
-
-  addCategory() {
-    this.categoryForm.markAllAsTouched();
-    if (this.categoryForm.valid) {
-      this.categoryService.addCategory(this.categoryForm.value).then(() => {
-        this.categoryForm.reset();
+  addSalon() {
+    this.salonForm.markAllAsTouched();
+    if (this.salonForm.valid) {
+      this.salonService.addSalon(this.salonForm.value).then(() => {
+        this.salonForm.reset();
         this.isEdit = false;
-        this.loadCategories();
+        this.loadSalon();
       });
     }
   }
 
-  updateCategory() {
-    this.categoryForm.markAllAsTouched();
+  updateSalon() {
+    this.salonForm.markAllAsTouched();
 
-    if (this.categoryForm.valid) {
-      const categoryId = this.categoryForm.value.categoryId;
-      this.categoryService
-        .getCategoryById(categoryId)
+    if (this.salonForm.valid) {
+      const salonId = this.salonForm.value.salonId;
+      this.salonService
+        .getSalonById(salonId)
         .pipe(take(1))
-        .subscribe((category) => {
-          if (category) {
-            this.categoryService
-              .updateCategory(categoryId, this.categoryForm.value)
+        .subscribe((salon) => {
+          if (salon) {
+            this.salonService
+              .updateSalon(salonId, this.salonForm.value)
               .then(() => {
                 console.log('Mise à jour réussie');
-                this.categoryForm.reset();
+                this.salonForm.reset();
                 this.isEdit = false;
-                this.loadCategories();
+                this.loadSalon();
               })
               .catch((error) => {
                 console.error(
-                  'Erreur lors de la mise à jour du category: ',
+                  'Erreur lors de la mise à jour du salon: ',
                   error.message
                 );
                 alert(
-                  'Une erreur est survenue lors de la mise à jour du category: ' +
+                  'Une erreur est survenue lors de la mise à jour du salon: ' +
                     error.message
                 );
               });
           } else {
-            console.error('No product found with this categoryId: ', categoryId);
-            alert("category introuvable. Il n'existe pas.");
+            console.error('No product found with this salonId: ', salonId);
+            alert("salon introuvable. Il n'existe pas.");
           }
         });
     } else {
@@ -142,25 +135,25 @@ export class CategoryManagementComponent implements OnInit {
     }
   }
 
-  deleteCategory(categoryId: string) {
-    if (categoryId) {
-      this.categoryService
-        .deleteCategory(categoryId)
+  deleteSalon(salonId: string) {
+    if (salonId) {
+      this.salonService
+        .deleteSalon(salonId)
         .then(() => {
-          this.loadCategories();
+          this.loadSalon();
         })
         .catch((error) => {
-          console.error('Erreur lors de la suppression du category: ', error);
-          alert('Une erreur est survenue lors de la suppression du category.');
+          console.error('Erreur lors de la suppression du salon: ', error);
+          alert('Une erreur est survenue lors de la suppression du salon.');
         });
     } else {
-      console.error('category ID is undefined. Cannot delete category.');
+      console.error('salon ID is undefined. Cannot delete salon.');
     }
   }
 
-  editCategory(category: Category) {
+  editSalon(salon: Salon) {
     this.isEdit = true;
-    this.categoryForm.patchValue(category);
+    this.salonForm.patchValue(salon);
   }
 
   onFileChange(event: any) {
@@ -174,53 +167,55 @@ export class CategoryManagementComponent implements OnInit {
 
       reader.onload = (e) => {
         imagesArray.push(e.target?.result as string); // Convert image to base64
-        this.categoryForm.patchValue({ images: imagesArray });
+        this.salonForm.patchValue({ images: imagesArray });
       };
 
       reader.readAsDataURL(file); // Read the image file as data URL
     }
   }
+
   addOrUpdateProduct() {
     if (this.isEdit) {
-      this.updateCategory();
+      this.updateSalon();
     } else {
-      this.addCategory();
+      this.addSalon();
     }
   }
+
   addColor(event: Event) {
     const input = event.target as HTMLInputElement; // Cast du type
     const color = input.value; // Récupération de la couleur
 
-    const colorsArray = this.categoryForm.get('colors')?.value || []; // Vérification pour éviter le null
+    const colorsArray = this.salonForm.get('colors')?.value || []; // Vérification pour éviter le null
     if (!colorsArray.includes(color)) {
       colorsArray.push(color);
-      this.categoryForm.patchValue({ colors: colorsArray });
+      this.salonForm.patchValue({ colors: colorsArray });
     }
   }
 
   removeColor(color: string) {
-    const colorsArray = this.categoryForm.get('colors')?.value;
+    const colorsArray = this.salonForm.get('colors')?.value;
     const index = colorsArray.indexOf(color);
     if (index > -1) {
       colorsArray.splice(index, 1);
-      this.categoryForm.patchValue({ colors: colorsArray });
+      this.salonForm.patchValue({ colors: colorsArray });
     }
   }
   removeImage(image: string) {
-    const imagesArray = this.categoryForm.get('images')?.value || [];
+    const imagesArray = this.salonForm.get('images')?.value || [];
     const index = imagesArray.indexOf(image);
     if (index > -1) {
       imagesArray.splice(index, 1); // Supprime l'image du tableau
-      this.categoryForm.patchValue({ images: imagesArray }); // Met à jour le FormGroup
+      this.salonForm.patchValue({ images: imagesArray }); // Met à jour le FormGroup
     }
   }
   removeProduct(categoryName: string) {
-    const currentItems = this.categoryForm.get('items')?.value || [];
+    const currentItems = this.salonForm.get('items')?.value || [];
     
     // Find the index of the category to remove based on the name
     const updatedItems = currentItems.filter((item: string) => this.getProductById(item)?.name !== categoryName);
   
     // Update the form with the new list
-    this.categoryForm.get('items')?.setValue(updatedItems);
+    this.salonForm.get('items')?.setValue(updatedItems);
   }
 }
