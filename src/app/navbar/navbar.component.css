@@ -56,18 +56,20 @@
 
 /* Button Styling */
 .chic-button {
-  background-color: #e74c3c;
+  /* background-color: #007bff; 
   color: #ffffff;
-  border: none;
-  border-radius: 50px;
-  padding: 10px 20px;
-  transition: all 0.3s ease;
+  border: 1px solid #007bff; */
+  border-radius: 4px; /* Bordure légèrement arrondie */
+  padding: 8px 16px; /* Réduction du padding pour un look plus propre */
+  font-size: 14px; /* Taille de police standard */
+  transition: background-color 0.2s, border-color 0.2s;
 }
 
-.chic-button:hover {
-  background-color: #c0392b;
-  box-shadow: 0px 4px 15px rgba(231, 76, 60, 0.5);
-}
+/* .chic-button:hover {
+  background-color: #0056b3; 
+  border-color: #0056b3;
+} */
+
 
 /* Mobile Toggler */
 .navbar-toggler {
@@ -89,3 +91,24 @@
     margin: 10px 0;
   }
 }
+
+/* .dropdown-menu {
+  display: block !important;
+  position: static !important;
+} */
+.dropdown-menu {
+  display: none; /* Cacher le dropdown par défaut */
+}
+
+.nav-item.dropdown:hover .dropdown-menu {
+  display: block; /* Afficher le dropdown au survol */
+  position: absolute; /* Garder la position absolue pour dropdowns */
+  top: 100%; /* Aligner le dropdown sous le lien parent */
+  left: 0;
+  z-index: 1000;
+}
+
+.navbar-nav .dropdown-menu {
+  margin-top: 0; /* Annuler les marges si nécessaire */
+}
+

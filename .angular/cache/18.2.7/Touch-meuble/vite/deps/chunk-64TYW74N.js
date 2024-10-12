@@ -74,7 +74,7 @@ import {
   updateProfile,
   verifyBeforeUpdateEmail,
   verifyPasswordResetCode
-} from "./chunk-VYICK2TT.js";
+} from "./chunk-GUO4QV6A.js";
 import {
   firebase
 } from "./chunk-VXWY3GT5.js";
@@ -1386,4 +1386,4 @@ registerAuthCompat(firebase);
    * limitations under the License.
    *)
 */
-//# sourceMappingURL=chunk-AHY2M2QK.js.map
+//# sourceMappingURL=chunk-64TYW74N.js.map

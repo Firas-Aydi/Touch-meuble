@@ -1,9 +1,6 @@
 import {
-  isPlatformServer
-} from "./chunk-ZGK4XZXK.js";
-import {
   FirebaseApp
-} from "./chunk-GGBVJMD6.js";
+} from "./chunk-QAJTLQHG.js";
 import {
   FIREBASE_APP_NAME,
   FIREBASE_OPTIONS,
@@ -11,10 +8,7 @@ import {
   ɵcacheInstance,
   ɵfirebaseAppFactory,
   ɵlazySDKProxy
-} from "./chunk-Q5CHCFBA.js";
-import {
-  firebase
-} from "./chunk-VXWY3GT5.js";
+} from "./chunk-GNGKAIIC.js";
 import {
   VERSION,
   keepUnstableUntilFirst,
@@ -24,7 +18,10 @@ import {
   ɵgetAllInstancesOf,
   ɵgetDefaultInstanceOf,
   ɵzoneWrap
-} from "./chunk-PNDN62Y3.js";
+} from "./chunk-RSTQYDZB.js";
+import {
+  firebase
+} from "./chunk-VXWY3GT5.js";
 import {
   Component,
   Deferred,
@@ -41,6 +38,9 @@ import {
   uuidv4
 } from "./chunk-4DY6MUNU.js";
 import {
+  isPlatformServer
+} from "./chunk-LWCYPPMW.js";
+import {
   Inject,
   Injectable,
   InjectionToken,
@@ -53,10 +53,10 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-LVRMIDRS.js";
+} from "./chunk-KDR5S3NA.js";
 import {
   merge
-} from "./chunk-MOBYWXLF.js";
+} from "./chunk-46PD6PMB.js";
 import {
   Observable,
   Subject,
@@ -73,7 +73,7 @@ import {
   switchMap,
   switchMapTo,
   timer
-} from "./chunk-AXRLGQFT.js";
+} from "./chunk-D5YRXC5P.js";
 import {
   __async
 } from "./chunk-35ENWJA4.js";
@@ -1003,7 +1003,7 @@ var AngularFireAuth = class _AngularFireAuth {
   credential;
   constructor(options, name2, platformId, zone, schedulers, useEmulator, settings, tenantId, languageCode, useDeviceLanguage, persistence, _appCheckInstances) {
     const logins = new Subject();
-    const auth = of(void 0).pipe(observeOn(schedulers.outsideAngular), switchMap(() => zone.runOutsideAngular(() => import("./index.esm-MMSOMHMA.js"))), map(() => ɵfirebaseAppFactory(options, zone, name2)), map((app) => ɵauthFactory(app, zone, useEmulator, tenantId, languageCode, useDeviceLanguage, settings, persistence)), shareReplay({
+    const auth = of(void 0).pipe(observeOn(schedulers.outsideAngular), switchMap(() => zone.runOutsideAngular(() => import("./index.esm-XSOEYADY.js"))), map(() => ɵfirebaseAppFactory(options, zone, name2)), map((app) => ɵauthFactory(app, zone, useEmulator, tenantId, languageCode, useDeviceLanguage, settings, persistence)), shareReplay({
       bufferSize: 1,
       refCount: false
     }));
@@ -1288,4 +1288,4 @@ export {
    * limitations under the License.
    *)
 */
-//# sourceMappingURL=chunk-MWTAIR6B.js.map
+//# sourceMappingURL=chunk-YNKSIM3I.js.map
