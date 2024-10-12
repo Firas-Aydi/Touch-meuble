@@ -9,7 +9,7 @@ import { Salon } from '../models/salon.model'; // Import du modèle Salon
 import { SalleAManger } from '../models/salleAManger.model'; // Import du modèle Salle à Manger
 import { Product } from '../models/product.model'; // Import du modèle Product
 import { ProductService } from '../services/product.service';
-
+import { map } from 'rxjs';
 
 interface UserData {
   role: string;
@@ -28,6 +28,12 @@ export class NavbarComponent implements OnInit {
   salons$: Observable<Salon[]>;
   salles$: Observable<SalleAManger[]>;
   meubles$: Observable<Product[]>;
+
+  // Ajouter des variables pour les types uniques
+  meublesUnique$: Observable<string[]> | undefined;
+  salonsUnique$: Observable<string[]> | undefined;
+  chambresUnique$: Observable<string[]> | undefined;
+  sallesUnique$: Observable<string[]> | undefined;
 
   products: Product[] = [];
 
@@ -65,28 +71,49 @@ export class NavbarComponent implements OnInit {
         this.userType = '';
       }
     });
-  // Récupération des chambres, salons, salles et meubles depuis Firestore
-  this.chambres$ = this.firestore.collection<Chambre>('chambres').valueChanges(); // Collection pour les chambres
-  this.salons$ = this.firestore.collection<Salon>('salons').valueChanges(); // Collection pour les salons
-  this.salles$ = this.firestore.collection<SalleAManger>('salles').valueChanges(); // Collection pour les salles à manger
-  this.meubles$ = this.firestore.collection<Product>('products').valueChanges(); // Collection pour les meubles
+    // Récupération des chambres, salons, salles et meubles depuis Firestore
+    this.chambres$ = this.firestore
+      .collection<Chambre>('chambres')
+      .valueChanges(); // Collection pour les chambres
+    this.salons$ = this.firestore.collection<Salon>('salons').valueChanges(); // Collection pour les salons
+    this.salles$ = this.firestore
+      .collection<SalleAManger>('salles')
+      .valueChanges(); // Collection pour les salles à manger
+    this.meubles$ = this.firestore
+      .collection<Product>('products')
+      .valueChanges(); // Collection pour les meubles
 
-  this.chambres$.subscribe(data => console.log('Chambres:', data));
-this.salons$.subscribe(data => console.log('Salons:', data));
-this.salles$.subscribe(data => console.log('Salles à manger:', data));
-this.meubles$.subscribe(data => console.log('Meubles:', data));
-
-}
+    this.chambres$.subscribe((data) => console.log('Chambres:', data));
+    this.salons$.subscribe((data) => console.log('Salons:', data));
+    this.salles$.subscribe((data) => console.log('Salles à manger:', data));
+    this.meubles$.subscribe((data) => console.log('Meubles:', data));
+  }
 
   ngOnInit(): void {
-    this.loadProducts()
-    console.log('User Type:', this.userType);
+    this.loadProducts();
+    // console.log('User Type:', this.userType);
+     // Remplacer vos observables avec des valeurs filtrées par type unique
+     this.meublesUnique$ = this.meubles$.pipe(
+      map(meubles => Array.from(new Set(meubles.map(meuble => meuble.type))))
+    );
 
+    this.salonsUnique$ = this.salons$.pipe(
+      map(salons => Array.from(new Set(salons.map(salon => salon.type))))
+    );
+
+    this.chambresUnique$ = this.chambres$.pipe(
+      map(chambres => Array.from(new Set(chambres.map(chambre => chambre.type))))
+    );
+
+    this.sallesUnique$ = this.salles$.pipe(
+      map(salles => Array.from(new Set(salles.map(salle => salle.type))))
+    );
+  
   }
   loadProducts() {
     this.productService.getAllProducts().subscribe((data) => {
       this.products = data;
-      console.log('products: ',this.products)
+      console.log('products: ', this.products);
     });
   }
   logout() {

@@ -96,19 +96,60 @@
   display: block !important;
   position: static !important;
 } */
-.dropdown-menu {
-  display: none; /* Cacher le dropdown par défaut */
+/* .dropdown-menu {
+  display: none; 
 }
 
 .nav-item.dropdown:hover .dropdown-menu {
-  display: block; /* Afficher le dropdown au survol */
-  position: absolute; /* Garder la position absolue pour dropdowns */
-  top: 100%; /* Aligner le dropdown sous le lien parent */
+  display: block; 
+  position: absolute;
+  top: 100%; 
   left: 0;
   z-index: 1000;
 }
 
 .navbar-nav .dropdown-menu {
-  margin-top: 0; /* Annuler les marges si nécessaire */
+  margin-top: 0;
+} */
+
+
+/* Dropdown Menu Styles */
+.dropdown-menu {
+  display: none; /* Cacher le dropdown par défaut */
+  background-color: #ffffff; /* Fond blanc pour le dropdown */
+  border: 1px solid #e1e1e1; /* Bordure grise claire */
+  border-radius: 5px; /* Coins légèrement arrondis */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Ombre pour un effet de profondeur */
+  padding: 10px 0; /* Espacement interne */
+  z-index: 1000; /* S'assurer que le dropdown est au-dessus des autres éléments */
 }
+
+/* Afficher le dropdown au survol */
+.nav-item.dropdown:hover .dropdown-menu {
+  display: block; /* Afficher le dropdown au survol */
+  position: absolute; /* Position absolue pour garder le dropdown sous le lien parent */
+  top: 100%; /* Alignement sous le lien parent */
+  left: 0; /* Alignement à gauche */
+}
+
+/* Dropdown Item Styles */
+.dropdown-item {
+  font-size: 14px; /* Taille de police */
+  color: #2c3e50; /* Couleur de texte */
+  padding: 10px 20px; /* Espacement autour de chaque élément */
+  transition: background-color 0.3s; /* Transition douce pour le changement de couleur */
+}
+
+.dropdown-item:hover {
+  background-color: #f1f1f1; /* Couleur de fond au survol */
+  color: #3498db; /* Couleur de texte au survol */
+  border-radius: 5px; /* Coins arrondis */
+}
+
+/* Ajouter un espace entre les éléments de dropdown */
+.dropdown-item:not(:last-child) {
+  border-bottom: 1px solid #e1e1e1; /* Séparation entre les éléments */
+}
+
+
 

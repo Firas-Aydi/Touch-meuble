@@ -52,8 +52,8 @@
             Meuble
           </a>
           <ul class="dropdown-menu" aria-labelledby="meublesDropdown">
-            <li *ngFor="let meuble of meubles$ | async">
-              <a class="dropdown-item" [routerLink]="['/products', { type: meuble.type }]">{{ meuble.type }}</a>
+            <li *ngFor="let type of meublesUnique$ | async">
+              <a class="dropdown-item" [routerLink]="['/products', { type: type }]">{{ type }}</a>
             </li>
           </ul>
         </li>
@@ -64,8 +64,8 @@
             Salon
           </a>
           <ul class="dropdown-menu" aria-labelledby="salonsDropdown">
-            <li *ngFor="let salon of salons$ | async">
-              <a class="dropdown-item" [routerLink]="['/products', { type: salon.type }]">{{ salon.type }}</a>
+            <li *ngFor="let type of salonsUnique$ | async">
+              <a class="dropdown-item" [routerLink]="['/products', { type: type }]">{{ type }}</a>
             </li>
           </ul>
         </li>
@@ -76,8 +76,8 @@
             Chambre
           </a>
           <ul class="dropdown-menu" aria-labelledby="chambresDropdown">
-            <li *ngFor="let chambre of chambres$ | async">
-              <a class="dropdown-item" [routerLink]="['/products', { type: chambre.type }]">{{ chambre.type }}</a>
+            <li *ngFor="let type of chambresUnique$ | async">
+              <a class="dropdown-item" [routerLink]="['/products', { type: type }]">{{ type }}</a>
             </li>
           </ul>
         </li>
@@ -88,8 +88,8 @@
             Salle à Manger
           </a>
           <ul class="dropdown-menu" aria-labelledby="salleDropdown">
-            <li *ngFor="let salle of salles$ | async">
-              <a class="dropdown-item" [routerLink]="['/products', { type: salle.type }]">{{ salle.type }}</a>
+            <li *ngFor="let type of sallesUnique$ | async">
+              <a class="dropdown-item" [routerLink]="['/products', { type: type }]">{{ type }}</a>
             </li>
           </ul>
         </li>
