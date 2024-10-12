@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
       .login(email, password)
       .then((user) => {
         // Clear form after successful login
-        this.route.navigate(['dashboard']);
+        this.route.navigate(['/']);
         if (user && user.user) {
           localStorage.setItem('userConnect', user.user.uid);
         }

@@ -13,6 +13,8 @@ import { CategoryManagementComponent } from './category-management/category-mana
 import { PackManagementComponent } from './pack-management/pack-management.component';
 import { HomeComponent } from './home/home.component';
 import { SalonManagementComponent } from './salon-management/salon-management.component';
+import { ChambreManagementComponent } from './chambre-management/chambre-management.component';
+import { SalleAMangeManagementComponent } from './salle-amange-management/salle-amange-management.component';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -27,6 +29,8 @@ const routes: Routes = [
   { path: 'products-management', component: ProductManagementComponent },
   { path: 'categories-management', component: CategoryManagementComponent },
   { path: 'salons-management', component: SalonManagementComponent },
+  { path: 'chambres-management', component: ChambreManagementComponent },
+  { path: 'salles-management', component: SalleAMangeManagementComponent },
   { path: 'packs-management', component: PackManagementComponent },
 ];
 

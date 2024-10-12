@@ -1,7 +1,7 @@
 import {
   FirebaseApp,
   FirebaseApps
-} from "./chunk-RV6KW6OI.js";
+} from "./chunk-GGBVJMD6.js";
 import {
   AUTH_ERROR_CODES_MAP_DO_NOT_USE_INTERNALLY,
   ActionCodeOperation,
@@ -87,7 +87,7 @@ import {
   validatePassword,
   verifyBeforeUpdateEmail,
   verifyPasswordResetCode
-} from "./chunk-NEJNN53P.js";
+} from "./chunk-VYICK2TT.js";
 import {
   VERSION,
   ɵAngularFireSchedulers,
@@ -95,7 +95,10 @@ import {
   ɵgetAllInstancesOf,
   ɵgetDefaultInstanceOf,
   ɵzoneWrap
-} from "./chunk-E44UHIM3.js";
+} from "./chunk-PNDN62Y3.js";
+import {
+  registerVersion
+} from "./chunk-4DY6MUNU.js";
 import {
   InjectionToken,
   Injector,
@@ -106,9 +109,9 @@ import {
   setClassMetadata,
   ɵɵdefineInjector,
   ɵɵdefineNgModule
-} from "./chunk-KDR5S3NA.js";
-import "./chunk-IV7IPSQC.js";
-import "./chunk-46PD6PMB.js";
+} from "./chunk-LVRMIDRS.js";
+import "./chunk-2XDPAZIJ.js";
+import "./chunk-MOBYWXLF.js";
 import {
   Observable,
   concatMap,
@@ -117,11 +120,8 @@ import {
   of,
   switchMap,
   timer
-} from "./chunk-D5YRXC5P.js";
-import "./chunk-NTERNHDG.js";
-import {
-  registerVersion
-} from "./chunk-4DY6MUNU.js";
+} from "./chunk-AXRLGQFT.js";
+import "./chunk-7VTL32DS.js";
 import "./chunk-35ENWJA4.js";
 
 // node_modules/rxfire/auth/index.esm.js

@@ -39,7 +39,7 @@ export class SalonManagementComponent implements OnInit {
       stock: ['', Validators.required],
       dimensions: ['', Validators.required],
       material: ['', Validators.required],
-      items: [[], Validators.required], // List of selected products
+      items: [[]], // List of selected products
       colors: [[], Validators.required],
       images: [[], Validators.required],
       type: [[], Validators.required],

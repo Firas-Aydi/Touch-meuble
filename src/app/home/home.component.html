@@ -1,5 +1,5 @@
 <!-- HEADER -->
-<header>
+<!-- <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
@@ -42,13 +42,13 @@
       </div>
     </nav>
   </header>
-  
+   -->
   <!-- MAIN BANNER -->
   <section class="banner">
     <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="assets/lit-double.png" class="d-block w-100" alt="Pack Karina">
+          <img src="assets/salon3.jpg" class="d-block w-100" alt="Pack Karina">
           <div class="carousel-caption d-none d-md-block">
             <h5>Découvrez le Pack Karina</h5>
             <p>Chambre à coucher, Salon, Salle à manger – Tout dans un seul pack.</p>
@@ -56,10 +56,11 @@
           </div>
         </div>
         <div class="carousel-item">
-          <img src="assets/Meuble-tv.webp" class="d-block w-100" alt="Living Room">
+          <img src="assets/pack.jpg" class="d-block w-100" alt="Pack Karina">
           <div class="carousel-caption d-none d-md-block">
-            <h5>Salon chic et moderne</h5>
-            <p>Découvrez notre collection de salons pour un intérieur élégant.</p>
+            <h5>Découvrez le Pack Karina</h5>
+            <p>Chambre à coucher, Salon, Salle à manger – Tout dans un seul pack.</p>
+            <a class="btn btn-primary" href="packs/karina">Voir le Pack</a>
           </div>
         </div>
       </div>
@@ -79,11 +80,11 @@
       <div class="row">
         <div class="col-lg-4 col-md-6 mb-4" *ngFor="let pack of packs">
           <div class="card h-100">
-            <img [src]="pack.images[0]" class="card-img-top" alt="{{ pack.name }}">
+            <img [src]="pack.images[0]" class="card-img-top h-50" alt="{{ pack.name }}">
             <div class="card-body">
               <h5 class="card-title">{{ pack.name }}</h5>
               <p class="card-text">{{ pack.description }}</p>
-              <p class="text-success fw-bold">{{ pack.price }} TND</p>
+              <p class="text-success fw-bold">{{ pack.price }} DT</p>
               <a href="packs/{{ pack.id }}" class="btn btn-outline-primary">Voir le pack</a>
               <button class="btn btn-outline-success ms-2">Ajouter au panier</button>
             </div>
@@ -93,36 +94,82 @@
     </div>
   </section>
   
-  <!-- SECTION: Catégories -->
-  <section class="categories py-5 bg-light">
+<!-- Section Chambre -->
+<section id="chambre" class="my-5">
+  <div class="container">
+    <h2 class="text-center">Chambre à Coucher</h2>
+    <div class="row">
+      <div class="col-lg-4 col-md-6 mb-4" *ngFor="let chambre of chambres" class="col-md-4">
+        <div class="card h-100">
+          <img [src]="chambre.images[0]" class="card-img-top h-50" alt="{{ chambre.name }}">
+          <div class="card-body">
+            <h5 class="card-title">{{ chambre.name }}</h5>
+            <p class="card-text">{{ chambre.description }}</p>
+            <p class="card-text">Prix: {{ chambre.price }} DT</p>
+            <!-- <button class="btn btn-primary" (click)="addToCart(chambre)">Ajouter au panier</button> -->
+            <a href="packs/{{ chambre.id }}" class="btn btn-outline-primary">Voir</a>
+            <button class="btn btn-outline-success ms-2">Ajouter au panier</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+  <!-- Salon Section -->
+  <section id="salon" class="my-5">
     <div class="container">
-      <h2 class="text-center mb-5">Catégories</h2>
+      <h2 class="text-center">Salon</h2>
       <div class="row">
-        <div class="col-lg-3 col-md-6 mb-4" *ngFor="let category of categories">
+        <div class="col-lg-4 col-md-6 mb-4" *ngFor="let salon of salon" class="col-md-4">
           <div class="card h-100">
-            <img [src]="category.images[0]" class="card-img-top" alt="{{ category.name }}">
-            <div class="card-body text-center">
-              <h5 class="card-title">{{ category.name }}</h5>
-              <a href="categories/{{ category.id }}" class="btn btn-primary">Voir la catégorie</a>
+            <img [src]="salon.images[0]" class="card-img-top h-50" alt="{{ salon.name }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ salon.name }}</h5>
+              <p class="card-text">{{ salon.description }}</p>
+              <p class="card-text">Prix: {{ salon.price }} DT</p>
+              <!-- <button class="btn btn-primary" (click)="addToCart(salon)">Ajouter au panier</button> -->
+              <a href="packs/{{ salon.id }}" class="btn btn-outline-primary">Voir</a>
+              <button class="btn btn-outline-success ms-2">Ajouter au panier</button>
             </div>
           </div>
         </div>
       </div>
     </div>
   </section>
-  
+
+  <!-- Salle à manger Section -->
+  <section id="salle-a-manger" class="my-5">
+    <div class="container">
+      <h2 class="text-center">Salle à Manger</h2>
+      <div class="row">
+        <div class="col-lg-4 col-md-6 mb-4" *ngFor="let salle of salles" class="col-md-4">
+          <div class="card h-100">
+            <img [src]="salle.images[0]" class="card-img-top h-50" alt="{{ salle.name }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ salle.name }}</h5>
+              <p class="card-text">{{ salle.description }}</p>
+              <p class="card-text">Prix: {{ salle.price }} DT</p>
+              <!-- <button class="btn btn-primary" (click)="addToCart(salle)">Ajouter au panier</button> -->
+              <a href="packs/{{ salle.id }}" class="btn btn-outline-primary">Voir</a>
+              <button class="btn btn-outline-success ms-2">Ajouter au panier</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
   <!-- SECTION: Promotions -->
-  <section class="promotions py-5">
+  <!-- <section class="promotions py-5">
     <div class="container">
       <h2 class="text-center mb-5">Promotions</h2>
       <div class="alert alert-success text-center">
         <strong>Jusqu'à -20% sur les Packs</strong> – Ne manquez pas nos offres spéciales !
       </div>
     </div>
-  </section>
+  </section> -->
   
   <!-- SECTION: Témoignages -->
-  <section class="testimonials py-5 bg-light">
+  <!-- <section class="testimonials py-5 bg-light">
     <div class="container">
       <h2 class="text-center mb-5">Avis Clients</h2>
       <div class="row">
@@ -137,7 +184,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
   
   <!-- FOOTER -->
   <footer class="py-5 bg-dark text-light">

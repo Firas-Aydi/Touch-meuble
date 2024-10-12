@@ -1,0 +1,35 @@
+.table {
+    width: 100%; /* Full width */
+    margin: 20px 0; /* Space above and below the table */
+  }
+  
+  .table th, .table td {
+    vertical-align: middle; /* Align text vertically */
+  }
+  
+  .table th {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white; /* White text color for headers */
+  }
+  
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f2f2f2; /* Light gray for odd rows */
+  }
+  
+  .table-bordered {
+    border: 1px solid #dee2e6; /* Border color for the table */
+  }
+  
+  .color-box {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 4px; /* Carré avec coins arrondis */
+    border: 1px solid #ddd;
+    margin-right: 5px;
+  }
+  
+  .btn {
+    margin-right: 5px; /* Space between buttons */
+  }
+  
