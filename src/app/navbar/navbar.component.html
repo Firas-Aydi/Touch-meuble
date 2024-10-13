@@ -48,7 +48,7 @@
         
         <!-- Meubles Dropdown -->
         <li class="nav-item dropdown" *ngIf="userType !== 'admin'">
-          <a class="nav-link dropdown-toggle chic-link" href="#" id="meublesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle chic-link" routerLink="products" id="meublesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Meuble
           </a>
           <ul class="dropdown-menu" aria-labelledby="meublesDropdown">
@@ -108,11 +108,11 @@
         <form class="d-flex mx-3" *ngIf="userType !== 'admin'">
           <input class="form-control me-2" type="search" placeholder="Recherche..." aria-label="Search">
         </form>
-        <li class="nav-item" *ngIf="!isUser">
-          <a class="nav-link chic-link" aria-current="page" routerLink="login"><i class="fas fa-user"></i> Compte</a>
-        </li>
         <li class="nav-item" style="margin-right: 25px;" *ngIf="userType !== 'admin'">
           <a class="nav-link chic-link" aria-current="page" routerLink="cart"><i class="fas fa-shopping-cart"></i> Panier</a>
+        </li>
+        <li class="nav-item" *ngIf="!isUser">
+          <a class="nav-link chic-link" aria-current="page" routerLink="login"><i class="fas fa-user"></i> Compte</a>
         </li>
         <li class="nav-item" *ngIf="isUser">
           <a class="btn btn-outline-danger chic-button" (click)="logout()" routerLink="/"><i class="fa-duotone fa-solid fa-right-from-bracket"></i></a>

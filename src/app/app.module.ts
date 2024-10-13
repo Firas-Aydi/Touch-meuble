@@ -31,6 +31,7 @@ import { VarifyEmailComponent } from './varify-email/varify-email.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PackComponent } from './pack/pack.component';
 import { PackDetailsComponent } from './pack-details/pack-details.component';
+import { ProductComponent } from './product/product.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { PackDetailsComponent } from './pack-details/pack-details.component';
     VarifyEmailComponent,
     NavbarComponent,
     PackComponent,
-    PackDetailsComponent
+    PackDetailsComponent,
+    ProductComponent
   ],
   imports: [
     BrowserModule,

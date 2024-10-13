@@ -1,0 +1,49 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+  }
+  .card {
+    transition: transform 0.2s;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+  }
+  .card-body {
+    text-align: center;
+    margin-top: auto;
+  }
+  
+  .card-title {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .card-footer {
+    display: flex;
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+  }
+  
+  .btn-custom {
+    width: 50%; /* Ensure each button occupies half the footer */
+    border-radius: 0; /* Make buttons perfectly rectangular */
+    margin: 0; /* No margin around the buttons */
+    border: none; /* Remove any border */
+  }
+  
+  .btn-custom:first-child {
+    border-right: 1px solid #ffffff; 
+  }
+  
+  .btn-custom:hover {
+    border-right: 1px solid #ffffff;
+  }
+  
+  /* Ensure image height is uniform for all cards */
+  .card-img-top {
+    height: 200px; /* Adjust this as needed */
+    object-fit: cover; /* Ensures image maintains aspect ratio */
+  }
+  

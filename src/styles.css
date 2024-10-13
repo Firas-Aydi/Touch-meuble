@@ -3,4 +3,4 @@
 @import "primeng/resources/primeng.css";
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { background-color:#F5F5DC; margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
