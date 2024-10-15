@@ -27,7 +27,7 @@
 }
 
 .btn-custom {
-  width: 50%; /* Ensure each button occupies half the footer */
+  width: 100%; /* Ensure each button occupies half the footer */
   border-radius: 0; /* Make buttons perfectly rectangular */
   margin: 0; /* No margin around the buttons */
   border: none; /* Remove any border */

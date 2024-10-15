@@ -1,7 +1,7 @@
 import {
   partition,
   race
-} from "./chunk-IV7IPSQC.js";
+} from "./chunk-HV5IXJ3U.js";
 import {
   audit,
   auditTime,
@@ -48,7 +48,6 @@ import {
   ignoreElements,
   isEmpty,
   last,
-  map,
   mapTo,
   materialize,
   max,
@@ -114,7 +113,10 @@ import {
   zip2 as zip,
   zipAll,
   zipWith
-} from "./chunk-D5YRXC5P.js";
+} from "./chunk-WTA72NKS.js";
+import {
+  map
+} from "./chunk-EDUZOHJ7.js";
 import "./chunk-NTERNHDG.js";
 import "./chunk-35ENWJA4.js";
 export {

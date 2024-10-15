@@ -11,6 +11,7 @@ export class PackService {
 
   // Ajouter un pack
   addPack(pack: Pack) {
+    console.log('pack: ',pack)
     const packId = this.firestore.createId(); // Générez l'ID ici
     pack.packId = packId;
     return this.firestore.collection('packs').doc(packId).set(pack);

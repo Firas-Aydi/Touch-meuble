@@ -6,6 +6,9 @@ import { CategoryService } from '../services/category.service'; // Assuming you 
 import { SalonService } from '../services/salon.service';
 import { SalleAMangeService } from '../services/salle-amange.service';
 import { ChambreService } from '../services/chambre.service';
+import { Pack } from '../models/pack.model';
+import { CartService } from '../services/cart.service';
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-home',
@@ -14,12 +17,19 @@ import { ChambreService } from '../services/chambre.service';
 })
 export class HomeComponent implements OnInit {
 
-  packs: any[] = [];
+  // packs: any[] = [];
   categories: any[] = [];
   chambres: any[] = [];
   salon: any[] = [];
   salles: any[] = [];
   testimonials: any[] = [];
+
+  packs: Pack[] = [];
+  selectedPack: Pack | null = null;
+  quantity: number = 1;
+  quantityError: string | null = null;
+  selectedImage: string = ''; 
+
 
   constructor(
     // private cartService: CartService,
@@ -28,6 +38,7 @@ export class HomeComponent implements OnInit {
     private chambreService: ChambreService,
     private salleService: SalleAMangeService,
     private salonService: SalonService,
+    private cartService: CartService,
     private router: Router
   ) {}
 
@@ -100,5 +111,51 @@ export class HomeComponent implements OnInit {
   viewPackDetails(packId: string): void {
     this.router.navigate([`/packs/${packId}`]);
   }
+  openPackDetailsModal(pack: Pack) {
+    this.selectedPack = pack;
+    this.selectedImage = pack.images[0]; // Set the default selected image
 
+    const packDetailsModal = new bootstrap.Modal(
+      document.getElementById('packDetailsModal')
+    );
+    packDetailsModal.show();
+  }
+  selectImage(image: string) {
+    this.selectedImage = image; // Set the selected image when clicked
+  }
+
+  addPackToCart(pack: Pack, quantity: number) {
+    // Check if the product and quantity are valid
+    if (pack && quantity > 0) {
+      // Logic to add the item to the cart
+      console.log(`Added ${quantity} of ${pack.name} to the cart.`);
+
+      // Assuming you have a CartService to manage the cart:
+      this.cartService.addToCart(pack,'pack', quantity);
+      alert(`${quantity} ${pack.name}(s) added to the cart!`);
+
+      // Optionally show a success message or notification
+      // alert(`${quantity} ${product.name}(s) added to the cart!`);
+    } else if (quantity <= 0) {
+      // Handle case where the quantity is invalid (e.g., less than 1)
+      alert('Please enter a valid quantity greater than 0.');
+    } else {
+      // Handle other invalid cases, like if the product object is null
+      alert('An error occurred. Please try again.');
+    }
+  }
+
+  validateQuantity() {
+    this.quantityError = null; // Reset error message
+
+    if (this.quantity < 1) {
+      this.quantityError = 'Quantity must be at least 1.';
+    } else if (
+      this.quantity === null ||
+      this.quantity === undefined ||
+      this.quantity === 0
+    ) {
+      this.quantityError = 'Quantity cannot be empty.';
+    }
+  }
 }

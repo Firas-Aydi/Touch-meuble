@@ -83,10 +83,10 @@ export class NavbarComponent implements OnInit {
       .collection<Product>('products')
       .valueChanges(); // Collection pour les meubles
 
-    this.chambres$.subscribe((data) => console.log('Chambres:', data));
-    this.salons$.subscribe((data) => console.log('Salons:', data));
-    this.salles$.subscribe((data) => console.log('Salles à manger:', data));
-    this.meubles$.subscribe((data) => console.log('Meubles:', data));
+    // this.chambres$.subscribe((data) => console.log('Chambres:', data));
+    // this.salons$.subscribe((data) => console.log('Salons:', data));
+    // this.salles$.subscribe((data) => console.log('Salles à manger:', data));
+    // this.meubles$.subscribe((data) => console.log('Meubles:', data));
   }
 
   ngOnInit(): void {
@@ -113,7 +113,7 @@ export class NavbarComponent implements OnInit {
   loadProducts() {
     this.productService.getAllProducts().subscribe((data) => {
       this.products = data;
-      console.log('products: ', this.products);
+      // console.log('products: ', this.products);
     });
   }
   logout() {

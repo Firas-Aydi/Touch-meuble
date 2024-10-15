@@ -46,7 +46,7 @@
                 <!-- Container for color boxes -->
                 <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px;">
                   <div *ngFor="let color of packForm.get('colors')?.value" style="display: flex; align-items: center;">
-                    <span class="color-box"
+                    <span class="color-box color-circle"
                       [ngStyle]="{'background-color': color, 'width': '20px', 'height': '20px', 'border-radius': '50%', 'display': 'inline-block', 'margin-right': '5px'}"></span>
                     <button type="button" class="btn btn-danger" (click)="removeColor(color)"
                       style="width: 20px; height: 20px; padding: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-left: 5px;">
@@ -94,30 +94,59 @@
               </div>
             </div>
 
-            <div class="mb-3">
+            <!-- <div class="mb-3">
               <label for="categorySelection">Sélectionner des Catégories</label>
               <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 5px;">
 
-                <div *ngFor="let category of categories">
-                  <input type="checkbox" [value]="category.categoryId" (change)="onCategorySelect($event, category)" />
-                  {{ category.name }} - {{ category.price }} TND
+                <div *ngFor="let chambre of chambres">
+                  <input type="checkbox" [value]="chambre.chambreId" (change)="onChambreSelect($event, chambre)" />
+                  {{ chambre.name }}
                 </div>
               </div>
+            </div> -->
+            <div class="col-md-4 mb-3">
+              <!-- <label for="categorySelection">Sélectionner une Chambre</label> -->
+              <select id="categorySelection" formControlName="selectedChambre" (change)="onChambreSelect()">
+                <option value="" disabled>Sélectionner une chambre</option>
+                <option *ngFor="let chambre of chambres" [value]="chambre.chambreId">
+                  {{ chambre.name }}
+                </option>
+              </select>
             </div>
 
-            <!-- <div *ngIf="packForm.get('items')?.value.length > 0" class="mt-3"> -->
+            <div class="col-md-4 mb-3">
+              <!-- <label for="categorySelection">Sélectionner une Salle à Manger</label> -->
+              <select id="categorySelection" formControlName="selectedSalle" (change)="onSalleSelect()">
+                <option value="" disabled>Sélectionner une salle à manger</option>
+                <option *ngFor="let salle of salles" [value]="salle.salleId">
+                  {{ salle.name }}
+                </option>
+              </select>
+            </div>
+            
+            <div class="col-md-4 mb-3">
+              <!-- <label for="categorySelection">Sélectionner un Salon</label> -->
+              <select id="categorySelection" formControlName="selectedSalon" (change)="onSalonSelect()">
+                <option value="" disabled>Sélectionner un salon</option>
+                <option *ngFor="let salon of salons" [value]="salon.salonId">
+                  {{ salon.name }}
+                </option>
+              </select>
+            </div>
+            
             <div *ngIf="(packForm.get('items')?.value || []).length > 0" class="mt-3">
-
-              <h5>Catégories sélectionnés :</h5>
+              <h5>Sélectionnées :</h5>
               <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 5px;">
-                <div *ngFor="let categoryName of getSelectedCategoryNames()" class="selected-category">
-                  <span>{{ categoryName }}</span>
-                  <button type="button" class="btn btn-danger btn-sm" (click)="removeCategory(categoryName)">X</button>
+                <div *ngFor="let itemId of packForm.get('items')?.value">
+                  <span>{{ getSelectedItemsNames(itemId) || 'Chambre introuvable' }}</span>
+                  <button type="button" class="btn btn-danger btn-sm" (click)="removeChambre(itemId)">X</button>
                 </div>
               </div>
             </div>
+
+
             <!-- Boutons d'action -->
-            <div class="col-md-12 text-center">
+            <div class="col-md-12 text-center"><br>
               <button type="submit" class="btn btn-outline-success" *ngIf="!isEdit">Ajouter
                 Pack</button>
               <button type="submit" class="btn btn-outline-primary" *ngIf="isEdit">Modifier
@@ -151,13 +180,13 @@
         <td>
           <div style="display: flex; flex-wrap: wrap;">
             <img *ngFor="let img of pack.images" [src]="img" alt="Image de la catégorie"
-              class="img-fluid img-thumbnail me-2" style="max-width: 100px; margin-bottom: 5px;">
+              class="img-fluid img-thumbnail me-2">
           </div>
         </td>
         <td><ul>
-          <li *ngFor="let categoryId of pack.items">
-            {{ getCategoryById(categoryId)?.name || 'Categorie introuvable' }} -
-            {{ getCategoryById(categoryId)?.price || '0' }} TND
+          <li *ngFor="let itemId of pack.items">
+            {{ getItemById(itemId)?.name || 'item introuvable' }} -
+            {{ getItemById(itemId)?.price || '0' }} DT
           </li>
         </ul></td>
         <td>
@@ -165,9 +194,24 @@
         </td>
         <td>
           <button class="btn btn-outline-warning" (click)="editPack(pack)">Modifier</button>
-          <button class="btn btn-danger" (click)="pack.packId ? deletePack(pack.packId) : null">Supprimer</button>
+          <button class="btn btn-danger" (click)="pack.packId ? openConfirmationModal(pack.packId) : null">Supprimer</button>
         </td>
       </tr>
     </tbody>
   </table>
 </div>
+
+<!-- Modale de confirmation -->
+<ng-template #confirmationModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Confirmation</h4>
+    <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <p>Êtes-vous sûr de vouloir supprimer ce pack ?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Annuler</button>
+    <button type="button" class="btn btn-danger" (click)="confirmDelete()">Supprimer</button>
+  </div>
+</ng-template>

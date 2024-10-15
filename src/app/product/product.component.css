@@ -27,7 +27,7 @@
   }
   
   .btn-custom {
-    width: 50%; /* Ensure each button occupies half the footer */
+    width: 100%; /* Ensure each button occupies half the footer */
     border-radius: 0; /* Make buttons perfectly rectangular */
     margin: 0; /* No margin around the buttons */
     border: none; /* Remove any border */
@@ -47,3 +47,58 @@
     object-fit: cover; /* Ensures image maintains aspect ratio */
   }
   
+  .sidebar {
+    margin-right: 15px; /* Space between the sidebar and the main image */
+    /* flex: 1;  */
+    border-right: 1px solid #e0e0e0; /* Light border for separation */
+    padding-right: 15px; /* Padding for better spacing */
+}
+
+.thumbnails {
+    display: flex;
+    flex-direction: column; /* Align images vertically */
+}
+
+.thumbnails img {
+    height: 100px; /* Set a consistent height for thumbnails */
+    width: 100px; /* Maintain aspect ratio */
+    margin-bottom: 10px; /* Space between images */
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition for zoom and shadow */
+    border-radius: 4px; /* Rounded corners */
+}
+
+.thumbnails img:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow on hover */
+}
+
+.main-image-container {
+    flex: 2; 
+    position: relative;
+}
+
+.main-image {
+    width: 100%; /* Make the main image responsive */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow around the image */
+    transition: transform 0.3s; /* Smooth transition */
+}
+.color-sample {
+  width: 30px; /* Width of color sample */
+  height: 30px; /* Height of color sample */
+  margin-right: 10px; /* Space between samples */
+  border: 1px solid #ccc; /* Border around color sample */
+  border-radius: 50px; /* Rounded corners */
+  cursor: pointer; /* Change cursor for clickability */
+  transition: transform 0.3s; /* Smooth transition */
+}
+.color-samples {
+  display: flex;
+  align-items: center; /* Center align color samples */
+  margin: 10px 0; /* Vertical margin */
+}
+.color-sample:hover {
+  transform: scale(1.1); /* Scale effect on hover */
+}

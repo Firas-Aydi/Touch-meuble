@@ -68,8 +68,8 @@
                         <!-- Dimensions -->
                         <div class="col-md-4 mb-3">
                             <div class="form-floating">
-                                <input type="text" id="productDimensions" formControlName="dimensions"
-                                    class="form-control" required>
+                                <textarea class="form-control" id="productDescription" formControlName="description"
+                                    required></textarea>
                                 <label for="productDimensions">Dimensions</label>
                                 <div *ngIf="salleForm.get('dimensions')?.invalid && (salleForm.get('dimensions')?.touched || salleForm.get('dimensions')?.dirty)"
                                     class="text-danger">

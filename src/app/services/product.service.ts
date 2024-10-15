@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Product } from '../models/product.model';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +32,7 @@ export class ProductService {
   }
 
   // Obtenir un produit par ID
-  getProductById(productId: string) {
-    return this.firestore.collection('products').doc(productId).valueChanges({ idField: 'id' });
+  getProductById(productId: string): Observable<Product | undefined> {
+    return this.firestore.collection<Product>('products').doc<Product>(productId).valueChanges({ idField: 'id' });
   }
 }
