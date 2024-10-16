@@ -42,16 +42,25 @@ export class ProductDetailsComponent implements OnInit {
     this.selectedImage = image; // Set the selected image when clicked
   }
   addToCart(product: Product, quantity: number) {
+    // Check if the product and quantity are valid
     if (product && quantity > 0 && quantity <= product.stock) {
+      // Logic to add the item to the cart
       console.log(`Added ${quantity} of ${product.name} to the cart.`);
 
-      this.cartService.addProductToCart(product, quantity);
+      // Assuming you have a CartService to manage the cart:
+      this.cartService.addToCart(product,'product', quantity);
+      alert(`${quantity} ${product.name}(s) added to the cart!`);
 
+      // Optionally show a success message or notification
+      alert(`${quantity} ${product.name}(s) added to the cart!`);
     } else if (quantity <= 0) {
+      // Handle case where the quantity is invalid (e.g., less than 1)
       alert('Please enter a valid quantity greater than 0.');
     } else if (quantity > product.stock) {
+      // Handle case where the quantity exceeds the stock
       alert('The quantity entered exceeds the available stock.');
     } else {
+      // Handle other invalid cases, like if the product object is null
       alert('An error occurred. Please try again.');
     }
   }

@@ -113,7 +113,7 @@
                                 </div>
                                 <div *ngFor="let color of productForm.get('colors')?.value"
                                     style="display: flex; align-items: center; margin-bottom: 5px;">
-                                    <span class="color-box"
+                                    <span class="color-box color-circle"
                                         [ngStyle]="{'background-color': color, 'width': '20px', 'height': '20px', 'border-radius': '50%', 'display': 'inline-block', 'margin-right': '5px'}"></span>
                                     <button type="button" class="btn btn-danger" (click)="removeColor(color)"
                                         style="width: 20px; height: 20px; padding: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-left: 5px;">
@@ -164,57 +164,51 @@
     </div>
 
     <!-- Liste des produits -->
-    <div class="row mt-4">
-        <div class="col-12">
-            <h5 class="text-danger">Liste des produits</h5>
-            <div class="card p-3 shadow">
-                <div class="card-body">
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">Nom</th>
-                                <th scope="col">Type</th>
-                                <th scope="col">Prix</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Stock</th>
-                                <th scope="col">Dimensions</th>
-                                <th scope="col">Matériau</th>
-                                <th scope="col">Couleur</th>
-                                <th scope="col">Images</th>
-                                <th scope="col">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let product of products">
-                                <td>{{ product.name }}</td>
-                                <td>{{ product.type }}</td>
-                                <td>{{ product.price }}</td>
-                                <td>{{ product.description }}</td>
-                                <td>{{ product.stock }}</td>
-                                <td>{{ product.dimensions }}</td>
-                                <td>{{ product.material }}</td>
-                                <td>
-                                    <div *ngFor="let color of product.colors">
-                                        <span class="color-box" [ngStyle]="{'background-color': color}"></span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div *ngIf="product.images && product.images.length > 0">
-                                        <img *ngFor="let image of product.images" [src]="image" alt="Image du produit"
-                                            class="img-fluid img-thumbnail me-2" style="max-width: 100px;">
-                                    </div>
-                                </td>
-                                <td>
-                                    <button class="btn btn-outline-warning"
-                                        (click)="editProduct(product)">Modifier</button>
-                                    <button class="btn btn-danger"
-                                        (click)="product.productId ? deleteProduct(product.productId) : null">Supprimer</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+    <div class="mb-3">
+        <h4>Liste des produits</h4>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Prix</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Stock</th>
+                    <th scope="col">Dimensions</th>
+                    <th scope="col">Matériau</th>
+                    <th scope="col">Couleur</th>
+                    <th scope="col">Images</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of products">
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.type }}</td>
+                    <td>{{ product.price }}</td>
+                    <td>{{ product.description }}</td>
+                    <td>{{ product.stock }}</td>
+                    <td>{{ product.dimensions }}</td>
+                    <td>{{ product.material }}</td>
+                    <td>
+                        <div *ngFor="let color of product.colors">
+                            <span class="color-box color-circle" [ngStyle]="{'background-color': color}"></span>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="product.images && product.images.length > 0">
+                            <img *ngFor="let image of product.images" [src]="image" alt="Image du produit"
+                                class="img-fluid img-thumbnail me-2" style="max-width: 100px;">
+                        </div>
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-info btn-sm"
+                            (click)="editProduct(product)">Modifier</button><br><br>
+                        <button class="btn btn-outline-danger btn-sm"
+                            (click)="product.productId ? deleteProduct(product.productId) : null">Supprimer</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>

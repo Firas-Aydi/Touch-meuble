@@ -1,68 +1,103 @@
-/* Global Styles */
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f8f9fa;
-}
+.color-box {
+    display: flex;
+  }
 
-.card {
+  .container-fluid {
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+  
+  h2 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #3a3a3a;
+    margin-bottom: 20px;
+  }
+  
+  .card {
     border-radius: 15px;
-}
-
-.card-body {
-    padding: 1.5rem;
-}
-
-/* Button Styles */
-.btn {
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.btn:hover {
-    color: white;
-    transform: translateY(-2px);
-}
-
-/* Image Styles */
-.img-thumbnail {
+  }
+  
+  .form-floating label {
+    color: #6c757d;
+  }
+  
+  .img-thumbnail {
     border-radius: 10px;
-}
-
-/* Table Styles */
-.table {
-    background-color: #ffffff;
-    border-radius: 10px;
-}
-
-.table th {
+    max-width: 100px;
+    margin: 5px;
+  }
+  
+  .color-circle {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin-right: 5px;
+    border: 1px solid #ddd;
+  }
+  
+  .selected-category {
+    padding: 5px 10px;
+    background-color: #e9ecef;
+    border-radius: 5px;
+  }
+  
+  .table {
+    margin-top: 30px;
+    background-color: white;
+  }
+  
+  .table thead {
     background-color: #007bff;
     color: white;
-}
-
-.table tr:hover {
-    background-color: #e9ecef;
-}
-
-/* Input Styles */
-.form-control {
+    font-weight: bold;
+  }
+  
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 123, 255, 0.05);
+  }
+  
+  .btn-outline-success, .btn-outline-primary {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+  }
+  
+  .btn-outline-success {
+    border-color: #28a745;
+    color: #28a745;
+  }
+  
+  .btn-outline-success:hover {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .btn-outline-primary {
+    border-color: #007bff;
+    color: #007bff;
+  }
+  
+  .btn-outline-primary:hover {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .btn-danger, .btn-warning {
+    font-weight: bold;
+  }
+  
+  .image-preview img {
+    margin: 5px;
     border-radius: 10px;
-    border: 1px solid #ced4da;
-}
-
-/* Error Styles */
-.invalid-feedback {
-    display: none;
-}
-
-input:invalid ~ .invalid-feedback,
-textarea:invalid ~ .invalid-feedback {
-    display: block;
-}
-
-.color-box {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    border-radius: 4px; /* Carré avec coins arrondis */
-    border: 1px solid #ddd;
-    margin-right: 5px;
-}
+  }
+  
+  .table td {
+    vertical-align: middle;
+  }
+  
+  .table td img {
+    border-radius: 8px;
+  }
+  

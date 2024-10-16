@@ -26,7 +26,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
-import { VarifyEmailComponent } from './varify-email/varify-email.component';
+// import { VarifyEmailComponent } from './varify-email/varify-email.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PackComponent } from './pack/pack.component';
 import { PackDetailsComponent } from './pack-details/pack-details.component';
@@ -41,7 +41,7 @@ import { CartComponent } from './cart/cart.component';
     RegisterComponent,
     HomeComponent,
     ResetpasswordComponent,
-    VarifyEmailComponent,
+    // VarifyEmailComponent,
     NavbarComponent,
     PackComponent,
     PackDetailsComponent,

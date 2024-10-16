@@ -74,22 +74,23 @@
 </section>
 
 <!-- SECTION: Nos Packs -->
-<section class="nos-packs py-5">
+<section id="nos-packs" class="py-5">
   <div class="container">
     <h2 class="text-center mb-5">Nos Packs</h2>
     <div class="row">
       <div class="col-lg-3 col-md-6 mb-4" *ngFor="let pack of packs | slice:0:4 ">
         <div class="card h-100 d-flex flex-column">
-          <img [src]="pack.images[0]" class="card-img-top h-50" alt="{{ pack.name }}">
+          <div style="cursor: pointer;" (click)="viewPackDetails(pack.packId)">
+          <img [src]="pack.images[0]" class="card-img-top" alt="{{ pack.name }}">
           <div class="card-body text-center">
             <h5 class="card-title">{{ pack.name }}</h5>
             <p class="text-success fw-bold">{{ pack.price }} DT</p>
-          </div>
+          </div></div>
           <div class="card-footer p-0 mt-auto">
             <button class="btn btn-outline-secondary btn-custom" (click)="openPackDetailsModal(pack)">
               <i class="fas fa-eye"></i>
-          </button>
-        </div>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -100,19 +101,19 @@
 <!-- Section Chambre -->
 <section id="chambre" class="my-5">
   <div class="container">
-    <h2 class="text-center">Chambre à Coucher</h2>
+    <h2 class="text-center mb-5">Chambre à Coucher</h2>
     <div class="row">
-      <div class="col-lg-3 col-md-3 mb-2" *ngFor="let chambre of chambres | slice:0:4">
+      <div class="col-lg-3 col-md-6 mb-4" *ngFor="let chambre of chambres | slice:0:4">
         <div class="card h-100 d-flex flex-column">
-          <img [src]="chambre.images[0]" class="card-img-top h-50" alt="{{ chambre.name }}">
+          <img [src]="chambre.images[0]" class="card-img-top" alt="{{ chambre.name }}">
           <div class="card-body text-center">
             <h5 class="card-title">{{ chambre.name }}</h5>
             <p class="text-success fw-bold">{{ chambre.price }} DT</p>
           </div>
           <div class="card-footer p-0 mt-auto">
-            <a href="chambre/{{ chambre.id }}" class="btn btn-outline-secondary btn-custom"><i
-                class="fas fa-eye"></i></a>
-            <button class="btn btn-outline-secondary btn-custom"><i class="fas fa-shopping-cart"></i></button>
+            <button class="btn btn-outline-secondary btn-custom" (click)="openPackDetailsModal(chambre)">
+              <i class="fas fa-eye"></i>
+            </button>
           </div>
         </div>
       </div>
@@ -123,18 +124,19 @@
 <!-- Salon Section -->
 <section id="salon" class="my-5">
   <div class="container">
-    <h2 class="text-center">Salon</h2>
+    <h2 class="text-center mb-5">Salon</h2>
     <div class="row">
-      <div class="col-lg-3 col-md-3 mb-2" *ngFor="let salon of salon  | slice:0:4">
+      <div class="col-lg-3 col-md-6 mb-4" *ngFor="let salon of salon  | slice:0:4">
         <div class="card h-100 d-flex flex-column">
-          <img [src]="salon.images[0]" class="card-img-top h-50" alt="{{ salon.name }}">
+          <img [src]="salon.images[0]" class="card-img-top" alt="{{ salon.name }}">
           <div class="card-body text-center">
             <h5 class="card-title">{{ salon.name }}</h5>
             <p class="text-success fw-bold">{{ salon.price }} DT</p>
           </div>
           <div class="card-footer p-0 mt-auto">
-            <a href="salon/{{ salon.id }}" class="btn btn-outline-secondary btn-custom"><i class="fas fa-eye"></i></a>
-            <button class="btn btn-outline-secondary btn-custom"><i class="fas fa-shopping-cart"></i></button>
+            <button class="btn btn-outline-secondary btn-custom" (click)="openPackDetailsModal(salon)">
+              <i class="fas fa-eye"></i>
+            </button>
           </div>
         </div>
       </div>
@@ -145,18 +147,19 @@
 <!-- Salle à manger Section -->
 <section id="salle-a-manger" class="my-5">
   <div class="container">
-    <h2 class="text-center">Salle à Manger</h2>
+    <h2 class="text-center mb-5">Salle à Manger</h2>
     <div class="row">
-      <div class="col-lg-3 col-md-3 mb-2" *ngFor="let salle of salles  | slice:0:4">
+      <div class="col-lg-3 col-md-6 mb-4" *ngFor="let salle of salles  | slice:0:4">
         <div class="card h-100 d-flex flex-column">
-          <img [src]="salle.images[0]" class="card-img-top h-50" alt="{{ salle.name }}">
+          <img [src]="salle.images[0]" class="card-img-top" alt="{{ salle.name }}">
           <div class="card-body text-center">
             <h5 class="card-title">{{ salle.name }}</h5>
             <p class="text-success fw-bold">{{ salle.price }} DT</p>
           </div>
           <div class="card-footer p-0 mt-auto">
-            <a href="salle/{{ salle.id }}" class="btn btn-outline-secondary btn-custom"><i class="fas fa-eye"></i></a>
-            <button class="btn btn-outline-secondary btn-custom"><i class="fas fa-shopping-cart"></i></button>
+            <button class="btn btn-outline-secondary btn-custom" (click)="openPackDetailsModal(salle)">
+              <i class="fas fa-eye"></i>
+            </button>
           </div>
         </div>
       </div>
@@ -218,60 +221,59 @@
   </div>
 </footer>
 
-<!-- Bootstrap Modal for Product Details -->
+<!-- Bootstrap Modal for Pack Details -->
 <div class="modal fade" id="packDetailsModal" tabindex="-1" aria-labelledby="packDetailsModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h3 class="modal-title" id="packDetailsModalLabel">{{ selectedPack?.name }}</h3>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body d-flex">
-              <!-- Left Section: Sidebar and Main Image -->
-              <div class="col-md-6 d-flex">
-                  <div class="sidebar">
-                      <div class="thumbnails">
-                          <img *ngFor="let image of selectedPack?.images" [src]="image" 
-                              alt="{{ selectedPack?.name }}" class="img-thumbnail" 
-                              (click)="selectImage(image)" [class.active]="image === selectedImage" />
-                      </div>
-                  </div>
-                  <div class="main-image-container">
-                      <img [src]="selectedImage" alt="{{ selectedPack?.name }}" class="main-image" />
-                  </div>
-              </div>
-              <div class="w-50 ps-3">
-                  <h1 class="card-title">{{ selectedPack?.name }}</h1>
-                  <p class="card-text text-success"> {{ selectedPack?.price | currency:' DT ':'symbol' }}</p>
-                  <p class="card-text">{{ selectedPack?.description }}</p>
-                <div class="color-samples">
-                    <!-- <strong>Couleurs:</strong> -->
-                    <span *ngFor="let color of selectedPack?.colors" [style.backgroundColor]="color" class="color-sample"
-                        title="{{ color }}"></span>
-                </div>
-                  <!-- <p class="card-text"><strong>Stock:</strong>
-                      <span [ngClass]="{
-                          'text-success': selectedPack?.stock! > 0,
-                          'text-danger': selectedPack?.stock! === 0
-                      }">
-                          {{ selectedPack?.stock! > 0 ? 'In Stock' : 'Out of Stock' }}
-                      </span>
-                  </p> -->
-                  <div class="input-group mb-3">
-                      <span class="input-group-text">Quantity</span>
-                      <input type="number" class="form-control" [(ngModel)]="quantity" min="1"
-                          (input)="validateQuantity()">
-                  </div>
-                  <div *ngIf="quantityError" class="text-danger">
-                      {{ quantityError }}
-                  </div>
-                  <button class="btn btn-primary" title="Add to Cart"
-                        (click)="addPackToCart(selectedPack!, quantity)">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                        Ajouter au panier
-                    </button>
-              </div>
-          </div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="packDetailsModalLabel">{{ selectedPack?.name }}</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+      <div class="modal-body d-flex">
+        <!-- Left Section: Sidebar and Main Image -->
+        <div class="col-md-6 d-flex">
+          <div class="sidebar">
+            <div class="thumbnails">
+              <img *ngFor="let image of selectedPack?.images" [src]="image" alt="{{ selectedPack?.name }}"
+                class="img-thumbnail" (click)="selectImage(image)" [class.active]="image === selectedImage" />
+            </div>
+          </div>
+          <div class="main-image-container">
+            <img [src]="selectedImage" alt="{{ selectedPack?.name }}" class="main-image" />
+          </div>
+        </div>
+        <div class="w-50 ps-3">
+          <h1 class="card-title">{{ selectedPack?.name }}</h1>
+          <p class="card-text text-success"> {{ selectedPack?.price | currency:' DT ':'symbol' }}</p>
+          <p class="card-text">{{ selectedPack?.description }}</p>
+          <!-- Affichage des noms des items dans le pack -->
+          <div *ngIf="selectedChambreName || selectedSalleName || selectedSalonName">
+            <h6>Contenu du Pack:</h6>
+            <ul>
+              <li *ngIf="selectedChambreName">{{ selectedChambreName }}</li>
+              <li *ngIf="selectedSalleName">{{ selectedSalleName }}</li>
+              <li *ngIf="selectedSalonName">{{ selectedSalonName }}</li>
+            </ul>
+          </div>
+
+          <div class="color-samples">
+            <!-- <strong>Couleurs:</strong> -->
+            <span *ngFor="let color of selectedPack?.colors" [style.backgroundColor]="color" class="color-sample"
+              title="{{ color }}"></span>
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text">Quantity</span>
+            <input type="number" class="form-control" [(ngModel)]="quantity" min="1" (input)="validateQuantity()">
+          </div>
+          <div *ngIf="quantityError" class="text-danger">
+            {{ quantityError }}
+          </div>
+          <button class="btn btn-primary" title="Add to Cart" (click)="addPackToCart(selectedPack!, quantity)">
+            <i class="fa-solid fa-cart-shopping"></i>
+            Ajouter au panier
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

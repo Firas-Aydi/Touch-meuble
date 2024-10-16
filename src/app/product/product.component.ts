@@ -75,7 +75,7 @@ export class ProductComponent implements OnInit {
       alert(`${quantity} ${product.name}(s) added to the cart!`);
 
       // Optionally show a success message or notification
-      // alert(`${quantity} ${product.name}(s) added to the cart!`);
+      alert(`${quantity} ${product.name}(s) added to the cart!`);
     } else if (quantity <= 0) {
       // Handle case where the quantity is invalid (e.g., less than 1)
       alert('Please enter a valid quantity greater than 0.');

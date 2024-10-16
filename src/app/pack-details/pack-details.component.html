@@ -1,16 +1,71 @@
-<!-- <div *ngIf="pack$ | async as pack; else loading">
-    <h2>{{ pack.name }}</h2>
-    <p>{{ pack.description }}</p>
-  
-    <h3>Contenu du pack :</h3>
-    <ul>
-      <li *ngFor="let item of pack.items">{{ item }}</li>
-    </ul>
-  
-    <p><strong>Prix :</strong> {{ pack.price | currency }}</p>
+<div class="container mt-5">
+  <div *ngIf="pack" class="row align-items-start">
+    <!-- Left Section: Sidebar and Main Image -->
+    <div class="col-md-6 d-flex">
+      <div class="sidebar">
+        <div class="thumbnails">
+          <img *ngFor="let image of pack.images" [src]="image" alt="{{ pack.name }}" class="img-thumbnail"
+            (click)="selectImage(image)" [class.active]="image === selectedImage" />
+        </div>
+      </div>
+      <div class="main-image-container">
+        <img [src]="selectedImage" alt="{{ pack.name }}" class="main-image" />
+      </div>
+    </div>
+
+    <!-- Right Section: pack Information -->
+    <div class="col-md-6">
+      <h2 class="pack-title">{{ pack.name }}</h2>
+      <h3> <strong>
+          <p class="text-success price">
+            <!-- <strong>Prix:</strong> -->
+            {{ pack.price }} TND
+          </p>
+        </strong>
+      </h3>
+      <div class="pack-info mt-3">
+        <p class="description">
+          <!-- <strong>Description:</strong> -->
+          {{ pack.description }}
+        </p>
+        <div *ngIf="selectedChambreName || selectedSalleName || selectedSalonName">
+          <h6>Contenu du Pack:</h6>
+          <ul>
+            <li *ngIf="selectedChambreName">
+              <a [routerLink]="['/chambres', selectedChambreId]">{{ selectedChambreName }}</a>
+            </li>
+            <li *ngIf="selectedSalleName">
+              <a [routerLink]="['/salles', selectedSalleId]">{{ selectedSalleName }}</a>
+            </li>
+            <li *ngIf="selectedSalonName">
+              <a [routerLink]="['/salons', selectedSalonId]">{{ selectedSalonName }}</a>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="color-samples">
+          <!-- <strong>Couleurs:</strong> -->
+          <span *ngFor="let color of pack.colors" [style.backgroundColor]="color" class="color-sample"
+            title="{{ color }}"></span>
+        </div>
+        <!-- <p><strong>Type:</strong> {{ pack.type }}</p> -->
+      </div>
+      <div class="quantity-input">
+        <label for="quantity">Quantité:</label>
+        <input type="number" class="form-control" [(ngModel)]="quantity" min="1" (input)="validateQuantity()">
+      </div>
+      <!-- Error messages -->
+      <div *ngIf="quantityError" class="text-danger">
+        {{ quantityError }}
+      </div>
+      <button class="btn custom-btn" title="Add to Cart" (click)="addPackToCart(pack,quantity)">
+        <i class="fa-solid fa-cart-shopping"></i>
+        Ajouter au panier
+      </button>
+    </div>
   </div>
-  
-  <ng-template #loading>
-    <p>Chargement des détails du pack...</p>
-  </ng-template>
-   -->
+
+  <div *ngIf="!pack">
+    <p>Pack non trouvé.</p>
+  </div>
+</div>

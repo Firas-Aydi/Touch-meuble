@@ -1,23 +1,23 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+// import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VarifyEmailComponent } from './varify-email.component';
+// import { VarifyEmailComponent } from './varify-email.component';
 
-describe('VarifyEmailComponent', () => {
-  let component: VarifyEmailComponent;
-  let fixture: ComponentFixture<VarifyEmailComponent>;
+// describe('VarifyEmailComponent', () => {
+//   let component: VarifyEmailComponent;
+//   let fixture: ComponentFixture<VarifyEmailComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [VarifyEmailComponent]
-    })
-    .compileComponents();
+//   beforeEach(async () => {
+//     await TestBed.configureTestingModule({
+//       imports: [VarifyEmailComponent]
+//     })
+//     .compileComponents();
 
-    fixture = TestBed.createComponent(VarifyEmailComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//     fixture = TestBed.createComponent(VarifyEmailComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });

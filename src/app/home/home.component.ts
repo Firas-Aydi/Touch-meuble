@@ -13,10 +13,9 @@ declare var bootstrap: any;
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-
   // packs: any[] = [];
   categories: any[] = [];
   chambres: any[] = [];
@@ -25,11 +24,14 @@ export class HomeComponent implements OnInit {
   testimonials: any[] = [];
 
   packs: Pack[] = [];
-  selectedPack: Pack | null = null;
   quantity: number = 1;
   quantityError: string | null = null;
-  selectedImage: string = ''; 
 
+  selectedPack: Pack | null = null;
+  selectedImage: string = '';
+  selectedChambreName: string | null = null;
+  selectedSalleName: string | null = null;
+  selectedSalonName: string | null = null;
 
   constructor(
     // private cartService: CartService,
@@ -86,42 +88,70 @@ export class HomeComponent implements OnInit {
       {
         name: 'John Doe',
         text: 'Superbe qualité et très bon service client. Le pack Karina est magnifique dans mon salon!',
-        pack: 'Pack Karina'
+        pack: 'Pack Karina',
       },
       {
         name: 'Sarah Belhadj',
         text: 'Je suis très satisfaite de mon achat! Le meuble de chambre est encore plus beau en vrai.',
-        pack: 'Pack Chambre'
+        pack: 'Pack Chambre',
       },
       {
         name: 'Ahmed Ben Salah',
         text: 'Livraison rapide et produits de qualité, je recommande vivement Touch Meuble!',
-        pack: 'Pack Salon'
-      }
+        pack: 'Pack Salon',
+      },
     ];
   }
 
-  // Add pack to cart
-  // addToCart(pack: any): void {
-  //   this.cartService.addToCart(pack);
-  //   alert(`${pack.name} a été ajouté au panier.`);
-  // }
-
   // Navigate to pack details
-  viewPackDetails(packId: string): void {
-    this.router.navigate([`/packs/${packId}`]);
+  viewPackDetails(packId: string | undefined) {
+    if (packId) {
+      this.router.navigate(['/packs', packId]);
+    } else {
+      console.error('Pack ID is undefined. Cannot navigate to pack details.');
+    }
+  }
+  loadItemDetails(chambreId: string, salleId: string, salonId: string) {
+    // Charger le nom de la chambre
+    if (chambreId) {
+      this.chambreService.getChambreById(chambreId).subscribe((chambre) => {
+        this.selectedChambreName = chambre ? chambre.name : 'Chambre inconnue';
+      });
+    }
+
+    // Charger le nom de la salle
+    if (salleId) {
+      this.salleService.getSalleById(salleId).subscribe((salle) => {
+        this.selectedSalleName = salle ? salle.name : 'Salle inconnue';
+      });
+    }
+
+    // Charger le nom du salon
+    if (salonId) {
+      this.salonService.getSalonById(salonId).subscribe((salon) => {
+        this.selectedSalonName = salon ? salon.name : 'Salon inconnu';
+      });
+    }
   }
   openPackDetailsModal(pack: Pack) {
+    console.log('pack', pack);
     this.selectedPack = pack;
+    console.log('selectedPack', this.selectedPack);
     this.selectedImage = pack.images[0]; // Set the default selected image
 
+    const selectedChambre = (pack as any)['selectedChambre'];
+    const selectedSalle = (pack as any)['selectedSalle'];
+    const selectedSalon = (pack as any)['selectedSalon'];
+
+    this.loadItemDetails(selectedChambre, selectedSalle, selectedSalon);
     const packDetailsModal = new bootstrap.Modal(
       document.getElementById('packDetailsModal')
     );
     packDetailsModal.show();
   }
+
   selectImage(image: string) {
-    this.selectedImage = image; // Set the selected image when clicked
+    this.selectedImage = image;
   }
 
   addPackToCart(pack: Pack, quantity: number) {
@@ -131,7 +161,7 @@ export class HomeComponent implements OnInit {
       console.log(`Added ${quantity} of ${pack.name} to the cart.`);
 
       // Assuming you have a CartService to manage the cart:
-      this.cartService.addToCart(pack,'pack', quantity);
+      this.cartService.addToCart(pack, 'pack', quantity);
       alert(`${quantity} ${pack.name}(s) added to the cart!`);
 
       // Optionally show a success message or notification

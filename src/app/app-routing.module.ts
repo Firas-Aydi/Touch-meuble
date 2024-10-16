@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
-import { VarifyEmailComponent } from './varify-email/varify-email.component';
+// import { VarifyEmailComponent } from './varify-email/varify-email.component';
 import { PackComponent } from './pack/pack.component';
 import { ProductComponent } from './product/product.component';
 import { CartComponent } from './cart/cart.component';
@@ -22,9 +22,10 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'home', component: HomeComponent },
   { path: 'resetpassword', component: ResetpasswordComponent },
-  { path: 'varify-email', component: VarifyEmailComponent },
+  // { path: 'varify-email', component: VarifyEmailComponent },
   { path: 'packs', component: PackComponent },
-  { path: 'packs/:id', component: PackDetailsComponent },
+  { path: 'packs-management', component: PackManagementComponent },
+  { path: 'packs/:packId', component: PackDetailsComponent },
   { path: 'products', component: ProductComponent },
   { path: 'products-management', component: ProductManagementComponent },
   { path: 'products/:productId', component: ProductDetailsComponent }, // Route for product details
@@ -33,7 +34,9 @@ const routes: Routes = [
   { path: 'salons-management', component: SalonManagementComponent },
   { path: 'chambres-management', component: ChambreManagementComponent },
   { path: 'salles-management', component: SalleAMangeManagementComponent },
-  { path: 'packs-management', component: PackManagementComponent },
+  { path: 'chambres/:id', component: PackDetailsComponent },
+  { path: 'salles/:id', component: PackDetailsComponent },
+  { path: 'salons/:id', component: PackDetailsComponent },
 ];
 
 @NgModule({

@@ -1,0 +1,103 @@
+.color-box {
+    display: flex;
+  }
+
+  .container-fluid {
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+  
+  h2 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #3a3a3a;
+    margin-bottom: 20px;
+  }
+  
+  .card {
+    border-radius: 15px;
+  }
+  
+  .form-floating label {
+    color: #6c757d;
+  }
+  
+  .img-thumbnail {
+    border-radius: 10px;
+    max-width: 100px;
+    margin: 5px;
+  }
+  
+  .color-circle {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin-right: 5px;
+    border: 1px solid #ddd;
+  }
+  
+  .selected-category {
+    padding: 5px 10px;
+    background-color: #e9ecef;
+    border-radius: 5px;
+  }
+  
+  .table {
+    margin-top: 30px;
+    background-color: white;
+  }
+  
+  .table thead {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 123, 255, 0.05);
+  }
+  
+  .btn-outline-success, .btn-outline-primary {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+  }
+  
+  .btn-outline-success {
+    border-color: #28a745;
+    color: #28a745;
+  }
+  
+  .btn-outline-success:hover {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .btn-outline-primary {
+    border-color: #007bff;
+    color: #007bff;
+  }
+  
+  .btn-outline-primary:hover {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .btn-danger, .btn-warning {
+    font-weight: bold;
+  }
+  
+  .image-preview img {
+    margin: 5px;
+    border-radius: 10px;
+  }
+  
+  .table td {
+    vertical-align: middle;
+  }
+  
+  .table td img {
+    border-radius: 8px;
+  }
+  

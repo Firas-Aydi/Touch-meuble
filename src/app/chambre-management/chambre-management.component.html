@@ -68,7 +68,7 @@
                         <!-- Dimensions -->
                         <div class="col-md-4 mb-3">
                             <div class="form-floating">
-                                <textarea class="form-control" id="productDescription" formControlName="description"
+                                <textarea class="form-control" id="productDimensions" formControlName="dimensions"
                                     required></textarea>
                                 <label for="productDimensions">Dimensions</label>
                                 <div *ngIf="chambreForm.get('dimensions')?.invalid && (chambreForm.get('dimensions')?.touched || chambreForm.get('dimensions')?.dirty)"
@@ -119,7 +119,7 @@
                                 <!-- <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px;"> -->
                                 <div *ngFor="let color of chambreForm.get('colors')?.value"
                                     style="display: flex; align-items: center;">
-                                    <span class="color-box"
+                                    <span class="color-box color-circle"
                                         [ngStyle]="{'background-color': color, 'width': '20px', 'height': '20px', 'border-radius': '50%', 'display': 'inline-block', 'margin-right': '5px'}"></span>
                                     <button type="button" class="btn btn-danger" (click)="removeColor(color)"
                                         style="width: 20px; height: 20px; padding: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-left: 5px;">
@@ -156,7 +156,7 @@
                             </div>
                         </div>
 
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label for="productSelection">Sélectionner des Produits</label>
                             <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 5px;">
 
@@ -177,7 +177,7 @@
                                         (click)="removeProduct(productName)">X</button>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- Boutons d'action -->
                         <div class="col-md-12 text-center">
@@ -207,7 +207,7 @@
                     <th scope="col">Dimensions</th>
                     <th scope="col">Matériau</th>
                     <th>Images</th>
-                    <th>Produits</th>
+                    <!-- <th>Produits</th> -->
                     <th>Couleurs</th>
                     <th>Actions</th>
                 </tr>
@@ -228,25 +228,25 @@
                                 class="img-fluid img-thumbnail me-2" style="max-width: 100px; margin-bottom: 5px;">
                         </div>
                     </td>
-                    <td>
+                    <!-- <td>
                         <ul>
                             <li *ngFor="let productId of Chambre.items">
                                 {{ getProductById(productId)?.name || 'Produit introuvable' }} -
                                 {{ getProductById(productId)?.price || '0' }} TND
                             </li>
                         </ul>
-                    </td>
+                    </td> -->
 
                     <td>
                         <div style="display: flex; flex-wrap: wrap;">
-                            <span *ngFor="let color of Chambre.colors" class="color-box"
+                            <span *ngFor="let color of Chambre.colors" class="color-box color-circle"
                                 [ngStyle]="{'background-color': color, 'width': '20px', 'height': '20px', 'border-radius': '50%', 'margin-right': '5px'}"></span>
                         </div>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-primary btn-sm"
-                            (click)="editChambre(Chambre)">Modifier</button>
-                        <button class="btn btn-danger"
+                        <button type="button" class="btn btn-outline-info btn-sm"
+                            (click)="editChambre(Chambre)">Modifier</button><br><br>
+                        <button class="btn btn-outline-danger btn-sm"
                             (click)="Chambre.chambreId ? deleteChambre(Chambre.chambreId) : null">Supprimer</button>
                     </td>
                 </tr>
