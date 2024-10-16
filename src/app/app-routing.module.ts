@@ -16,6 +16,9 @@ import { SalonManagementComponent } from './salon-management/salon-management.co
 import { ChambreManagementComponent } from './chambre-management/chambre-management.component';
 import { SalleAMangeManagementComponent } from './salle-amange-management/salle-amange-management.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { ChambreDetailsComponent } from './chambre-details/chambre-details.component';
+import { SalonDetailsComponent } from './salon-details/salon-details.component';
+import { SalleAmangeDetailsComponent } from './salle-amange-details/salle-amange-details.component';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -34,9 +37,9 @@ const routes: Routes = [
   { path: 'salons-management', component: SalonManagementComponent },
   { path: 'chambres-management', component: ChambreManagementComponent },
   { path: 'salles-management', component: SalleAMangeManagementComponent },
-  { path: 'chambres/:id', component: PackDetailsComponent },
-  { path: 'salles/:id', component: PackDetailsComponent },
-  { path: 'salons/:id', component: PackDetailsComponent },
+  { path: 'chambres/:chambreId', component: ChambreDetailsComponent },
+  { path: 'salles/:salleId', component: SalleAmangeDetailsComponent },
+  { path: 'salons/:salonId', component: SalonDetailsComponent },
 ];
 
 @NgModule({

@@ -33,6 +33,7 @@ import { PackDetailsComponent } from './pack-details/pack-details.component';
 import { ProductComponent } from './product/product.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { CartComponent } from './cart/cart.component';
+import { ChambreDetailsComponent } from './chambre-details/chambre-details.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { CartComponent } from './cart/cart.component';
     PackDetailsComponent,
     ProductComponent,
     ProductDetailsComponent,
+    ChambreDetailsComponent,
     CartComponent
   ],
   imports: [

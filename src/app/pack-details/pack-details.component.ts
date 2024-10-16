@@ -43,7 +43,7 @@ export class PackDetailsComponent implements OnInit {
     if (PackId) {
       this.packService.getPackById(PackId).subscribe((data) => {
         this.pack = data || null;
-        console.log('pack: ', this.pack);
+        // console.log('pack: ', this.pack);
         if (this.pack) {
           this.selectedImage = this.pack.images[0];
           const selectedChambre = (this.pack as any)['selectedChambre'];
