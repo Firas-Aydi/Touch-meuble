@@ -93,7 +93,6 @@ export class PackDetailsComponent implements OnInit {
 
       // Assuming you have a CartService to manage the cart:
       this.cartService.addToCart(pack, 'pack', quantity);
-      alert(`${quantity} ${pack.name}(s) added to the cart!`);
 
       // Optionally show a success message or notification
       alert(`${quantity} ${pack.name}(s) added to the cart!`);

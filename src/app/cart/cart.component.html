@@ -6,7 +6,7 @@
                 <thead>
                     <tr>
                         <th>Item</th>
-                        <th>Type</th>
+                        <!-- <th>Type</th> -->
                         <th>Quantity</th>
                         <th>Price</th>
                         <th>Total</th>
@@ -29,7 +29,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td>{{ cartItem.type }}</td>
+                        <!-- <td>{{ cartItem.type }}</td> -->
                         <td>
                             <input type="number" [(ngModel)]="cartItem.quantity"
                                 (change)="updateQuantity(cartItem, cartItem.quantity)"

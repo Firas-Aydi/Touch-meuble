@@ -20,7 +20,7 @@ import { ProductService } from '../services/product.service';
   templateUrl: './salle-amange-management.component.html',
   styleUrl: './salle-amange-management.component.css'
 })
-export class SalleAMangeManagementComponent {
+export class SalleAMangeManagementComponent implements OnInit{
   salleForm: FormGroup;
   salles: SalleAManger[] = [];
   images: string[] = [];

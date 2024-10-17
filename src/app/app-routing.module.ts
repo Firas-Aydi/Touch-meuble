@@ -19,6 +19,9 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { ChambreDetailsComponent } from './chambre-details/chambre-details.component';
 import { SalonDetailsComponent } from './salon-details/salon-details.component';
 import { SalleAmangeDetailsComponent } from './salle-amange-details/salle-amange-details.component';
+import { ChambreComponent } from './chambre/chambre.component';
+import { SalonComponent } from './salon/salon.component';
+import { SalleAmangeComponent } from './salle-amange/salle-amange.component';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -33,6 +36,9 @@ const routes: Routes = [
   { path: 'products-management', component: ProductManagementComponent },
   { path: 'products/:productId', component: ProductDetailsComponent }, // Route for product details
   { path: 'cart', component: CartComponent },
+  { path: 'chambres', component: ChambreComponent },
+  { path: 'salles', component: SalleAmangeComponent },
+  { path: 'salons', component: SalonComponent },
   { path: 'categories-management', component: CategoryManagementComponent },
   { path: 'salons-management', component: SalonManagementComponent },
   { path: 'chambres-management', component: ChambreManagementComponent },

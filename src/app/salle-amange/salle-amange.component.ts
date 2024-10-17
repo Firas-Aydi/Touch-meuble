@@ -1,88 +1,84 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../services/product.service';
-import { Product } from '../models/product.model';
 import { Router } from '@angular/router';
+import { SalleAManger } from '../models/salleAManger.model';
+import { SalleAMangeService } from '../services/salle-amange.service';
 import { CartService } from '../services/cart.service';
 declare var bootstrap: any;
-
 @Component({
-  selector: 'app-product',
-  templateUrl: './product.component.html',
-  styleUrls: ['./product.component.css'],
+  selector: 'app-salle-amange',
+  templateUrl: './salle-amange.component.html',
+  styleUrl: './salle-amange.component.css',
 })
-export class ProductComponent implements OnInit {
-  products: Product[] = [];
-  selectedProduct: Product | null = null;
+export class SalleAmangeComponent implements OnInit {
+  salles: SalleAManger[] = [];
+  selectedSalle: SalleAManger | null = null;
   quantity: number = 1; // Default quantity
   quantityError: string | null = null;
   selectedImage: string = ''; // Initialize selectedImage
 
   currentPage = 1;
   pageSize = 36;
-  paginatedProducts: Product[] = [];
+  paginatedProducts: SalleAManger[] = [];
 
   constructor(
-    private productService: ProductService,
+    private salleService: SalleAMangeService,
     private cartService: CartService,
     private router: Router
   ) {}
-
   ngOnInit(): void {
-    this.loadProducts();
-  this.updatePaginatedProducts();
+    this.loadSalles();
+    this.updatePaginatedProducts();
   }
-
-
-  loadProducts() {
-    this.productService.getAllProducts().subscribe((data) => {
-      this.products = data;
+  loadSalles() {
+    this.salleService.getSalle().subscribe((data) => {
+      this.salles = data;
       this.updatePaginatedProducts(); // Make sure to update paginated products after loading
     });
   }
 
-  viewProductDetails(productId: string | undefined) {
-    if (productId) {
-      this.router.navigate(['/products', productId]);
+  viewProductDetails(salleId: string | undefined) {
+    if (salleId) {
+      this.router.navigate(['/salles', salleId]);
     } else {
       console.error(
-        'Product ID is undefined. Cannot navigate to product details.'
+        'Salle A Manger ID is undefined. Cannot navigate to Salle A Manger details.'
       );
     }
   }
 
-  openProductDetailsModal(product: Product) {
-    this.selectedProduct = product;
-    this.selectedImage = product.images[0]; // Set the default selected image
+  openSalleDetailsModal(salleAManger: SalleAManger) {
+    this.selectedSalle = salleAManger;
+    this.selectedImage = salleAManger.images[0]; // Set the default selected image
 
-    const productDetailsModal = new bootstrap.Modal(
-      document.getElementById('productDetailsModal')
+    const salleDetailsModal = new bootstrap.Modal(
+      document.getElementById('salleDetailsModal')
     );
-    productDetailsModal.show();
+    salleDetailsModal.show();
   }
 
   selectImage(image: string) {
     this.selectedImage = image; // Set the selected image when clicked
   }
-  
-  addToCart(product: Product, quantity: number) {
-    // Check if the product and quantity are valid
-    if (product && quantity > 0 && quantity <= product.stock) {
+
+  addToCart(salleAManger: SalleAManger, quantity: number) {
+    // Check if the SalleAManger and quantity are valid
+    if (salleAManger && quantity > 0 && quantity <= salleAManger.stock) {
       // Logic to add the item to the cart
-      console.log(`Added ${quantity} of ${product.name} to the cart.`);
+      console.log(`Added ${quantity} of ${salleAManger.name} to the cart.`);
 
       // Assuming you have a CartService to manage the cart:
-      this.cartService.addToCart(product,'product', quantity);
+      this.cartService.addToCart(salleAManger, 'salle', quantity);
 
       // Optionally show a success message or notification
-      alert(`${quantity} ${product.name}(s) added to the cart!`);
+      alert(`${quantity} ${salleAManger.name}(s) added to the cart!`);
     } else if (quantity <= 0) {
       // Handle case where the quantity is invalid (e.g., less than 1)
       alert('Please enter a valid quantity greater than 0.');
-    } else if (quantity > product.stock) {
+    } else if (quantity > salleAManger.stock) {
       // Handle case where the quantity exceeds the stock
       alert('The quantity entered exceeds the available stock.');
     } else {
-      // Handle other invalid cases, like if the product object is null
+      // Handle other invalid cases, like if the SalleAManger object is null
       alert('An error occurred. Please try again.');
     }
   }
@@ -92,8 +88,8 @@ export class ProductComponent implements OnInit {
 
     if (this.quantity < 1) {
       this.quantityError = 'Quantity must be at least 1.';
-    } else if (this.quantity > (this.selectedProduct?.stock || 0)) {
-      this.quantityError = `Quantity cannot exceed stock limit of ${this.selectedProduct?.stock}.`;
+    } else if (this.quantity > (this.selectedSalle?.stock || 0)) {
+      this.quantityError = `Quantity cannot exceed stock limit of ${this.selectedSalle?.stock}.`;
     } else if (
       this.quantity === null ||
       this.quantity === undefined ||
@@ -103,11 +99,10 @@ export class ProductComponent implements OnInit {
     }
   }
 
-  
   updatePaginatedProducts() {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
-    this.paginatedProducts = this.products.slice(startIndex, endIndex);
+    this.paginatedProducts = this.salles.slice(startIndex, endIndex);
   }
 
   // Méthode pour changer de page
@@ -118,6 +113,6 @@ export class ProductComponent implements OnInit {
 
   // Obtenir le nombre total de pages
   get totalPages(): number {
-    return Math.ceil(this.products.length / this.pageSize);
+    return Math.ceil(this.salles.length / this.pageSize);
   }
 }

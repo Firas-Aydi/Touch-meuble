@@ -1,1 +1,60 @@
-<p>salon-details works!</p>
+<div class="container mt-5">
+    <div *ngIf="salon" class="row align-items-start">
+        <!-- Left Section: Sidebar and Main Image -->
+        <div class="col-md-6 d-flex">
+            <div class="sidebar">
+                <div class="thumbnails">
+                    <img *ngFor="let image of salon.images" [src]="image" alt="{{ salon.name }}"
+                        class="img-thumbnail" (click)="selectImage(image)" [class.active]="image === selectedImage" />
+                </div>
+            </div>
+            <div class="main-image-container">
+                <img [src]="selectedImage" alt="{{ salon.name }}" class="main-image" />
+            </div>
+        </div>
+
+        <!-- Right Section: salon Information -->
+        <div class="col-md-6">
+            <h2 class="salon-title">{{ salon.name }}</h2>
+            <h3> <strong>
+                    <p class="text-success price">
+                        <!-- <strong>Prix:</strong> -->
+                        {{ salon.price }} TND
+                    </p>
+                </strong>
+            </h3>
+            <div class="salon-info mt-3">
+                <p class="description">
+                    <!-- <strong>Description:</strong> -->
+                    {{ salon.description }}
+                </p>
+                <p class="dimensions"><strong>Dimensions:</strong> {{ salon.dimensions }}</p>
+                <p class="material"><strong>Matières:</strong> {{ salon.material }}</p>
+                <div class="color-samples">
+                    <!-- <strong>Couleurs:</strong> -->
+                    <span *ngFor="let color of salon.colors" [style.backgroundColor]="color" class="color-sample"
+                        title="{{ color }}"></span>
+                </div>
+                <!-- <p><strong>Type:</strong> {{ salon.type }}</p> -->
+            </div>
+            <div class="quantity-input">
+                <label for="quantity">Quantité:</label>
+                <input type="number" id="quantity" [(ngModel)]="quantity" min="1" max="{{ salon.stock }}"
+                    class="form-control" [disabled]="salon.stock === 0" (input)="validateQuantity()" />
+            </div>
+            <!-- Error messages -->
+            <div *ngIf="quantityError" class="text-danger">
+                {{ quantityError }}
+            </div>
+            <button [disabled]="salon.stock! === 0" class="btn custom-btn" title="Add to Cart"
+                (click)="addToCart(salon,quantity)">
+                <i class="fa-solid fa-cart-shopping"></i>
+                Ajouter au panier
+            </button>
+        </div>
+    </div>
+
+    <div *ngIf="!salon">
+        <p>salon non trouvé.</p>
+    </div>
+</div>

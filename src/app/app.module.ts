@@ -34,6 +34,11 @@ import { ProductComponent } from './product/product.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { CartComponent } from './cart/cart.component';
 import { ChambreDetailsComponent } from './chambre-details/chambre-details.component';
+import { SalonDetailsComponent } from './salon-details/salon-details.component';
+import { SalleAmangeDetailsComponent } from './salle-amange-details/salle-amange-details.component';
+import { ChambreComponent } from './chambre/chambre.component';
+import { SalleAmangeComponent } from './salle-amange/salle-amange.component';
+import { SalonComponent } from './salon/salon.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +53,12 @@ import { ChambreDetailsComponent } from './chambre-details/chambre-details.compo
     PackDetailsComponent,
     ProductComponent,
     ProductDetailsComponent,
+    ChambreComponent,
     ChambreDetailsComponent,
+    SalleAmangeComponent,
+    SalleAmangeDetailsComponent,
+    SalonComponent,
+    SalonDetailsComponent,
     CartComponent
   ],
   imports: [

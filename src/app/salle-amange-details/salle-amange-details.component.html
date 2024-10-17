@@ -1,1 +1,60 @@
-<p>salle-amange-details works!</p>
+<div class="container mt-5">
+    <div *ngIf="salle" class="row align-items-start">
+        <!-- Left Section: Sidebar and Main Image -->
+        <div class="col-md-6 d-flex">
+            <div class="sidebar">
+                <div class="thumbnails">
+                    <img *ngFor="let image of salle.images" [src]="image" alt="{{ salle.name }}"
+                        class="img-thumbnail" (click)="selectImage(image)" [class.active]="image === selectedImage" />
+                </div>
+            </div>
+            <div class="main-image-container">
+                <img [src]="selectedImage" alt="{{ salle.name }}" class="main-image" />
+            </div>
+        </div>
+
+        <!-- Right Section: salle Information -->
+        <div class="col-md-6">
+            <h2 class="salle-title">{{ salle.name }}</h2>
+            <h3> <strong>
+                    <p class="text-success price">
+                        <!-- <strong>Prix:</strong> -->
+                        {{ salle.price }} TND
+                    </p>
+                </strong>
+            </h3>
+            <div class="salle-info mt-3">
+                <p class="description">
+                    <!-- <strong>Description:</strong> -->
+                    {{ salle.description }}
+                </p>
+                <p class="dimensions"><strong>Dimensions:</strong> {{ salle.dimensions }}</p>
+                <p class="material"><strong>Matières:</strong> {{ salle.material }}</p>
+                <div class="color-samples">
+                    <!-- <strong>Couleurs:</strong> -->
+                    <span *ngFor="let color of salle.colors" [style.backgroundColor]="color" class="color-sample"
+                        title="{{ color }}"></span>
+                </div>
+                <!-- <p><strong>Type:</strong> {{ salle.type }}</p> -->
+            </div>
+            <div class="quantity-input">
+                <label for="quantity">Quantité:</label>
+                <input type="number" id="quantity" [(ngModel)]="quantity" min="1" max="{{ salle.stock }}"
+                    class="form-control" [disabled]="salle.stock === 0" (input)="validateQuantity()" />
+            </div>
+            <!-- Error messages -->
+            <div *ngIf="quantityError" class="text-danger">
+                {{ quantityError }}
+            </div>
+            <button [disabled]="salle.stock! === 0" class="btn custom-btn" title="Add to Cart"
+                (click)="addToCart(salle,quantity)">
+                <i class="fa-solid fa-cart-shopping"></i>
+                Ajouter au panier
+            </button>
+        </div>
+    </div>
+
+    <div *ngIf="!salle">
+        <p>salle non trouvé.</p>
+    </div>
+</div>

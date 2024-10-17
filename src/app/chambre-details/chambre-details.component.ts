@@ -50,7 +50,6 @@ export class ChambreDetailsComponent implements OnInit {
 
       // Assuming you have a CartService to manage the cart:
       this.cartService.addToCart(chambre, 'chambre', quantity);
-      alert(`${quantity} ${chambre.name}(s) added to the cart!`);
 
       // Optionally show a success message or notification
       alert(`${quantity} ${chambre.name}(s) added to the cart!`);
