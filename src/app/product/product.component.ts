@@ -4,6 +4,7 @@ import { Product } from '../models/product.model';
 import { Router } from '@angular/router';
 import { CartService } from '../services/cart.service';
 declare var bootstrap: any;
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-product',
@@ -21,22 +22,38 @@ export class ProductComponent implements OnInit {
   pageSize = 36;
   paginatedProducts: Product[] = [];
 
+  filteredProducts: Product[] = [];
+  currentType: string | null = null; // Ajouter une propriété pour stocker le type de produit
+
   constructor(
     private productService: ProductService,
     private cartService: CartService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute // Injecter ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.loadProducts();
-  this.updatePaginatedProducts();
+    this.route.paramMap.subscribe((params) => {
+      this.currentType = params.get('type');
+      console.log('currentType: ', this.currentType);
+      this.loadProducts(); // Charger les produits
+    });
   }
-
 
   loadProducts() {
     this.productService.getAllProducts().subscribe((data) => {
       this.products = data;
-      this.updatePaginatedProducts(); // Make sure to update paginated products after loading
+
+      // Filtrer les produits par type, si un type est sélectionné
+      if (this.currentType) {
+        this.filteredProducts = this.products.filter(
+          (product) => product.type === this.currentType
+        );
+        console.log('filteredProducts: ', this.filteredProducts);
+      } else {
+        this.filteredProducts = this.products;
+      }
+      this.updatePaginatedProducts(); // Mettre à jour la pagination après le filtrage
     });
   }
 
@@ -52,7 +69,7 @@ export class ProductComponent implements OnInit {
 
   openProductDetailsModal(product: Product) {
     this.selectedProduct = product;
-    this.selectedImage = product.images[0]; // Set the default selected image
+    this.selectedImage = product.images[0];
 
     const productDetailsModal = new bootstrap.Modal(
       document.getElementById('productDetailsModal')
@@ -61,35 +78,25 @@ export class ProductComponent implements OnInit {
   }
 
   selectImage(image: string) {
-    this.selectedImage = image; // Set the selected image when clicked
+    this.selectedImage = image;
   }
-  
+
   addToCart(product: Product, quantity: number) {
-    // Check if the product and quantity are valid
     if (product && quantity > 0 && quantity <= product.stock) {
-      // Logic to add the item to the cart
       console.log(`Added ${quantity} of ${product.name} to the cart.`);
-
-      // Assuming you have a CartService to manage the cart:
-      this.cartService.addToCart(product,'product', quantity);
-
-      // Optionally show a success message or notification
+      this.cartService.addToCart(product, 'product', quantity);
       alert(`${quantity} ${product.name}(s) added to the cart!`);
     } else if (quantity <= 0) {
-      // Handle case where the quantity is invalid (e.g., less than 1)
       alert('Please enter a valid quantity greater than 0.');
     } else if (quantity > product.stock) {
-      // Handle case where the quantity exceeds the stock
       alert('The quantity entered exceeds the available stock.');
     } else {
-      // Handle other invalid cases, like if the product object is null
       alert('An error occurred. Please try again.');
     }
   }
 
   validateQuantity() {
-    this.quantityError = null; // Reset error message
-
+    this.quantityError = null;
     if (this.quantity < 1) {
       this.quantityError = 'Quantity must be at least 1.';
     } else if (this.quantity > (this.selectedProduct?.stock || 0)) {
@@ -103,20 +110,17 @@ export class ProductComponent implements OnInit {
     }
   }
 
-  
   updatePaginatedProducts() {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
-    this.paginatedProducts = this.products.slice(startIndex, endIndex);
+    this.paginatedProducts = this.filteredProducts.slice(startIndex, endIndex);
   }
 
-  // Méthode pour changer de page
   changePage(pageNumber: number) {
     this.currentPage = pageNumber;
     this.updatePaginatedProducts();
   }
 
-  // Obtenir le nombre total de pages
   get totalPages(): number {
     return Math.ceil(this.products.length / this.pageSize);
   }

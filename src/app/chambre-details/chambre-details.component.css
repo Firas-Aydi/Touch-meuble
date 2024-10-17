@@ -42,13 +42,13 @@
     transition: transform 0.3s; /* Smooth transition */
 }
 
-.product-title {
+.chambre-title {
     font-size: 24px; /* Title font size */
     font-weight: bold; /* Bold title */
     margin-bottom: 10px; /* Space below title */
 }
 
-.product-info {
+.chambre-info {
     background-color: #f8f8f8; /* Light background for the info section */
     padding: 15px; /* Padding around the content */
     border-radius: 8px; /* Rounded corners */
@@ -79,21 +79,20 @@
     transform: scale(1.1); /* Scale effect on hover */
 }
 .quantity-input {
-    margin: 10px 0; /* Espacement autour du champ de saisie */
+    margin: 10px 0;
+    width: 160px; 
 }
 
-.quantity-input label {
+.quantity-input span {
     font-weight: bold; /* Mettre le label en gras */
     display: block; /* Affichage en bloc pour que le champ soit en dessous */
 }
 
 .quantity-input input {
-    width: 60px; /* Largeur fixe pour le champ de saisie */
     padding: 5px; /* Espacement interne */
     border: 1px solid #ccc; /* Bordure standard */
     border-radius: 4px; /* Coins arrondis */
     font-size: 16px; /* Taille de la police */
-    margin-top: 5px; /* Espacement au-dessus du champ */
 }
 .custom-btn {
     background-color: #28a745; /* A vibrant green */

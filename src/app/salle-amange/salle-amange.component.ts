@@ -4,6 +4,8 @@ import { SalleAManger } from '../models/salleAManger.model';
 import { SalleAMangeService } from '../services/salle-amange.service';
 import { CartService } from '../services/cart.service';
 declare var bootstrap: any;
+import { ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: 'app-salle-amange',
   templateUrl: './salle-amange.component.html',
@@ -20,19 +22,35 @@ export class SalleAmangeComponent implements OnInit {
   pageSize = 36;
   paginatedProducts: SalleAManger[] = [];
 
+  filteredSalles: SalleAManger[] = [];
+  currentType: string | null = null;
+
   constructor(
     private salleService: SalleAMangeService,
     private cartService: CartService,
-    private router: Router
+    private router: Router,private route: ActivatedRoute
   ) {}
+  
   ngOnInit(): void {
-    this.loadSalles();
-    this.updatePaginatedProducts();
+    this.route.paramMap.subscribe((params) => {
+      this.currentType = params.get('type');
+      console.log('currentType: ', this.currentType);
+      this.loadSalles(); // Charger les produits
+    });
   }
+
   loadSalles() {
     this.salleService.getSalle().subscribe((data) => {
       this.salles = data;
-      this.updatePaginatedProducts(); // Make sure to update paginated products after loading
+      if (this.currentType) {
+        this.filteredSalles = this.salles.filter(
+          (salle) => salle.type === this.currentType
+        );
+        console.log('filteredSalles: ', this.filteredSalles);
+      } else {
+        this.filteredSalles = this.salles;
+      }
+      this.updatePaginatedProducts(); // Mettre à jour la pagination après le filtrage
     });
   }
 
@@ -102,7 +120,7 @@ export class SalleAmangeComponent implements OnInit {
   updatePaginatedProducts() {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
-    this.paginatedProducts = this.salles.slice(startIndex, endIndex);
+    this.paginatedProducts = this.filteredSalles.slice(startIndex, endIndex);
   }
 
   // Méthode pour changer de page

@@ -4,6 +4,7 @@ import { Salon } from '../models/salon.model';
 import { SalonService } from '../services/salon.service';
 import { CartService } from '../services/cart.service';
 declare var bootstrap: any;
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-salon',
@@ -21,19 +22,35 @@ export class SalonComponent implements OnInit{
   pageSize = 36;
   paginatedProducts: Salon[] = [];
 
+  filteredSalons: Salon[] = [];
+  currentType: string | null = null;
+
   constructor(
     private salonService: SalonService,
     private cartService: CartService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
+ 
   ngOnInit(): void {
-    this.loadSalons();
-  this.updatePaginatedProducts();
+    this.route.paramMap.subscribe((params) => {
+      this.currentType = params.get('type');
+      console.log('currentType: ', this.currentType);
+      this.loadSalons(); // Charger les produits
+    });
   }
   loadSalons() {
     this.salonService.getSalons().subscribe((data) => {
       this.salons = data;
-      this.updatePaginatedProducts(); // Make sure to update paginated products after loading
+      if (this.currentType) {
+        this.filteredSalons = this.salons.filter(
+          (salon) => salon.type === this.currentType
+        );
+        console.log('filteredSalons: ', this.filteredSalons);
+      } else {
+        this.filteredSalons = this.salons;
+      }
+      this.updatePaginatedProducts(); // Mettre à jour la pagination après le filtrage
     });
   }
 
@@ -104,7 +121,7 @@ export class SalonComponent implements OnInit{
   updatePaginatedProducts() {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
-    this.paginatedProducts = this.salons.slice(startIndex, endIndex);
+    this.paginatedProducts = this.filteredSalons.slice(startIndex, endIndex);
   }
 
   // Méthode pour changer de page

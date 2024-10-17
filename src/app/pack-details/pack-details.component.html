@@ -50,8 +50,8 @@
         </div>
         <!-- <p><strong>Type:</strong> {{ pack.type }}</p> -->
       </div>
-      <div class="quantity-input">
-        <label for="quantity">Quantité:</label>
+      <div class="input-group mb-3 quantity-input">
+        <span class="input-group-text">Quantité:</span>
         <input type="number" class="form-control" [(ngModel)]="quantity" min="1" (input)="validateQuantity()">
       </div>
       <!-- Error messages -->

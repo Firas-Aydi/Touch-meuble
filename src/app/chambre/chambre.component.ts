@@ -4,13 +4,14 @@ import { Chambre } from '../models/chambre.model';
 import { ChambreService } from '../services/chambre.service';
 import { CartService } from '../services/cart.service';
 declare var bootstrap: any;
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-chambre',
   templateUrl: './chambre.component.html',
-  styleUrl: './chambre.component.css'
+  styleUrl: './chambre.component.css',
 })
-export class ChambreComponent implements OnInit{
+export class ChambreComponent implements OnInit {
   chambres: Chambre[] = [];
   selectedChambre: Chambre | null = null;
   quantity: number = 1; // Default quantity
@@ -21,19 +22,36 @@ export class ChambreComponent implements OnInit{
   pageSize = 36;
   paginatedProducts: Chambre[] = [];
 
+  filteredChambres: Chambre[] = [];
+  currentType: string | null = null;
   constructor(
     private chambreService: ChambreService,
     private cartService: CartService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
+
   ngOnInit(): void {
-    this.loadChambres();
-  this.updatePaginatedProducts();
+    this.route.paramMap.subscribe((params) => {
+      this.currentType = params.get('type');
+      console.log('currentType: ', this.currentType);
+      this.loadChambres(); // Charger les produits
+    });
   }
+
   loadChambres() {
     this.chambreService.getChambre().subscribe((data) => {
       this.chambres = data;
-      this.updatePaginatedProducts(); // Make sure to update paginated products after loading
+
+      if (this.currentType) {
+        this.filteredChambres = this.chambres.filter(
+          (chambre) => chambre.type === this.currentType
+        );
+        console.log('filteredChambres: ', this.filteredChambres);
+      } else {
+        this.filteredChambres = this.chambres;
+      }
+      this.updatePaginatedProducts(); // Mettre à jour la pagination après le filtrage
     });
   }
 
@@ -68,7 +86,7 @@ export class ChambreComponent implements OnInit{
       console.log(`Added ${quantity} of ${chambre.name} to the cart.`);
 
       // Assuming you have a CartService to manage the cart:
-      this.cartService.addToCart(chambre,'chambre', quantity);
+      this.cartService.addToCart(chambre, 'chambre', quantity);
 
       // Optionally show a success message or notification
       alert(`${quantity} ${chambre.name}(s) added to the cart!`);
@@ -100,11 +118,10 @@ export class ChambreComponent implements OnInit{
     }
   }
 
-  
   updatePaginatedProducts() {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
-    this.paginatedProducts = this.chambres.slice(startIndex, endIndex);
+    this.paginatedProducts = this.filteredChambres.slice(startIndex, endIndex);
   }
 
   // Méthode pour changer de page

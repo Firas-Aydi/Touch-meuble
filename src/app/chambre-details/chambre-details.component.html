@@ -37,9 +37,9 @@
                 </div>
                 <!-- <p><strong>Type:</strong> {{ chambre.type }}</p> -->
             </div>
-            <div class="quantity-input">
-                <label for="quantity">Quantité:</label>
-                <input type="number" id="quantity" [(ngModel)]="quantity" min="1" max="{{ chambre.stock }}"
+            <div class="input-group mb-3 quantity-input">
+                <span class="input-group-text">Quantité:</span>
+                <input type="number" [(ngModel)]="quantity" min="1" max="{{ chambre.stock }}"
                     class="form-control" [disabled]="chambre.stock === 0" (input)="validateQuantity()" />
             </div>
             <!-- Error messages -->

@@ -37,10 +37,11 @@
                 </div>
                 <!-- <p><strong>Type:</strong> {{ salle.type }}</p> -->
             </div>
-            <div class="quantity-input">
-                <label for="quantity">Quantité:</label>
-                <input type="number" id="quantity" [(ngModel)]="quantity" min="1" max="{{ salle.stock }}"
-                    class="form-control" [disabled]="salle.stock === 0" (input)="validateQuantity()" />
+            <div class="input-group mb-3 quantity-input">
+                <span class="input-group-text">Quantité:</span>
+                <input type="number" class="form-control" [(ngModel)]="quantity" min="1"
+                    max="{{salle.stock}}" [disabled]="salle.stock === 0"
+                    (input)="validateQuantity()">
             </div>
             <!-- Error messages -->
             <div *ngIf="quantityError" class="text-danger">
