@@ -1,48 +1,39 @@
 <div class="container mt-4">
     <div class="row">
         <div class="col-md-8">
-            <!-- <h2>Your Cart</h2> -->
             <table class="table table-hover" *ngIf="allCartItems.length > 0">
                 <thead>
                     <tr>
-                        <th>Item</th>
-                        <!-- <th>Type</th> -->
-                        <th>Quantity</th>
-                        <th>Price</th>
+                        <th>Article</th>
+                        <th>Quantité</th>
+                        <th>Prix</th>
                         <th>Total</th>
-                        <th>Actions</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let cartItem of allCartItems">
                         <td>
                             <div class="d-flex align-items-center">
-                                <!-- Image section -->
-                                <div class="me-2"> <!-- Add margin-right between the image and text -->
+                                <div class="me-2">
                                     <img [src]="cartItem.item.images[0]" alt="{{ cartItem.item.name }}"
                                         style="width: 60px; height: auto;">
                                 </div>
-
-                                <!-- Product name section -->
                                 <div>
                                     {{ cartItem.item.name }}
                                 </div>
                             </div>
                         </td>
-                        <!-- <td>{{ cartItem.type }}</td> -->
                         <td>
                             <input type="number" [(ngModel)]="cartItem.quantity"
                                 (change)="updateQuantity(cartItem, cartItem.quantity)"
                                 (change)="calculateTotalPrice()"
-                                 [min]="1"
+                                [min]="1"
                                 [max]="cartItem.item.stock" class="form-control" style="width: 60px;">
-                            <!-- <input type="number" [(ngModel)]="cartItem.quantity" 
-                                [min]="1" [max]="cartItem.item.stock" class="form-control" style="width: 60px;"> -->
                         </td>
                         <td>{{ cartItem.item.price | currency:'DT ':'symbol' }}</td>
                         <td>{{ (cartItem.item.price * cartItem.quantity) | currency:'DT ':'symbol' }}</td>
                         <td>
-                            <!-- <button class="btn btn-danger" > -->
                             <button class="btn btn-danger" (click)="removeItem(cartItem.itemId, cartItem.type)">
                                 <i class="fa fa-trash"></i>
                             </button>
@@ -54,24 +45,24 @@
 
         <div class="col-md-4">
             <div class="card p-3 bg-light shadow-sm">
-                <h4>Order Summary</h4>
-                <hr>
+                <!-- <h4>Résumé de la commande</h4>
+                <hr> -->
                 <div class="d-flex justify-content-between">
-                    <span>Subtotal:</span>
+                    <span>{{ getTotalItemsCount() }} article(s) :</span>
                     <strong>{{ totalPrice | currency:'DT ':'symbol' }}</strong>
                 </div>
                 <div class="d-flex justify-content-between">
-                    <span>Delivery:</span>
+                    <span>Livraison :</span>
                     <strong>7 DT</strong>
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between">
-                    <span>Total with Delivery:</span>
+                    <span>Total avec livraison :</span>
                     <strong>{{ (totalPrice + 7) | currency:'DT ':'symbol' }}</strong>
                 </div>
 
                 <button class="btn btn-success mt-3 w-100" (click)="proceedToCheckout()">
-                    Place the Order
+                    Passer la commande
                 </button>
             </div>
         </div>

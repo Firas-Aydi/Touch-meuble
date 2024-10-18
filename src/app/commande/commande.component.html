@@ -1,0 +1,38 @@
+<div class="container mt-4">
+    <h2>Passer la commande</h2>
+    <form #orderForm="ngForm" (ngSubmit)="onSubmit(orderForm)">
+        <div class="mb-3">
+            <label for="firstName" class="form-label">Prénom</label>
+            <input type="text" id="firstName" class="form-control" required [(ngModel)]="order.firstName" name="firstName">
+        </div>
+        <div class="mb-3">
+            <label for="lastName" class="form-label">Nom</label>
+            <input type="text" id="lastName" class="form-control" required [(ngModel)]="order.lastName" name="lastName">
+        </div>
+        <div class="mb-3">
+            <label for="address" class="form-label">Adresse</label>
+            <input type="text" id="address" class="form-control" required [(ngModel)]="order.address" name="address">
+        </div>
+        <div class="mb-3">
+            <label for="city" class="form-label">Ville</label>
+            <input type="text" id="city" class="form-control" required [(ngModel)]="order.city" name="city">
+        </div>
+        <div class="mb-3">
+            <label for="region" class="form-label">Région / Département</label>
+            <input type="text" id="region" class="form-control" required [(ngModel)]="order.region" name="region">
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" class="form-control" required [(ngModel)]="order.email" name="email">
+        </div>
+        <div class="mb-3">
+            <label for="phone" class="form-label">Téléphone</label>
+            <input type="tel" id="phone" class="form-control" required [(ngModel)]="order.phone" name="phone">
+        </div>
+        <div class="mb-3">
+            <label for="notes" class="form-label">Notes de commande (facultatif)</label>
+            <textarea id="notes" class="form-control" [(ngModel)]="order.notes" name="notes"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Confirmer la commande</button>
+    </form>
+</div>

@@ -10,6 +10,8 @@ import { SalleAManger } from '../models/salleAManger.model'; // Import du modèl
 import { Product } from '../models/product.model'; // Import du modèle Product
 import { ProductService } from '../services/product.service';
 import { map } from 'rxjs';
+import { CartService } from '../services/cart.service';
+import { Subscription } from 'rxjs'; // Import Subscription
 
 interface UserData {
   role: string;
@@ -36,13 +38,16 @@ export class NavbarComponent implements OnInit {
   sallesUnique$: Observable<string[]> | undefined;
 
   products: Product[] = [];
+  cartItemCount: number = 0;
+  private cartSubscription: Subscription | undefined; // Pour gérer l'abonnement
 
   constructor(
     private af: AngularFireAuth,
     private route: Router,
     private as: AuthService,
     private firestore: AngularFirestore,
-    private productService: ProductService
+    private productService: ProductService,
+    private cartService: CartService
   ) {
     this.as.user.subscribe((user) => {
       if (user) {
@@ -91,24 +96,43 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadProducts();
-    // console.log('User Type:', this.userType);
-     // Remplacer vos observables avec des valeurs filtrées par type unique
-     this.meublesUnique$ = this.meubles$.pipe(
-      map(meubles => Array.from(new Set(meubles.map(meuble => meuble.type))))
+    // Charger le compteur du panier depuis localStorage
+    const savedCartCount = localStorage.getItem('cartItemCount');
+    this.cartItemCount = savedCartCount ? +savedCartCount : 0;
+
+    this.meublesUnique$ = this.meubles$.pipe(
+      map((meubles) =>
+        Array.from(new Set(meubles.map((meuble) => meuble.type)))
+      )
     );
 
     this.salonsUnique$ = this.salons$.pipe(
-      map(salons => Array.from(new Set(salons.map(salon => salon.type))))
+      map((salons) => Array.from(new Set(salons.map((salon) => salon.type))))
     );
 
     this.chambresUnique$ = this.chambres$.pipe(
-      map(chambres => Array.from(new Set(chambres.map(chambre => chambre.type))))
+      map((chambres) =>
+        Array.from(new Set(chambres.map((chambre) => chambre.type)))
+      )
     );
 
     this.sallesUnique$ = this.salles$.pipe(
-      map(salles => Array.from(new Set(salles.map(salle => salle.type))))
+      map((salles) => Array.from(new Set(salles.map((salle) => salle.type))))
     );
-  
+    // S'abonner aux changements du panier
+    this.cartSubscription = this.cartService.cartItemCount$.subscribe(
+      (count) => {
+        this.cartItemCount = count;
+        // localStorage.setItem('cartItemCount', count.toString());
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    // Se désabonner lorsque le composant est détruit pour éviter les fuites de mémoire
+    if (this.cartSubscription) {
+      this.cartSubscription.unsubscribe();
+    }
   }
   loadProducts() {
     this.productService.getAllProducts().subscribe((data) => {

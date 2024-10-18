@@ -39,6 +39,7 @@ import { SalleAmangeDetailsComponent } from './salle-amange-details/salle-amange
 import { ChambreComponent } from './chambre/chambre.component';
 import { SalleAmangeComponent } from './salle-amange/salle-amange.component';
 import { SalonComponent } from './salon/salon.component';
+import { CommandeComponent } from './commande/commande.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { SalonComponent } from './salon/salon.component';
     SalleAmangeDetailsComponent,
     SalonComponent,
     SalonDetailsComponent,
-    CartComponent
+    CartComponent,
+    CommandeComponent
   ],
   imports: [
     BrowserModule,

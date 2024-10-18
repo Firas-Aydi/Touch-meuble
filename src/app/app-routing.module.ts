@@ -22,6 +22,7 @@ import { SalleAmangeDetailsComponent } from './salle-amange-details/salle-amange
 import { ChambreComponent } from './chambre/chambre.component';
 import { SalonComponent } from './salon/salon.component';
 import { SalleAmangeComponent } from './salle-amange/salle-amange.component';
+import { CommandeComponent } from './commande/commande.component';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -54,6 +55,8 @@ const routes: Routes = [
   { path: 'salons/:type', component: SalonDetailsComponent },
   
   { path: 'cart', component: CartComponent },
+  { path: 'commande', component: CommandeComponent },
+
   { path: 'categories-management', component: CategoryManagementComponent },
   
 ];

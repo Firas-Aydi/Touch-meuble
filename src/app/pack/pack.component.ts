@@ -45,8 +45,8 @@ export class PackComponent implements OnInit {
   loadPacks() {
     this.packService.getAllPacks().subscribe((data) => {
       this.packs = data;
-      this.updatePaginatedPacks(); // Make sure to update paginated products after loading
-    });
+      this.updatePaginatedPacks();
+        });
   }
 
   viewPackDetails(packId: string | undefined) {
@@ -107,7 +107,6 @@ export class PackComponent implements OnInit {
 
       // Assuming you have a CartService to manage the cart:
       this.cartService.addToCart(pack, 'pack', quantity);
-      alert(`${quantity} ${pack.name}(s) added to the cart!`);
 
       // Optionally show a success message or notification
       alert(`${quantity} ${pack.name}(s) added to the cart!`);
