@@ -26,7 +26,10 @@
         <li class="nav-item" *ngIf="isUser && userType === 'admin'">
           <a class="nav-link chic-link" aria-current="page" routerLink="packs-management">Gestion des packs</a>
         </li>
-
+        <li class="nav-item" *ngIf="isUser && userType === 'admin'">
+          <a class="nav-link chic-link" aria-current="page" routerLink="commandes-management">Commandes</a>
+        </li>
+        
 
         <!-- Meubles Dropdown -->
         <li class="nav-item dropdown" *ngIf="userType !== 'admin'">

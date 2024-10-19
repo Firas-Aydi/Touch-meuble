@@ -1,0 +1,12 @@
+.table {
+    font-size: 14px;
+  }
+  
+  .table th, .table td {
+    text-align: center;
+  }
+  
+  .btn-sm {
+    margin: 0 5px;
+  }
+  

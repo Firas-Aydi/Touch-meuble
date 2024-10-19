@@ -1,0 +1,73 @@
+<div class="container mt-5">
+    <h2 class="text-center">Gestion des Commandes</h2>
+    <table class="table table-bordered table-hover mt-4">
+      <thead>
+        <tr>
+          <th>Client</th>
+          <th>Total</th>
+          <th>Date</th>
+          <th>État</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let commande of commandes" [ngClass]="getCommandeRowClass(commande.etat)">
+          <td>{{ commande.firstName }} {{ commande.lastName }}</td>
+          <td>{{ commande.totalPrice | currency:'DT ':'symbol' }}</td>
+          <td>{{ commande.timestamp?.toDate() | date:'short' }}</td>
+          <td>{{ commande.etat }}</td>
+          <td>
+            <button class="btn btn-info btn-sm text-light" (click)="openDetailsModal(commande)">Détails</button>
+            <button class="btn btn-success btn-sm" (click)="accepterCommande(commande.commandeId!)">Accepter</button>
+            <button class="btn btn-danger btn-sm" (click)="refuserCommande(commande.commandeId!)">Refuser</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <!-- Modale pour afficher les détails de la commande -->
+<div class="modal fade" id="commandeDetailsModal" tabindex="-1" aria-labelledby="commandeDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="commandeDetailsModalLabel">Détails de la Commande</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Client :</strong> {{ selectedCommande?.firstName }} {{ selectedCommande?.lastName }}</p>
+          <p><strong>Adresse :</strong> {{ selectedCommande?.address }}</p>
+          <p><strong>Ville :</strong> {{ selectedCommande?.city }}, {{ selectedCommande?.region }}</p>
+          <p><strong>Email :</strong> {{ selectedCommande?.email }}</p>
+          <p><strong>Téléphone :</strong> {{ selectedCommande?.phone }}</p>
+          <p><strong>Notes :</strong> {{ selectedCommande?.notes }}</p>
+          <p><strong>Total :</strong> {{ selectedCommande?.totalPrice | currency:'DT ':'symbol' }}</p>
+          <p><strong>État :</strong> {{ selectedCommande?.etat }}</p>
+          <p><strong>Date :</strong> {{ selectedCommande?.timestamp?.toDate() | date:'short' }}</p>
+  
+          <!-- Section des articles commandés -->
+          <h5 class="mt-4">Articles commandés</h5>
+          <div *ngFor="let item of selectedCommande?.cartItems">
+            <hr>
+            <p><strong>Nom de l'article :</strong> {{ item.item.name }}</p>
+            <p><strong>Description :</strong> {{ item.item.description }}</p>
+            <p><strong>Dimensions :</strong> {{ item.item.dimensions }}</p>
+            <p><strong>Matériau :</strong> {{ item.item.material }}</p>
+            <p><strong>Couleurs :</strong> <span *ngFor="let color of item.item.colors">{{ color }} </span></p>
+            <p><strong>Prix unitaire :</strong> {{ item.item.price | currency:'DT ':'symbol' }}</p>
+            <p><strong>Quantité :</strong> {{ item.quantity }}</p>
+            <p><strong>Total pour cet article :</strong> {{ item.item.price * item.quantity | currency:'DT ':'symbol' }}</p>
+            <div *ngIf="item.item.images?.length">
+              <strong>Images :</strong>
+              <div *ngFor="let image of item.item.images">
+                <img [src]="image" alt="{{ item.item.name }}" class="img-fluid" style="max-width: 150px; margin-right: 10px;">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -77,49 +77,7 @@ export class PackManagementComponent implements OnInit {
     this.loadSalon();
     // this.loadAllCategories();
   }
-  //   loadAllCategories() {
-  //     console.log('Début du chargement des catégories');
 
-  //     this.chambreservice.getChambre().pipe(
-  //         tap(data => console.log('Chambres:', data)),
-  //         catchError(error => {
-  //             console.error('Erreur lors du chargement des chambres', error);
-  //             return of([]); // Renvoie un tableau vide en cas d'erreur
-  //         })
-  //     ).subscribe(chambres => {
-  //         this.chambres = chambres;
-
-  //         this.salleAMangeService.getSalle().pipe(
-  //             tap(data => console.log('Salles:', data)),
-  //             catchError(error => {
-  //                 console.error('Erreur lors du chargement des salles', error);
-  //                 return of([]);
-  //             })
-  //         ).subscribe(salles => {
-  //             this.salles = salles;
-
-  //             this.salonService.getSalons().pipe(
-  //                 tap(data => console.log('Salons:', data)),
-  //                 catchError(error => {
-  //                     console.error('Erreur lors du chargement des salons', error);
-  //                     return of([]);
-  //                 })
-  //             ).subscribe(salons => {
-  //                 this.salons = salons;
-
-  //                 // Fusionner les données dans categories
-  //                 this.categories = [...this.chambres, ...this.salles, ...this.salons];
-  //                 console.log('Toutes les catégories:', this.categories);
-  //             });
-  //         });
-  //     });
-  // }
-
-  // loadCategories() {
-  //   this.categoryService.getAllCategories().subscribe((data) => {
-  //     this.categories = data;
-  //   });
-  // }
   loadChambre() {
     this.chambreservice.getChambre().subscribe((data) => {
       this.chambres = data;
@@ -138,54 +96,7 @@ export class PackManagementComponent implements OnInit {
       // console.log(this.salons);
     });
   }
-  // loadChambre() {
-  //   console.log('Chargement des chambres...');
-  //   this.chambreservice.getChambre().subscribe(
-  //     (data) => {
-  //       console.log('Chambres reçues: ', data);
-  //       this.categories = data;
-  //     },
-  //     (error) => {
-  //       console.error('Erreur lors du chargement des chambres: ', error);
-  //     }
-  //   );
-  // }
-
-  // getCategoryById(categoryId: string): Category | undefined {
-  //   return this.categories.find(
-  //     (category) => category.categoryId === categoryId
-  //   );
-  // }
-  // getSelectedCategoryNames(): string[] {
-  //   const selectedCategoryIds = this.packForm.get('items')?.value || [];
-  //   return selectedCategoryIds.map(
-  //     (categoryId: string) =>
-  //       this.categories.find((c) => c.categoryId === categoryId)?.name ||
-  //       'Unknown category'
-  //   );
-  // }
-  // onCategorySelect(event: any, category: Category) {
-  //   const selectedCategories = this.packForm.get('items')?.value || [];
-
-  //   if (event.target.checked) {
-  //     // Add product to the selection
-  //     selectedCategories.push(category.categoryId);
-  //   } else {
-  //     // Remove product from the selection
-  //     const index = selectedCategories.indexOf(category.categoryId);
-  //     if (index > -1) {
-  //       selectedCategories.splice(index, 1);
-  //     }
-  //   }
-
-  //   // Update the form value
-  //   this.packForm.patchValue({ items: selectedCategories });
-  // }
-
-  // getChambreById(chambreId: string): Chambre | undefined {
-  //   return this.chambres.find((chambre) => chambre.chambreId === chambreId);
-  // }
-
+  
   getItemById(itemId: string): { name: string, price: number } | undefined {
     const chambre = this.chambres.find((ch) => ch.chambreId === itemId);
     if (chambre) return { name: chambre.name, price: chambre.price };
@@ -215,23 +126,7 @@ export class PackManagementComponent implements OnInit {
       return 'Unknown item';
     // });
   }
-  // onChambreSelect(event: any, chambre: Chambre) {
-  //   const selectedChambres = this.packForm.get('items')?.value || [];
-
-  //   if (event.target.checked) {
-  //     // Add product to the selection
-  //     selectedChambres.push(chambre.chambreId);
-  //   } else {
-  //     // Remove product from the selection
-  //     const index = selectedChambres.indexOf(chambre.chambreId);
-  //     if (index > -1) {
-  //       selectedChambres.splice(index, 1);
-  //     }
-  //   }
-
-  // Update the form value
-  //   this.packForm.patchValue({ items: selectedChambres });
-  // }
+  
   onChambreSelect(): void {
     const selectedId = this.packForm.get('selectedChambre')?.value;
     // console.log('Chambre sélectionnée:', selectedId);
