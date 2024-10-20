@@ -25,49 +25,62 @@
       </tbody>
     </table>
     
-    <!-- Modale pour afficher les détails de la commande -->
+   <!-- Modale pour afficher les détails de la commande -->
 <div class="modal fade" id="commandeDetailsModal" tabindex="-1" aria-labelledby="commandeDetailsModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="commandeDetailsModalLabel">Détails de la Commande</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p><strong>Client :</strong> {{ selectedCommande?.firstName }} {{ selectedCommande?.lastName }}</p>
-          <p><strong>Adresse :</strong> {{ selectedCommande?.address }}</p>
-          <p><strong>Ville :</strong> {{ selectedCommande?.city }}, {{ selectedCommande?.region }}</p>
-          <p><strong>Email :</strong> {{ selectedCommande?.email }}</p>
-          <p><strong>Téléphone :</strong> {{ selectedCommande?.phone }}</p>
-          <p><strong>Notes :</strong> {{ selectedCommande?.notes }}</p>
-          <p><strong>Total :</strong> {{ selectedCommande?.totalPrice | currency:'DT ':'symbol' }}</p>
-          <p><strong>État :</strong> {{ selectedCommande?.etat }}</p>
-          <p><strong>Date :</strong> {{ selectedCommande?.timestamp?.toDate() | date:'short' }}</p>
-  
-          <!-- Section des articles commandés -->
-          <h5 class="mt-4">Articles commandés</h5>
-          <div *ngFor="let item of selectedCommande?.cartItems">
-            <hr>
-            <p><strong>Nom de l'article :</strong> {{ item.item.name }}</p>
-            <p><strong>Description :</strong> {{ item.item.description }}</p>
-            <p><strong>Dimensions :</strong> {{ item.item.dimensions }}</p>
-            <p><strong>Matériau :</strong> {{ item.item.material }}</p>
-            <p><strong>Couleurs :</strong> <span *ngFor="let color of item.item.colors">{{ color }} </span></p>
-            <p><strong>Prix unitaire :</strong> {{ item.item.price | currency:'DT ':'symbol' }}</p>
-            <p><strong>Quantité :</strong> {{ item.quantity }}</p>
-            <p><strong>Total pour cet article :</strong> {{ item.item.price * item.quantity | currency:'DT ':'symbol' }}</p>
-            <div *ngIf="item.item.images?.length">
-              <strong>Images :</strong>
-              <div *ngFor="let image of item.item.images">
-                <img [src]="image" alt="{{ item.item.name }}" class="img-fluid" style="max-width: 150px; margin-right: 10px;">
-              </div>
+    <div class="modal-dialog modal-lg" role="document"> <!-- Ajout de 'modal-lg' pour rendre la modal plus large -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="commandeDetailsModalLabel">Détails de la Commande</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-          </div>
+            <div class="modal-body">
+                <div class="row">
+                    <!-- Colonne pour les détails de la commande -->
+                    <div class="col-md-6">
+                        <h5>Détails de la Commande</h5>
+                        <p><strong>Client :</strong> {{ selectedCommande?.firstName }} {{ selectedCommande?.lastName }}</p>
+                        <p><strong>Adresse :</strong> {{ selectedCommande?.address }}</p>
+                        <p><strong>Ville :</strong> {{ selectedCommande?.city }}, {{ selectedCommande?.region }}</p>
+                        <p><strong>Email :</strong> {{ selectedCommande?.email }}</p>
+                        <p><strong>Téléphone :</strong> {{ selectedCommande?.phone }}</p>
+                        <p><strong>Notes :</strong> {{ selectedCommande?.notes }}</p>
+                        <p><strong>Total :</strong> {{ selectedCommande?.totalPrice | currency:'DT ':'symbol' }}</p>
+                        <p><strong>État :</strong> {{ selectedCommande?.etat }}</p>
+                        <p><strong>Date :</strong> {{ selectedCommande?.timestamp?.toDate() | date:'short' }}</p>
+                    </div>
+
+                    <!-- Colonne pour les articles commandés -->
+                    <div class="col-md-6">
+                        <h5>Articles commandés</h5>
+                        <div *ngFor="let item of selectedCommande?.cartItems">
+                            <hr>
+                            <p><strong>Nom de l'article :</strong> {{ item.item.name }}</p>
+                            <p><strong>Description :</strong> {{ item.item.description }}</p>
+                            <p><strong>Dimensions :</strong> {{ item.item.dimensions }}</p>
+                            <p><strong>Matériau :</strong> {{ item.item.material }}</p>
+                            <p class="color-samples">
+                                <strong>Couleurs :</strong>
+                                <span *ngFor="let color of item.item.colors" 
+                                      [style.backgroundColor]="color" 
+                                      class="color-sample" 
+                                      title="{{ color }}"></span>
+                            </p>              
+                            <p><strong>Prix unitaire :</strong> {{ item.item.price | currency:'DT ':'symbol' }}</p>
+                            <p><strong>Quantité :</strong> {{ item.quantity }}</p>
+                            <p><strong>Total pour cet article :</strong> {{ item.item.price * item.quantity | currency:'DT ':'symbol' }}</p>
+                            <div *ngIf="item.item.images?.length">
+                                <strong>Images :</strong>
+                                <div *ngFor="let image of item.item.images">
+                                    <img [src]="image" alt="{{ item.item.name }}" class="img-fluid" style="max-width: 150px; margin-right: 10px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            </div> -->
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-        </div>
-      </div>
     </div>
-  </div>
-  
+</div>

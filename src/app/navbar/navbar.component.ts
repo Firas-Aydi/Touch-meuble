@@ -37,8 +37,10 @@ export class NavbarComponent implements OnInit {
   chambresUnique$: Observable<string[]> | undefined;
   sallesUnique$: Observable<string[]> | undefined;
 
-  products: Product[] = [];
+  // products: Product[] = [];
   cartItemCount: number = 0;
+  searchTerm: string = '';
+
   private cartSubscription: Subscription | undefined; // Pour gérer l'abonnement
 
   constructor(
@@ -46,7 +48,7 @@ export class NavbarComponent implements OnInit {
     private route: Router,
     private as: AuthService,
     private firestore: AngularFirestore,
-    private productService: ProductService,
+    // private productService: ProductService,
     private cartService: CartService
   ) {
     this.as.user.subscribe((user) => {
@@ -95,7 +97,7 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadProducts();
+    // this.loadProducts();
     // Charger le compteur du panier depuis localStorage
     const savedCartCount = localStorage.getItem('cartItemCount');
     this.cartItemCount = savedCartCount ? +savedCartCount : 0;
@@ -134,12 +136,25 @@ export class NavbarComponent implements OnInit {
       this.cartSubscription.unsubscribe();
     }
   }
-  loadProducts() {
-    this.productService.getAllProducts().subscribe((data) => {
-      this.products = data;
-      // console.log('products: ', this.products);
-    });
-  }
+  // loadProducts() {
+  //   this.productService.getAllProducts().subscribe((data) => {
+  //     this.products = data;
+  //     // console.log('products: ', this.products);
+  //   });
+  // }
+
+  // onSearch() {
+  //   if (this.searchTerm) {
+  //     const term = this.searchTerm.toLowerCase();  // Convertir la recherche en minuscule pour éviter les problèmes de casse
+  //     this.products = this.products.filter(product => 
+  //       product.name.toLowerCase().includes(term) || 
+  //       product.type.toLowerCase().includes(term)
+  //     );
+  //   } else {
+  //     // Si le champ de recherche est vide, charger à nouveau tous les produits
+  //     // this.loadProducts();
+  //   }
+  // }
   logout() {
     this.af
       .signOut()
