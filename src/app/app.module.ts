@@ -40,6 +40,7 @@ import { ChambreComponent } from './chambre/chambre.component';
 import { SalleAmangeComponent } from './salle-amange/salle-amange.component';
 import { SalonComponent } from './salon/salon.component';
 import { CommandeComponent } from './commande/commande.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { CommandeComponent } from './commande/commande.component';
     ResetpasswordComponent,
     // VarifyEmailComponent,
     NavbarComponent,
+    FooterComponent,
     PackComponent,
     PackDetailsComponent,
     ProductComponent,

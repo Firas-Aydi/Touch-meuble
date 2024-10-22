@@ -124,14 +124,35 @@ export class ChambreComponent implements OnInit {
     this.paginatedProducts = this.filteredChambres.slice(startIndex, endIndex);
   }
 
-  // Méthode pour changer de page
   changePage(pageNumber: number) {
     this.currentPage = pageNumber;
     this.updatePaginatedProducts();
   }
 
-  // Obtenir le nombre total de pages
   get totalPages(): number {
     return Math.ceil(this.chambres.length / this.pageSize);
   }
+
+  // updatePaginatedProducts() {
+  //   const startIndex = (this.currentPage - 1) * this.pageSize;
+  //   const endIndex = startIndex + this.pageSize;
+  //   this.paginatedProducts = this.filteredChambres.slice(startIndex, endIndex);
+  // }
+  
+  // changePage(pageNumber: number) {
+  //   if (pageNumber >= 1 && pageNumber <= this.totalPages) {
+  //     this.currentPage = pageNumber;
+  //     this.updatePaginatedProducts();
+  //   }
+  // }
+  
+  // get totalPages(): number {
+  //   return Math.ceil(this.filteredChambres.length / this.pageSize);
+  // }
+  
+  // getPagesArray(): number[] {
+  //   return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  // }
+  
+  
 }

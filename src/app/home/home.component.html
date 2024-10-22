@@ -35,11 +35,12 @@
       <div class="col-lg-3 col-md-6 mb-4" *ngFor="let pack of packs | slice:0:4 ">
         <div class="card h-100 d-flex flex-column">
           <div style="cursor: pointer;" (click)="viewPackDetails(pack.packId)">
-          <img [src]="pack.images[0]" class="card-img-top" alt="{{ pack.name }}">
-          <div class="card-body text-center">
-            <h5 class="card-title">{{ pack.name }}</h5>
-            <p class="text-success fw-bold">{{ pack.price }} DT</p>
-          </div></div>
+            <img [src]="pack.images[0]" class="card-img-top" alt="{{ pack.name }}">
+            <div class="card-body text-center">
+              <h5 class="card-title">{{ pack.name }}</h5>
+              <p class="text-success fw-bold">{{ pack.price }} DT</p>
+            </div>
+          </div>
           <div class="card-footer p-0 mt-auto">
             <button class="btn btn-outline-secondary btn-custom" (click)="openPackDetailsModal(pack)">
               <i class="fas fa-eye"></i>
@@ -60,11 +61,12 @@
       <div class="col-lg-3 col-md-6 mb-4" *ngFor="let chambre of chambres | slice:0:4">
         <div class="card h-100 d-flex flex-column">
           <div style="cursor: pointer;" (click)="viewChambreDetails(chambre.chambreId)">
-          <img [src]="chambre.images[0]" class="card-img-top" alt="{{ chambre.name }}">
-          <div class="card-body text-center">
-            <h5 class="card-title">{{ chambre.name }}</h5>
-            <p class="text-success fw-bold">{{ chambre.price }} DT</p>
-          </div></div>
+            <img [src]="chambre.images[0]" class="card-img-top" alt="{{ chambre.name }}">
+            <div class="card-body text-center">
+              <h5 class="card-title">{{ chambre.name }}</h5>
+              <p class="text-success fw-bold">{{ chambre.price }} DT</p>
+            </div>
+          </div>
           <div class="card-footer p-0 mt-auto">
             <button class="btn btn-outline-secondary btn-custom" (click)="openChambreDetailsModal(chambre)">
               <i class="fas fa-eye"></i>
@@ -85,11 +87,12 @@
         <div class="card h-100 d-flex flex-column">
           <div style="cursor: pointer;" (click)="viewSalonDetails(salon.salonId)">
 
-          <img [src]="salon.images[0]" class="card-img-top" alt="{{ salon.name }}">
-          <div class="card-body text-center">
-            <h5 class="card-title">{{ salon.name }}</h5>
-            <p class="text-success fw-bold">{{ salon.price }} DT</p>
-          </div></div>
+            <img [src]="salon.images[0]" class="card-img-top" alt="{{ salon.name }}">
+            <div class="card-body text-center">
+              <h5 class="card-title">{{ salon.name }}</h5>
+              <p class="text-success fw-bold">{{ salon.price }} DT</p>
+            </div>
+          </div>
           <div class="card-footer p-0 mt-auto">
             <button class="btn btn-outline-secondary btn-custom" (click)="openPackDetailsModal(salon)">
               <i class="fas fa-eye"></i>
@@ -110,10 +113,11 @@
         <div class="card h-100 d-flex flex-column">
           <div style="cursor: pointer;" (click)="viewSalleDetails(salle.salleId)">
             <img [src]="salle.images[0]" class="card-img-top" alt="{{ salle.name }}">
-          <div class="card-body text-center">
-            <h5 class="card-title">{{ salle.name }}</h5>
-            <p class="text-success fw-bold">{{ salle.price }} DT</p>
-          </div></div>
+            <div class="card-body text-center">
+              <h5 class="card-title">{{ salle.name }}</h5>
+              <p class="text-success fw-bold">{{ salle.price }} DT</p>
+            </div>
+          </div>
           <div class="card-footer p-0 mt-auto">
             <button class="btn btn-outline-secondary btn-custom" (click)="openPackDetailsModal(salle)">
               <i class="fas fa-eye"></i>
@@ -151,33 +155,6 @@
       </div>
     </div>
   </section> -->
-
-<!-- FOOTER -->
-<footer class="py-5 bg-dark text-light">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-4">
-        <h5>Contactez-nous</h5>
-        <p><i class="fas fa-phone"></i> +216 123 456 789</p>
-        <p><i class="fas fa-envelope"></i> contact&#64;touchmeuble.tn</p>
-        <p><i class="fas fa-map-marker-alt"></i> Tunis, Tunisie</p>
-      </div>
-      <!-- <div class="col-lg-4">
-          <h5>Liens utiles</h5>
-          <ul class="list-unstyled">
-            <li><a href="#" class="text-light">Politique de confidentialité</a></li>
-            <li><a href="#" class="text-light">Mentions légales</a></li>
-          </ul>
-        </div> -->
-      <div class="col-lg-4 text-center">
-        <h5>Suivez-nous</h5>
-        <a href="#" class="text-light me-3"><i class="fab fa-facebook-f"></i></a>
-        <a href="#" class="text-light me-3"><i class="fab fa-instagram"></i></a>
-        <a href="#" class="text-light"><i class="fab fa-twitter"></i></a>
-      </div>
-    </div>
-  </div>
-</footer>
 
 <!-- Bootstrap Modal for Pack Details -->
 <div class="modal fade" id="packDetailsModal" tabindex="-1" aria-labelledby="packDetailsModalLabel" aria-hidden="true">
@@ -237,7 +214,8 @@
 </div>
 
 <!-- Bootstrap Modal for chambre Details -->
-<div class="modal fade" id="chambreDetailsModal" tabindex="-1" aria-labelledby="chambreDetailsModalLabel" aria-hidden="true">
+<div class="modal fade" id="chambreDetailsModal" tabindex="-1" aria-labelledby="chambreDetailsModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">

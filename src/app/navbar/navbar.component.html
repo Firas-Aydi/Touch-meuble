@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary custom-navbar py-3">
   <div class="container-fluid">
     <a class="navbar-brand" routerLink="">
-      <img src="assets/Smart Ways I.png" alt="Logo" class="navbar-logo" />
+      <img src="assets/TM-.png" alt="Logo" class="navbar-logo" />
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTop"
       aria-controls="navbarTop" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,9 +20,6 @@
             name="searchTerm" (input)="onSearch()" aria-label="Search" aria-describedby="search-icon">
         </div> -->
       </form>
-
-
-
       <!-- Liens Panier, Compte, et Contact -->
       <ul class="navbar-nav mb-2 mb-lg-0">
         <li class="nav-item" *ngIf="userType !== 'admin'">
@@ -45,17 +42,18 @@
       </ul>
     </div>
   </div>
+  
 </nav>
 
 <!-- Deuxième partie de la navbar : Liens de navigation (gestion, meubles, etc.) -->
 <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary custom-navbar border-top">
   <div class="container-fluid">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarBottom"
+    <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarBottom"
       aria-controls="navbarBottom" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
-    </button>
+    </button> -->
 
-    <div class="collapse navbar-collapse" id="navbarBottom">
+    <div class="collapse navbar-collapse" id="navbarTop">
       <ul class="navbar-nav mx-auto justify-content-center mb-2 mb-lg-0">
         <li class="nav-item" *ngIf="isUser && userType === 'admin'">
           <a class="nav-link chic-link" aria-current="page" routerLink="products-management">Gestion des Meubles</a>

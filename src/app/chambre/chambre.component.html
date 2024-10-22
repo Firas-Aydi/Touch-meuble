@@ -25,21 +25,22 @@
         <nav aria-label="Page navigation">
             <ul class="pagination justify-content-center">
                 <li class="page-item" [class.disabled]="currentPage === 1">
-                    <a class="page-link" (click)="changePage(currentPage - 1)" aria-label="Previous">
+                    <a class="page-link" (click)="changePage(currentPage - 1)" aria-label="Previous" style="cursor: pointer;">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
                 <li class="page-item" *ngFor="let page of [].constructor(totalPages); let pageIndex = index" 
                     [class.active]="currentPage === pageIndex + 1">
-                    <a class="page-link" (click)="changePage(pageIndex + 1)">{{ pageIndex + 1 }}</a>
+                    <a class="page-link" (click)="changePage(pageIndex + 1)" style="cursor: pointer;">{{ pageIndex + 1 }}</a>
                 </li>
                 <li class="page-item" [class.disabled]="currentPage === totalPages">
-                    <a class="page-link" (click)="changePage(currentPage + 1)" aria-label="Next">
+                    <a class="page-link" (click)="changePage(currentPage + 1)" aria-label="Next" style="cursor: pointer;">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
             </ul>
         </nav>
+          
     </div>
 </section>
 
