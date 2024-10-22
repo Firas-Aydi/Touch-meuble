@@ -8,6 +8,7 @@ import { SalleAMangeService } from '../services/salle-amange.service';
 import { ChambreService } from '../services/chambre.service';
 import { Pack } from '../models/pack.model';
 import { CartService } from '../services/cart.service';
+import { Chambre } from '../models/chambre.model';
 declare var bootstrap: any;
 
 @Component({
@@ -111,6 +112,27 @@ export class HomeComponent implements OnInit {
       console.error('Pack ID is undefined. Cannot navigate to pack details.');
     }
   }
+  viewChambreDetails(chambreId: string | undefined) {
+    if (chambreId) {
+      this.router.navigate(['/chambres', chambreId]);
+    } else {
+      console.error('Pack ID is undefined. Cannot navigate to pack details.');
+    }
+  }
+  viewSalonDetails(salonId: string | undefined) {
+    if (salonId) {
+      this.router.navigate(['/salons', salonId]);
+    } else {
+      console.error('Pack ID is undefined. Cannot navigate to pack details.');
+    }
+  }
+  viewSalleDetails(salleId: string | undefined) {
+    if (salleId) {
+      this.router.navigate(['/salles', salleId]);
+    } else {
+      console.error('Pack ID is undefined. Cannot navigate to pack details.');
+    }
+  }
   loadItemDetails(chambreId: string, salleId: string, salonId: string) {
     // Charger le nom de la chambre
     if (chambreId) {
@@ -133,6 +155,23 @@ export class HomeComponent implements OnInit {
       });
     }
   }
+  openChambreDetailsModal(chambre: Chambre) {
+    console.log('chambre', chambre);
+    this.selectedPack = chambre;
+    console.log('selectedchambre', this.selectedPack);
+    this.selectedImage = chambre.images[0]; // Set the default selected image
+
+    // const selectedChambre = (pack as any)['selectedChambre'];
+    // const selectedSalle = (pack as any)['selectedSalle'];
+    // const selectedSalon = (pack as any)['selectedSalon'];
+
+    // this.loadItemDetails(selectedChambre, selectedSalle, selectedSalon);
+    const chambreDetailsModal = new bootstrap.Modal(
+      document.getElementById('chambreDetailsModal')
+    );
+    chambreDetailsModal.show();
+  }
+  
   openPackDetailsModal(pack: Pack) {
     console.log('pack', pack);
     this.selectedPack = pack;

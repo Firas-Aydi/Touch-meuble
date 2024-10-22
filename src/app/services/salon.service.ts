@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
+import { finalize, Observable } from 'rxjs';
 import { Salon } from '../models/salon.model';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,26 @@ export class SalonService {
 
   private salonCollection = this.firestore.collection<Salon>('salons');
 
-  constructor(private firestore: AngularFirestore) { }
+  constructor(private firestore: AngularFirestore, private storage: AngularFireStorage) { }
 
+  // Méthode pour télécharger des images vers Firebase Storage
+  uploadImage(file: File, salonId: string): Observable<string> {
+    const filePath = `salons/${salonId}/${file.name}`; // Chemin de stockage
+    const fileRef = this.storage.ref(filePath);
+    const uploadTask = this.storage.upload(filePath, file);
+
+    return new Observable<string>((observer) => {
+      uploadTask.snapshotChanges().pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe((url) => {
+            observer.next(url);  // Renvoie l'URL après téléchargement
+            observer.complete();
+          });
+        })
+      ).subscribe();
+    });
+  }
+  
   // Get all salons
   getSalons(): Observable<Salon[]> {
     return this.salonCollection.valueChanges({ idField: 'salonId' });

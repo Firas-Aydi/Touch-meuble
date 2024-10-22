@@ -6,21 +6,23 @@ import {
   FormArray,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+
 import { ChambreService } from '../services/chambre.service';
 import { Chambre } from '../models/chambre.model';
 import { Product } from '../models/product.model';
 import { CommonModule } from '@angular/common';
 import { take } from 'rxjs';
 import { ProductService } from '../services/product.service';
+
 @Component({
   selector: 'app-chambre-management',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './chambre-management.component.html',
-  styleUrl: './chambre-management.component.css'
+  styleUrl: './chambre-management.component.css',
 })
-export class ChambreManagementComponent implements OnInit{
-
+export class ChambreManagementComponent implements OnInit {
   chambreForm: FormGroup;
   chambres: Chambre[] = [];
   images: string[] = [];
@@ -29,6 +31,7 @@ export class ChambreManagementComponent implements OnInit{
 
   constructor(
     private fb: FormBuilder,
+    private firestore: AngularFirestore,
     private chambreservice: ChambreService,
     private productService: ProductService
   ) {
@@ -163,20 +166,25 @@ export class ChambreManagementComponent implements OnInit{
 
   onFileChange(event: any) {
     const files: FileList = event.target.files;
-    const imagesArray: string[] = [];
+    const chambreId =
+      this.chambreForm.value.chambreId || this.generateUniqueId(); // Utiliser un ID unique
 
-    // Loop through selected files and read them as DataURLs
+    const imagesArray: string[] = [];
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
-      const reader = new FileReader();
 
-      reader.onload = (e) => {
-        imagesArray.push(e.target?.result as string); // Convert image to base64
-        this.chambreForm.patchValue({ images: imagesArray });
-      };
-
-      reader.readAsDataURL(file); // Read the image file as data URL
+      // Téléchargement de l'image dans Firebase Storage
+      this.chambreservice
+        .uploadImage(file, chambreId)
+        .subscribe((imageUrl: string) => {
+          imagesArray.push(imageUrl); // Ajoute l'URL de l'image après le téléchargement
+          this.chambreForm.patchValue({ images: imagesArray }); // Met à jour le formulaire avec les URLs
+        });
     }
+  }
+  // Méthode pour générer un ID unique pour les chambres
+  generateUniqueId(): string {
+    return this.firestore.createId();
   }
 
   addOrUpdateProduct() {
@@ -216,10 +224,12 @@ export class ChambreManagementComponent implements OnInit{
   }
   removeProduct(categoryName: string) {
     const currentItems = this.chambreForm.get('items')?.value || [];
-    
+
     // Find the index of the category to remove based on the name
-    const updatedItems = currentItems.filter((item: string) => this.getProductById(item)?.name !== categoryName);
-  
+    const updatedItems = currentItems.filter(
+      (item: string) => this.getProductById(item)?.name !== categoryName
+    );
+
     // Update the form with the new list
     this.chambreForm.get('items')?.setValue(updatedItems);
   }

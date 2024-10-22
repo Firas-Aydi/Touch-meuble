@@ -12,6 +12,8 @@ import { Product } from '../models/product.model';
 import { CommonModule } from '@angular/common';
 import { take } from 'rxjs';
 import { ProductService } from '../services/product.service';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+
 @Component({
   selector: 'app-salon',
   standalone: true,
@@ -28,6 +30,7 @@ export class SalonManagementComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private firestore: AngularFirestore,
     private salonService: SalonService,
     private productService: ProductService
   ) {
@@ -161,22 +164,26 @@ export class SalonManagementComponent implements OnInit {
 
   onFileChange(event: any) {
     const files: FileList = event.target.files;
+    const salonId = this.salonForm.value.salonId || this.generateUniqueId(); // Utiliser un ID unique
     const imagesArray: string[] = [];
 
     // Loop through selected files and read them as DataURLs
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
-      const reader = new FileReader();
-
-      reader.onload = (e) => {
-        imagesArray.push(e.target?.result as string); // Convert image to base64
-        this.salonForm.patchValue({ images: imagesArray });
-      };
-
-      reader.readAsDataURL(file); // Read the image file as data URL
+      // Téléchargement de l'image dans Firebase Storage
+      this.salonService
+        .uploadImage(file, salonId)
+        .subscribe((imageUrl: string) => {
+          imagesArray.push(imageUrl); // Ajoute l'URL de l'image après le téléchargement
+          this.salonForm.patchValue({ images: imagesArray }); // Met à jour le formulaire avec les URLs
+        });
     }
   }
 
+  // Méthode pour générer un ID unique pour les chambres
+  generateUniqueId(): string {
+    return this.firestore.createId();
+  }
   addOrUpdateProduct() {
     if (this.isEdit) {
       this.updateSalon();
@@ -214,10 +221,12 @@ export class SalonManagementComponent implements OnInit {
   }
   removeProduct(categoryName: string) {
     const currentItems = this.salonForm.get('items')?.value || [];
-    
+
     // Find the index of the category to remove based on the name
-    const updatedItems = currentItems.filter((item: string) => this.getProductById(item)?.name !== categoryName);
-  
+    const updatedItems = currentItems.filter(
+      (item: string) => this.getProductById(item)?.name !== categoryName
+    );
+
     // Update the form with the new list
     this.salonForm.get('items')?.setValue(updatedItems);
   }

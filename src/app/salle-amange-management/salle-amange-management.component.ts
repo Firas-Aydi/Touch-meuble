@@ -12,6 +12,7 @@ import { Product } from '../models/product.model';
 import { CommonModule } from '@angular/common';
 import { take } from 'rxjs';
 import { ProductService } from '../services/product.service';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-salle-amange-management',
@@ -29,6 +30,7 @@ export class SalleAMangeManagementComponent implements OnInit{
 
   constructor(
     private fb: FormBuilder,
+    private firestore: AngularFirestore,
     private salleAMangeService: SalleAMangeService,
     private productService: ProductService
   ) {
@@ -163,21 +165,23 @@ export class SalleAMangeManagementComponent implements OnInit{
 
   onFileChange(event: any) {
     const files: FileList = event.target.files;
+    const salleId = this.salleForm.value.salleId || this.generateUniqueId();  // Utiliser un ID unique
+  
     const imagesArray: string[] = [];
-
-    // Loop through selected files and read them as DataURLs
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
-      const reader = new FileReader();
-
-      reader.onload = (e) => {
-        imagesArray.push(e.target?.result as string); // Convert image to base64
-        this.salleForm.patchValue({ images: imagesArray });
-      };
-
-      reader.readAsDataURL(file); // Read the image file as data URL
+  
+      // Téléchargement de l'image dans Firebase Storage
+      this.salleAMangeService.uploadImage(file, salleId).subscribe((imageUrl: string) => {
+        imagesArray.push(imageUrl); // Ajoute l'URL de l'image après le téléchargement
+        this.salleForm.patchValue({ images: imagesArray });  // Met à jour le formulaire avec les URLs
+      });
     }
   }
+  // Méthode pour générer un ID unique pour les chambres
+generateUniqueId(): string {
+  return this.firestore.createId();
+}
 
   addOrUpdateProduct() {
     if (this.isEdit) {

@@ -43,7 +43,7 @@
   
   /* Ensure image height is uniform for all cards */
   .card-img-top {
-    height: 200px; /* Adjust this as needed */
+    height: 250px; /* Adjust this as needed */
     object-fit: cover; /* Ensures image maintains aspect ratio */
   }
   

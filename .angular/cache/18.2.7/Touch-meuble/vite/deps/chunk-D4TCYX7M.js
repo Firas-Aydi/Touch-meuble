@@ -5,19 +5,17 @@ import {
   setClassMetadata,
   ɵɵdefineInjectable,
   ɵɵinject
-} from "./chunk-E375R6WJ.js";
+} from "./chunk-KDR5S3NA.js";
 import {
   queueScheduler
-} from "./chunk-BLF5UWTC.js";
+} from "./chunk-46PD6PMB.js";
 import {
+  Observable,
   asyncScheduler,
   observeOn,
   subscribeOn,
   tap
-} from "./chunk-WTA72NKS.js";
-import {
-  Observable
-} from "./chunk-EDUZOHJ7.js";
+} from "./chunk-D5YRXC5P.js";
 import {
   getApps,
   registerVersion
@@ -155,6 +153,9 @@ function runOutsideAngular(fn) {
 function run(fn) {
   return getSchedulers().ngZone.run(() => fn());
 }
+function observeOutsideAngular(obs$) {
+  return obs$.pipe(observeOn(getSchedulers().outsideAngular));
+}
 function keepUnstableUntilFirst(obs$) {
   return ɵkeepUnstableUntilFirstFactory(getSchedulers())(obs$);
 }
@@ -232,6 +233,7 @@ export {
   ɵAppCheckInstances,
   ɵAPP_CHECK_PROVIDER_NAME,
   ɵAngularFireSchedulers,
+  observeOutsideAngular,
   keepUnstableUntilFirst,
   ɵzoneWrap
 };
@@ -255,4 +257,4 @@ firebase/app/dist/esm/index.esm.js:
    * limitations under the License.
    *)
 */
-//# sourceMappingURL=chunk-IVUUUERU.js.map
+//# sourceMappingURL=chunk-D4TCYX7M.js.map

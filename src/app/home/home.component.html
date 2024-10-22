@@ -1,49 +1,3 @@
-<!-- HEADER -->
-<!-- <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          <img src="assets/Smart Ways I.png" alt="Touch Meuble Logo" style="width: 50px;">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link" routerLink="packs">Packs</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" routerLink="categories">Catégories</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" routerLink="about-us">À propos de nous</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" routerLink="contact">Contact</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" routerLink="blog">Blog</a>
-            </li>
-          </ul>
-          <form class="d-flex mx-3">
-            <input class="form-control me-2" type="search" placeholder="Recherche..." aria-label="Search">
-          </form>
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" routerLink="login"><i class="fas fa-user"></i> Compte</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" routerLink="cart"><i class="fas fa-shopping-cart"></i> Panier</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
-   -->
-<!-- MAIN BANNER -->
 <section class="banner">
   <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
@@ -105,13 +59,14 @@
     <div class="row">
       <div class="col-lg-3 col-md-6 mb-4" *ngFor="let chambre of chambres | slice:0:4">
         <div class="card h-100 d-flex flex-column">
+          <div style="cursor: pointer;" (click)="viewChambreDetails(chambre.chambreId)">
           <img [src]="chambre.images[0]" class="card-img-top" alt="{{ chambre.name }}">
           <div class="card-body text-center">
             <h5 class="card-title">{{ chambre.name }}</h5>
             <p class="text-success fw-bold">{{ chambre.price }} DT</p>
-          </div>
+          </div></div>
           <div class="card-footer p-0 mt-auto">
-            <button class="btn btn-outline-secondary btn-custom" (click)="openPackDetailsModal(chambre)">
+            <button class="btn btn-outline-secondary btn-custom" (click)="openChambreDetailsModal(chambre)">
               <i class="fas fa-eye"></i>
             </button>
           </div>
@@ -128,11 +83,13 @@
     <div class="row">
       <div class="col-lg-3 col-md-6 mb-4" *ngFor="let salon of salon  | slice:0:4">
         <div class="card h-100 d-flex flex-column">
+          <div style="cursor: pointer;" (click)="viewSalonDetails(salon.salonId)">
+
           <img [src]="salon.images[0]" class="card-img-top" alt="{{ salon.name }}">
           <div class="card-body text-center">
             <h5 class="card-title">{{ salon.name }}</h5>
             <p class="text-success fw-bold">{{ salon.price }} DT</p>
-          </div>
+          </div></div>
           <div class="card-footer p-0 mt-auto">
             <button class="btn btn-outline-secondary btn-custom" (click)="openPackDetailsModal(salon)">
               <i class="fas fa-eye"></i>
@@ -151,11 +108,12 @@
     <div class="row">
       <div class="col-lg-3 col-md-6 mb-4" *ngFor="let salle of salles  | slice:0:4">
         <div class="card h-100 d-flex flex-column">
-          <img [src]="salle.images[0]" class="card-img-top" alt="{{ salle.name }}">
+          <div style="cursor: pointer;" (click)="viewSalleDetails(salle.salleId)">
+            <img [src]="salle.images[0]" class="card-img-top" alt="{{ salle.name }}">
           <div class="card-body text-center">
             <h5 class="card-title">{{ salle.name }}</h5>
             <p class="text-success fw-bold">{{ salle.price }} DT</p>
-          </div>
+          </div></div>
           <div class="card-footer p-0 mt-auto">
             <button class="btn btn-outline-secondary btn-custom" (click)="openPackDetailsModal(salle)">
               <i class="fas fa-eye"></i>
@@ -255,6 +213,54 @@
               <li *ngIf="selectedSalonName">{{ selectedSalonName }}</li>
             </ul>
           </div>
+
+          <div class="color-samples">
+            <!-- <strong>Couleurs:</strong> -->
+            <span *ngFor="let color of selectedPack?.colors" [style.backgroundColor]="color" class="color-sample"
+              title="{{ color }}"></span>
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text">Quantity</span>
+            <input type="number" class="form-control" [(ngModel)]="quantity" min="1" (input)="validateQuantity()">
+          </div>
+          <div *ngIf="quantityError" class="text-danger">
+            {{ quantityError }}
+          </div>
+          <button class="btn btn-primary" title="Add to Cart" (click)="addPackToCart(selectedPack!, quantity)">
+            <i class="fa-solid fa-cart-shopping"></i>
+            Ajouter au panier
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap Modal for chambre Details -->
+<div class="modal fade" id="chambreDetailsModal" tabindex="-1" aria-labelledby="chambreDetailsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="chambreDetailsModalLabel">{{ selectedPack?.name }}</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex">
+        <!-- Left Section: Sidebar and Main Image -->
+        <div class="col-md-6 d-flex">
+          <div class="sidebar">
+            <div class="thumbnails">
+              <img *ngFor="let image of selectedPack?.images" [src]="image" alt="{{ selectedPack?.name }}"
+                class="img-thumbnail" (click)="selectImage(image)" [class.active]="image === selectedImage" />
+            </div>
+          </div>
+          <div class="main-image-container">
+            <img [src]="selectedImage" alt="{{ selectedPack?.name }}" class="main-image" />
+          </div>
+        </div>
+        <div class="w-50 ps-3">
+          <h1 class="card-title">{{ selectedPack?.name }}</h1>
+          <p class="card-text text-success"> {{ selectedPack?.price | currency:' DT ':'symbol' }}</p>
+          <p class="card-text">{{ selectedPack?.description }}</p>
 
           <div class="color-samples">
             <!-- <strong>Couleurs:</strong> -->

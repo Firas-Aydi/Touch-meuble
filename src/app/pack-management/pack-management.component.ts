@@ -21,6 +21,7 @@ import { Salon } from '../models/salon.model';
 import { catchError, forkJoin, of, take, tap } from 'rxjs';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms'; // Importer FormsModule ici
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-pack-management',
@@ -50,7 +51,7 @@ export class PackManagementComponent implements OnInit {
     private fb: FormBuilder,
     private modalService: NgbModal,
     private packService: PackService,
-    // private categoryService: CategoryService,
+    private firestore: AngularFirestore,
     private chambreservice: ChambreService,
     private salleAMangeService: SalleAMangeService,
     private salonService: SalonService
@@ -96,37 +97,36 @@ export class PackManagementComponent implements OnInit {
       // console.log(this.salons);
     });
   }
-  
-  getItemById(itemId: string): { name: string, price: number } | undefined {
+
+  getItemById(itemId: string): { name: string; price: number } | undefined {
     const chambre = this.chambres.find((ch) => ch.chambreId === itemId);
     if (chambre) return { name: chambre.name, price: chambre.price };
-  
+
     const salle = this.salles.find((s) => s.salleId === itemId);
     if (salle) return { name: salle.name, price: salle.price };
-  
+
     const salon = this.salons.find((s) => s.salonId === itemId);
     if (salon) return { name: salon.name, price: salon.price };
-  
+
     return undefined; // If no match is found
   }
 
-  
   getSelectedItemsNames(itemId: string): string {
     const selectedItemsId = this.packForm.get('items')?.value || [];
     // console.log('Chambre sélectionnée:', selectedItemsId);
 
     // return selectedItemsId.map((itemId: string) => {
-      const chambre = this.chambres.find((c) => c.chambreId === itemId);
-      const salle = this.salles.find((s) => s.salleId === itemId);
-      const salon = this.salons.find((s) => s.salonId === itemId);
+    const chambre = this.chambres.find((c) => c.chambreId === itemId);
+    const salle = this.salles.find((s) => s.salleId === itemId);
+    const salon = this.salons.find((s) => s.salonId === itemId);
 
-      if (chambre) return chambre.name;
-      if (salle) return salle.name;
-      if (salon) return salon.name;
-      return 'Unknown item';
+    if (chambre) return chambre.name;
+    if (salle) return salle.name;
+    if (salon) return salon.name;
+    return 'Unknown item';
     // });
   }
-  
+
   onChambreSelect(): void {
     const selectedId = this.packForm.get('selectedChambre')?.value;
     // console.log('Chambre sélectionnée:', selectedId);
@@ -234,21 +234,27 @@ export class PackManagementComponent implements OnInit {
       console.error('pack ID is undefined. Cannot delete pack.');
     }
   }
+
   onFileChange(event: any) {
     const files: FileList = event.target.files;
+    const packId = this.packForm.value.packId || this.generateUniqueId(); // Utiliser un ID unique
+
     const imagesArray: string[] = [];
-    // Loop through selected files and read them as DataURLs
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
-      const reader = new FileReader();
 
-      reader.onload = (e) => {
-        imagesArray.push(e.target?.result as string); // Convert image to base64
-        this.packForm.patchValue({ images: imagesArray });
-      };
-
-      reader.readAsDataURL(file); // Read the image file as data URL
+      // Téléchargement de l'image dans Firebase Storage
+      this.packService
+        .uploadImage(file, packId)
+        .subscribe((imageUrl: string) => {
+          imagesArray.push(imageUrl); // Ajoute l'URL de l'image après le téléchargement
+          this.packForm.patchValue({ images: imagesArray }); // Met à jour le formulaire avec les URLs
+        });
     }
+  }
+  // Méthode pour générer un ID unique pour les chambres
+  generateUniqueId(): string {
+    return this.firestore.createId();
   }
 
   addOrUpdatePack() {
@@ -287,13 +293,11 @@ export class PackManagementComponent implements OnInit {
       this.packForm.patchValue({ colors: colorsArray });
     }
   }
-  removeChambre(chambreId: string) {
+  removeChambre(packId: string) {
     const currentItems = this.packForm.get('items')?.value || [];
 
     // Filter out the chambre with the provided ID
-    const updatedItems = currentItems.filter(
-      (item: string) => item !== chambreId
-    );
+    const updatedItems = currentItems.filter((item: string) => item !== packId);
 
     // Update the form with the new list
     this.packForm.get('items')?.setValue(updatedItems);

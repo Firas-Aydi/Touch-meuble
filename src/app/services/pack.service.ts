@@ -2,13 +2,32 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Pack } from '../models/pack.model';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { finalize, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PackService {
-  constructor(private firestore: AngularFirestore) {}
+  constructor(private firestore: AngularFirestore, private storage: AngularFireStorage) { }
 
+  // Méthode pour télécharger des images vers Firebase Storage
+  uploadImage(file: File, packId: string): Observable<string> {
+    const filePath = `packs/${packId}/${file.name}`; // Chemin de stockage
+    const fileRef = this.storage.ref(filePath);
+    const uploadTask = this.storage.upload(filePath, file);
+
+    return new Observable<string>((observer) => {
+      uploadTask.snapshotChanges().pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe((url) => {
+            observer.next(url);  // Renvoie l'URL après téléchargement
+            observer.complete();
+          });
+        })
+      ).subscribe();
+    });
+  }
   // Ajouter un pack
   addPack(pack: Pack) {
     console.log('pack: ',pack)
