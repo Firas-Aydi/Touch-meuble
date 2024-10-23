@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Commande } from '../models/commande.model';
 import { Observable } from 'rxjs/internal/Observable';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -37,4 +38,11 @@ export class CommandeService {
   updateCommandeStatus(commandeId: string, newStatus: string): Promise<void> {
     return this.commandeCollection.doc(commandeId).update({ etat: newStatus });
   }
+
+  getPendingCommandesCount(): Observable<number> {
+    return this.firestore.collection<Commande>('commandes', ref => ref.where('etat', '==', 'en attente'))
+      .valueChanges()
+      .pipe(map((commandes: Commande[]) => commandes.length));
+  }
+  
 }

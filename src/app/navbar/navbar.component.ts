@@ -12,6 +12,7 @@ import { ProductService } from '../services/product.service';
 import { map } from 'rxjs';
 import { CartService } from '../services/cart.service';
 import { Subscription } from 'rxjs'; // Import Subscription
+import { CommandeService } from '../services/commande.service';
 
 interface UserData {
   role: string;
@@ -24,7 +25,7 @@ interface UserData {
 })
 export class NavbarComponent implements OnInit {
   isUser: boolean = false;
-  userType: string = ''; // Ajoutez une propriété pour stocker le type d'utilisateur
+  userType: string = '';
 
   chambres$: Observable<Chambre[]>;
   salons$: Observable<Salon[]>;
@@ -40,15 +41,17 @@ export class NavbarComponent implements OnInit {
   // products: Product[] = [];
   cartItemCount: number = 0;
   searchTerm: string = '';
-
   private cartSubscription: Subscription | undefined; // Pour gérer l'abonnement
+
+  commandeItemCount: number = 0;
+  private pendingCommandeSubscription: Subscription | undefined;
 
   constructor(
     private af: AngularFireAuth,
     private route: Router,
     private as: AuthService,
     private firestore: AngularFirestore,
-    // private productService: ProductService,
+    private commandeService: CommandeService,
     private cartService: CartService
   ) {
     this.as.user.subscribe((user) => {
@@ -97,7 +100,12 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.loadProducts();
+    // Abonnez-vous au nombre de commandes en attente
+    this.pendingCommandeSubscription = this.commandeService
+      .getPendingCommandesCount()
+      .subscribe((count) => {
+        this.commandeItemCount = count;
+      });
     // Charger le compteur du panier depuis localStorage
     const savedCartCount = localStorage.getItem('cartItemCount');
     this.cartItemCount = savedCartCount ? +savedCartCount : 0;
@@ -135,6 +143,10 @@ export class NavbarComponent implements OnInit {
     if (this.cartSubscription) {
       this.cartSubscription.unsubscribe();
     }
+    // Désabonnement lors de la destruction du composant pour éviter les fuites de mémoire
+    if (this.pendingCommandeSubscription) {
+      this.pendingCommandeSubscription.unsubscribe();
+    }
   }
   // loadProducts() {
   //   this.productService.getAllProducts().subscribe((data) => {
@@ -146,8 +158,8 @@ export class NavbarComponent implements OnInit {
   // onSearch() {
   //   if (this.searchTerm) {
   //     const term = this.searchTerm.toLowerCase();  // Convertir la recherche en minuscule pour éviter les problèmes de casse
-  //     this.products = this.products.filter(product => 
-  //       product.name.toLowerCase().includes(term) || 
+  //     this.products = this.products.filter(product =>
+  //       product.name.toLowerCase().includes(term) ||
   //       product.type.toLowerCase().includes(term)
   //     );
   //   } else {

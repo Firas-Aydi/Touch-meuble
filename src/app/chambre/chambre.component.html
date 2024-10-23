@@ -94,7 +94,7 @@
                     <div *ngIf="quantityError" class="text-danger">
                         {{ quantityError }}
                     </div>
-                    <button [disabled]="selectedChambre?.stock! === 0" class="btn btn-primary" title="Add to Cart"
+                    <button [disabled]="selectedChambre?.stock! === 0" class="btn btn-success" title="Add to Cart"
                         (click)="addToCart(selectedChambre!, quantity)">
                         <i class="fa-solid fa-cart-shopping"></i>
                         Ajouter au panier
