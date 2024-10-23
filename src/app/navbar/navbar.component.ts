@@ -155,18 +155,18 @@ export class NavbarComponent implements OnInit {
   //   });
   // }
 
-  // onSearch() {
-  //   if (this.searchTerm) {
-  //     const term = this.searchTerm.toLowerCase();  // Convertir la recherche en minuscule pour éviter les problèmes de casse
-  //     this.products = this.products.filter(product =>
-  //       product.name.toLowerCase().includes(term) ||
-  //       product.type.toLowerCase().includes(term)
-  //     );
-  //   } else {
-  //     // Si le champ de recherche est vide, charger à nouveau tous les produits
-  //     // this.loadProducts();
-  //   }
-  // }
+  onSearch() {
+    // if (this.searchTerm) {
+    //   const term = this.searchTerm.toLowerCase();  // Convertir la recherche en minuscule pour éviter les problèmes de casse
+    //   this.products = this.products.filter(product =>
+    //     product.name.toLowerCase().includes(term) ||
+    //     product.type.toLowerCase().includes(term)
+    //   );
+    // } else {
+    //   // Si le champ de recherche est vide, charger à nouveau tous les produits
+    //   this.loadProducts();
+    // }
+  }
   logout() {
     this.af
       .signOut()

@@ -1,6 +1,6 @@
 /* Global Navbar Styles */
 .custom-navbar {
-  background-color: #000000;
+  /* background-color: #000000; */
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   padding: 10px 20px;
 }
@@ -85,13 +85,7 @@
   outline: none;
 }
 
-/* Responsive Design */
-@media (max-width: 991px) {
-  .nav-item {
-    text-align: center;
-    margin: 10px 0;
-  }
-}
+
 /* .navbar .fa-shopping-cart {
   font-size: 16px; } */
   
@@ -158,4 +152,45 @@
 /* Ajouter un espace entre les éléments de dropdown */
 .dropdown-item:not(:last-child) {
   border-bottom: 1px solid #e1e1e1; /* Séparation entre les éléments */
+}
+/* Responsive Design for small screens */
+@media (max-width: 991px) {
+  /* .custom-navbar {
+    background-color: #000000;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+  } */
+  .navbar .collapse {
+    position: absolute;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100vh;
+    /* background-color: lightblue; */
+    transition: all 0.3s ease;
+    z-index: 1000;
+  }
+
+  .navbar .collapse.show {
+    left: 0;
+  }
+
+  .navbar-nav {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+  }
+
+  .nav-item {
+    text-align: left;
+    margin: 10px 20px;
+    z-index: 1000;
+  }
+
+  .nav-link {
+    font-size: 18px;
+    padding: 10px 0;
+    z-index: 1000;
+
+  }
 }
