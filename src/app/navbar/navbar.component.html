@@ -1,60 +1,55 @@
 <!-- Première partie de la navbar : Logo, Recherche, Panier et Compte/Contact -->
-<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary custom-navbar py-3">
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary custom-navbar d-none d-lg-flex">
   <div class="container-fluid">
     <a class="navbar-brand" routerLink="">
       <img src="assets/TM-.png" alt="Logo" class="navbar-logo" />
     </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTop"
-      aria-controls="navbarTop" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
 
-    <div class="collapse navbar-collapse" id="navbarTop">
+    <div class="collapse navbar-collapse" id="navbarTopLarge">
       <!-- Recherche avec recherche en temps réel -->
       <form class="d-flex mx-auto justify-content-center mb-2 mb-lg-0">
-        <!-- <div class="input-group">
-          <span class="input-group-text" id="search-icon">
+        <div class="input-group">
+          <!-- <span class="input-group-text" id="search-icon">
             <i class="fa-solid fa-magnifying-glass"></i>
           </span>
           <input class="form-control" type="search" placeholder="Recherche par nom ou type..." [(ngModel)]="searchTerm"
-            name="searchTerm" (input)="onSearch()" aria-label="Search" aria-describedby="search-icon">
-        </div> -->
+            name="searchTerm" (input)="onSearch()" aria-label="Search" aria-describedby="search-icon"> -->
+        </div>
       </form>
       <!-- Liens Panier, Compte, et Contact -->
       <ul class="navbar-nav mb-2 mb-lg-0">
+        <!-- <ul class="navbar-nav mx-auto"> -->
         <li class="nav-item" *ngIf="userType !== 'admin'">
-          <a class="nav-link chic-link position-relative" aria-current="page" routerLink="cart">
-            <i class="fas fa-shopping-cart"></i>
+          <a class="nav-link chic-link position-relative" routerLink="cart">
+            <i class="fas fa-shopping-cart"></i> Panier
             <span class="badge bg-danger">{{ cartItemCount }}</span>
-            Panier
           </a>
         </li>
         <li class="nav-item" *ngIf="userType !== 'admin'">
           <a class="nav-link chic-link" routerLink="contact">Contact</a>
         </li>
         <li class="nav-item" *ngIf="!isUser">
-          <a class="nav-link chic-link" aria-current="page" routerLink="login"><i class="fas fa-user"></i> Compte</a>
+          <a class="nav-link chic-link" routerLink="login"><i class="fas fa-user"></i> Compte</a>
         </li>
         <li class="nav-item" *ngIf="isUser">
           <a class="btn btn-outline-danger chic-button" (click)="logout()" routerLink="/"><i
-              class="fa-duotone fa-solid fa-right-from-bracket"></i></a>
+              class="fas fa-sign-out-alt"></i></a>
         </li>
       </ul>
     </div>
   </div>
-
 </nav>
 
 <!-- Deuxième partie de la navbar : Liens de navigation (gestion, meubles, etc.) -->
-<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary custom-navbar border-top">
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary custom-navbar border-top d-none d-lg-flex">
   <div class="container-fluid">
     <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarBottom"
       aria-controls="navbarBottom" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button> -->
 
-    <div class="collapse navbar-collapse" id="navbarTop">
-      <ul class="navbar-nav mx-auto justify-content-center mb-2 mb-lg-0">
+    <div class="collapse navbar-collapse" id="navbarBottomLarge">
+      <ul class="navbar-nav mx-auto">
         <li class="nav-item" *ngIf="isUser && userType === 'admin'">
           <a class="nav-link chic-link" aria-current="page" routerLink="products-management">Gestion des Meubles</a>
         </li>
@@ -84,7 +79,7 @@
             role="button" data-bs-toggle="dropdown" aria-expanded="false">Meuble</a>
           <ul class="dropdown-menu" aria-labelledby="meublesDropdown">
             <li *ngFor="let type of meublesUnique$ | async">
-              <a class="dropdown-item" [routerLink]="['/products', { type: type }]">{{ type }}</a>
+              <a class="dropdown-item" [routerLink]="['products', { type: type }]">{{ type }}</a>
             </li>
           </ul>
         </li>
@@ -93,7 +88,7 @@
             data-bs-toggle="dropdown" aria-expanded="false">Salon</a>
           <ul class="dropdown-menu" aria-labelledby="salonsDropdown">
             <li *ngFor="let type of salonsUnique$ | async">
-              <a class="dropdown-item" [routerLink]="['/salons', { type: type }]">{{ type }}</a>
+              <a class="dropdown-item" [routerLink]="['salons', { type: type }]">{{ type }}</a>
             </li>
           </ul>
         </li>
@@ -106,7 +101,7 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="chambresDropdown">
             <li *ngFor="let type of chambresUnique$ | async">
-              <a class="dropdown-item" [routerLink]="['/chambres', { type: type }]">{{ type }}</a>
+              <a class="dropdown-item" [routerLink]="['chambres', { type: type }]">{{ type }}</a>
             </li>
           </ul>
         </li>
@@ -119,13 +114,128 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="salleDropdown">
             <li *ngFor="let type of sallesUnique$ | async">
-              <a class="dropdown-item" [routerLink]="['/salles', { type: type }]">{{ type }}</a>
+              <a class="dropdown-item" [routerLink]="['salles', { type: type }]">{{ type }}</a>
             </li>
           </ul>
         </li>
         <li class="nav-item" *ngIf="userType !== 'admin'">
           <a class="nav-link chic-link me-3 ms-3" aria-current="page" routerLink="packs">Packs</a>
         </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Navbar pour les petits écrans -->
+<nav class="navbar navbar-light bg-body-tertiary custom-navbar d-flex d-lg-none">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="">
+      <img src="assets/TM-.png" alt="Logo" class="navbar-logo" />
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="navbarSmall"
+      aria-controls="navbarSmall" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
+      <span *ngIf="!isNavbarOpen"><i class="fas fa-bars"></i></span>
+      <span *ngIf="isNavbarOpen"><i class="fas fa-times"></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSmall">
+      <ul class="navbar-nav mx-auto">
+
+        <li class="nav-item" *ngIf="isUser && userType === 'admin'">
+          <a class="nav-link chic-link" aria-current="page" routerLink="products-management">Gestion des Meubles</a>
+        </li>
+        <li class="nav-item" *ngIf="isUser && userType === 'admin'">
+          <a class="nav-link chic-link" aria-current="page" routerLink="salons-management">Gestion des Salons</a>
+        </li>
+        <li class="nav-item" *ngIf="isUser && userType === 'admin'">
+          <a class="nav-link chic-link" aria-current="page" routerLink="chambres-management">Gestion des Chambres</a>
+        </li>
+        <li class="nav-item" *ngIf="isUser && userType === 'admin'">
+          <a class="nav-link chic-link" aria-current="page" routerLink="salles-management">Gestion des Salle à
+            Manger</a>
+        </li>
+        <li class="nav-item" *ngIf="isUser && userType === 'admin'">
+          <a class="nav-link chic-link" aria-current="page" routerLink="packs-management">Gestion des Packs</a>
+        </li>
+        <li class="nav-item" *ngIf="isUser && userType === 'admin'">
+          <a class="nav-link chic-link position-relative" aria-current="page" routerLink="commandes-management">
+            Commandes
+            <span class="badge bg-danger">{{ commandeItemCount }}</span>
+          </a>
+        </li>
+
+        <!-- Dropdowns pour Meubles, Salons, Chambres, etc. -->
+        <li class="nav-item dropdown" *ngIf="userType !== 'admin'">
+          <a class="nav-link chic-link d-flex align-items-center me-3 ms-3" routerLink="products" id="meublesDropdown"
+            role="button">
+            Meuble
+          </a>
+          <i class="fas fa-chevron-down ms-2 dropdown-arrow" [class.rotate]="isDropdownOpen === 'meublesDropdown'"
+            (click)="toggleDropdown('meublesDropdown')"></i>
+          <ul class="dropdown-menu" [class.show]="isDropdownOpen === 'meublesDropdown'"
+            aria-labelledby="meublesDropdown">
+            <li *ngFor="let type of meublesUnique$ | async">
+              <a class="dropdown-item" [routerLink]="['products', { type: type }]">{{ type }}</a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown" *ngIf="userType !== 'admin'">
+          <a class="nav-link dropdown-toggle chic-link  me-3 ms-3" routerLink="salons" id="salonsDropdown" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">Salon</a>
+          <ul class="dropdown-menu" aria-labelledby="salonsDropdown">
+            <li *ngFor="let type of salonsUnique$ | async">
+              <a class="dropdown-item" [routerLink]="['salons', { type: type }]">{{ type }}</a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- Chambres Dropdown -->
+        <li class="nav-item dropdown" *ngIf="userType !== 'admin'">
+          <a class="nav-link dropdown-toggle chic-link me-3 ms-3" routerLink="chambres" id="chambresDropdown"
+            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Chambre
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="chambresDropdown">
+            <li *ngFor="let type of chambresUnique$ | async">
+              <a class="dropdown-item" [routerLink]="['chambres', { type: type }]">{{ type }}</a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- Salles à Manger Dropdown -->
+        <li class="nav-item dropdown" *ngIf="userType !== 'admin'">
+          <a class="nav-link dropdown-toggle chic-link me-3 ms-3" routerLink="salles" id="salleDropdown" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            Salle à Manger
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="salleDropdown">
+            <li *ngFor="let type of sallesUnique$ | async">
+              <a class="dropdown-item" [routerLink]="['salles', { type: type }]">{{ type }}</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item" *ngIf="userType !== 'admin'">
+          <a class="nav-link chic-link me-3 ms-3" aria-current="page" routerLink="packs">Packs</a>
+        </li>
+
+
+        <li class="nav-item" *ngIf="userType !== 'admin'">
+          <a class="nav-link chic-link position-relative" routerLink="cart">
+            <i class="fas fa-shopping-cart"></i> Panier
+            <span class="badge bg-danger">{{ cartItemCount }}</span>
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="userType !== 'admin'">
+          <a class="nav-link chic-link" routerLink="contact">Contact</a>
+        </li>
+        <li class="nav-item" *ngIf="!isUser">
+          <a class="nav-link chic-link" routerLink="login"><i class="fas fa-user"></i> Compte</a>
+        </li>
+        <li class="nav-item" *ngIf="isUser">
+          <a class="btn btn-outline-danger chic-button" (click)="logout()" routerLink="/"><i
+              class="fas fa-sign-out-alt"></i></a>
+        </li>
+        <!-- Ajoutez d'autres éléments de menu pour petits écrans ici -->
       </ul>
     </div>
   </div>

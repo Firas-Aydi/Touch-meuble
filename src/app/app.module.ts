@@ -41,6 +41,7 @@ import { SalleAmangeComponent } from './salle-amange/salle-amange.component';
 import { SalonComponent } from './salon/salon.component';
 import { CommandeComponent } from './commande/commande.component';
 import { FooterComponent } from './footer/footer.component';
+import { ErrorComponent } from './error/error.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,9 @@ import { FooterComponent } from './footer/footer.component';
     RegisterComponent,
     HomeComponent,
     ResetpasswordComponent,
+    ErrorComponent,
     // VarifyEmailComponent,
+
     NavbarComponent,
     FooterComponent,
     PackComponent,

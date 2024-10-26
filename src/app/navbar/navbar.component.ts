@@ -26,6 +26,8 @@ interface UserData {
 export class NavbarComponent implements OnInit {
   isUser: boolean = false;
   userType: string = '';
+  isNavbarOpen = false;
+  isDropdownOpen: string | null = null;
 
   chambres$: Observable<Chambre[]>;
   salons$: Observable<Salon[]>;
@@ -172,11 +174,25 @@ export class NavbarComponent implements OnInit {
       .signOut()
       .then(() => {
         localStorage.removeItem('userConnect');
-
         this.route.navigate(['/']);
       })
       .catch(() => {
         console.log('error');
       });
+      this.toggleNavbar()
+  }
+  toggleNavbar() {
+    const navbarCollapse = document.getElementById('navbarSmall');
+
+    // Toggle the navbar open/close state
+    this.isNavbarOpen = !this.isNavbarOpen;
+    if (navbarCollapse?.classList.contains('show')) {
+      navbarCollapse.classList.remove('show'); // Collapse it
+    } else {
+      navbarCollapse?.classList.add('show'); // Open it if not already open
+    }
+  }
+  toggleDropdown(dropdown: string): void {
+    this.isDropdownOpen = this.isDropdownOpen === dropdown ? null : dropdown;
   }
 }

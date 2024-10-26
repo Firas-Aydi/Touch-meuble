@@ -24,42 +24,47 @@ import { SalonComponent } from './salon/salon.component';
 import { SalleAmangeComponent } from './salle-amange/salle-amange.component';
 import { CommandeComponent } from './commande/commande.component';
 import { CommandesManagementComponent } from './commandes-management/commandes-management.component';
+import { AdminGuard } from './guards/admin.guard';
+import { ErrorComponent } from './error/error.component';
+
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'resetpassword', component: ResetpasswordComponent },
+  { path: 'error', component: ErrorComponent },
   // { path: 'varify-email', component: VarifyEmailComponent },
+
   { path: 'packs', component: PackComponent },
-  { path: 'packs-management', component: PackManagementComponent },
+  { path: 'packs-management', component: PackManagementComponent, canActivate: [AdminGuard] },
   { path: 'packs/:packId', component: PackDetailsComponent },
   
   { path: 'products', component: ProductComponent },
-  { path: 'products-management', component: ProductManagementComponent },
-  { path: 'products/:productId', component: ProductDetailsComponent }, // Route for product details
-  { path: 'products/:type', component: ProductComponent }, // Pour afficher les produits par type
+  { path: 'products-management', component: ProductManagementComponent, canActivate: [AdminGuard] },
+  { path: 'products/:productId', component: ProductDetailsComponent }, 
+  { path: 'products/:type', component: ProductComponent }, 
 
   { path: 'chambres', component: ChambreComponent },
-  { path: 'chambres-management', component: ChambreManagementComponent },
+  { path: 'chambres-management', component: ChambreManagementComponent, canActivate: [AdminGuard] },
   { path: 'chambres/:chambreId', component: ChambreDetailsComponent },
   { path: 'chambres/:type', component: ChambreDetailsComponent },
   
   { path: 'salles', component: SalleAmangeComponent },
-  { path: 'salles-management', component: SalleAMangeManagementComponent },
+  { path: 'salles-management', component: SalleAMangeManagementComponent, canActivate: [AdminGuard] },
   { path: 'salles/:salleId', component: SalleAmangeDetailsComponent },
   { path: 'salles/:type', component: SalleAmangeDetailsComponent },
   
   { path: 'salons', component: SalonComponent },
-  { path: 'salons-management', component: SalonManagementComponent },
+  { path: 'salons-management', component: SalonManagementComponent, canActivate: [AdminGuard] },
   { path: 'salons/:salonId', component: SalonDetailsComponent },
   { path: 'salons/:type', component: SalonDetailsComponent },
   
   { path: 'cart', component: CartComponent },
   { path: 'commande', component: CommandeComponent },
-  { path: 'commandes-management', component: CommandesManagementComponent },
+  { path: 'commandes-management', component: CommandesManagementComponent, canActivate: [AdminGuard] },
 
-  { path: 'categories-management', component: CategoryManagementComponent },
+  { path: 'categories-management', component: CategoryManagementComponent, canActivate: [AdminGuard] },
   
 ];
 
