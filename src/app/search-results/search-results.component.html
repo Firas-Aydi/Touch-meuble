@@ -1,0 +1,13 @@
+<p>search-results works!</p>
+<div *ngIf="results.length > 0; else noResults">
+    <ul>
+      <li *ngFor="let item of results">
+        {{ item.name }} - {{ item.price }} 
+      </li>
+    </ul>
+  </div>
+  
+  <ng-template #noResults>
+    <p>Aucun résultat trouvé.</p>
+  </ng-template>
+  

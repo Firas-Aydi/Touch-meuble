@@ -1,7 +1,7 @@
 /* Styles généraux pour la navbar */
 .custom-navbar {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  padding: 10px 20px;
+  /* padding: 10px 20px; */
 }
 .navbar-logo {
   width: 90px;
@@ -57,7 +57,7 @@
 /* Styles pour le lien dropdown */
 .nav-link.chic-link {
   position: relative;
-  padding-right: 1.5rem;
+  /* padding-right: 1.5rem; */
 }
 
 /* Styles pour la flèche */
@@ -123,7 +123,7 @@
 /* Style pour les icônes de la navbar et les badges */
 .nav-link i {
   font-size: 1.2rem;
-  margin-right: 0.5rem;
+  /* margin-right: 0.5rem; */
 }
 
 .badge {

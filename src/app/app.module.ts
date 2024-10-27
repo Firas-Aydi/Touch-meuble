@@ -42,6 +42,7 @@ import { SalonComponent } from './salon/salon.component';
 import { CommandeComponent } from './commande/commande.component';
 import { FooterComponent } from './footer/footer.component';
 import { ErrorComponent } from './error/error.component';
+import { SearchResultsComponent } from './search-results/search-results.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { ErrorComponent } from './error/error.component';
     SalonComponent,
     SalonDetailsComponent,
     CartComponent,
-    CommandeComponent
+    CommandeComponent,
+    SearchResultsComponent
   ],
   imports: [
     BrowserModule,

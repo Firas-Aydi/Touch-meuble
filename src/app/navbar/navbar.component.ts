@@ -8,11 +8,13 @@ import { Chambre } from '../models/chambre.model'; // Import du modèle Chambre
 import { Salon } from '../models/salon.model'; // Import du modèle Salon
 import { SalleAManger } from '../models/salleAManger.model'; // Import du modèle Salle à Manger
 import { Product } from '../models/product.model'; // Import du modèle Product
-import { ProductService } from '../services/product.service';
+import { Pack } from '../models/pack.model'; // Import du modèle Product
 import { map } from 'rxjs';
 import { CartService } from '../services/cart.service';
 import { Subscription } from 'rxjs'; // Import Subscription
 import { CommandeService } from '../services/commande.service';
+import { combineLatest } from 'rxjs';
+import { SearchService } from '../services/search.service'; // Importez votre service ici
 
 interface UserData {
   role: string;
@@ -40,9 +42,16 @@ export class NavbarComponent implements OnInit {
   chambresUnique$: Observable<string[]> | undefined;
   sallesUnique$: Observable<string[]> | undefined;
 
-  // products: Product[] = [];
-  cartItemCount: number = 0;
+  // Ajouter des Observables pour les résultats de recherche
+  searchResultsChambres$: Observable<Chambre[]> | undefined;
+  searchResultsSalons$: Observable<Salon[]> | undefined;
+  searchResultsSalles$: Observable<SalleAManger[]> | undefined;
+  searchResultsMeubles$: Observable<Product[]> | undefined;
+  searchResultsPacks$: Observable<Pack[]> | undefined;
+  allResults: (Product | Chambre | Salon | SalleAManger | Pack)[] = [];
   searchTerm: string = '';
+
+  cartItemCount: number = 0;
   private cartSubscription: Subscription | undefined; // Pour gérer l'abonnement
 
   commandeItemCount: number = 0;
@@ -53,6 +62,7 @@ export class NavbarComponent implements OnInit {
     private route: Router,
     private as: AuthService,
     private firestore: AngularFirestore,
+    private searchService: SearchService,
     private commandeService: CommandeService,
     private cartService: CartService
   ) {
@@ -65,7 +75,6 @@ export class NavbarComponent implements OnInit {
           .doc(userId)
           .get()
           .subscribe((doc) => {
-            // console.log('doc:', doc);
             if (doc.exists) {
               const userData = doc.data() as UserData;
               if (userData && userData.role) {
@@ -93,12 +102,7 @@ export class NavbarComponent implements OnInit {
       .valueChanges(); // Collection pour les salles à manger
     this.meubles$ = this.firestore
       .collection<Product>('products')
-      .valueChanges(); // Collection pour les meubles
-
-    // this.chambres$.subscribe((data) => console.log('Chambres:', data));
-    // this.salons$.subscribe((data) => console.log('Salons:', data));
-    // this.salles$.subscribe((data) => console.log('Salles à manger:', data));
-    // this.meubles$.subscribe((data) => console.log('Meubles:', data));
+      .valueChanges();
   }
 
   ngOnInit(): void {
@@ -150,25 +154,7 @@ export class NavbarComponent implements OnInit {
       this.pendingCommandeSubscription.unsubscribe();
     }
   }
-  // loadProducts() {
-  //   this.productService.getAllProducts().subscribe((data) => {
-  //     this.products = data;
-  //     // console.log('products: ', this.products);
-  //   });
-  // }
 
-  onSearch() {
-    // if (this.searchTerm) {
-    //   const term = this.searchTerm.toLowerCase();  // Convertir la recherche en minuscule pour éviter les problèmes de casse
-    //   this.products = this.products.filter(product =>
-    //     product.name.toLowerCase().includes(term) ||
-    //     product.type.toLowerCase().includes(term)
-    //   );
-    // } else {
-    //   // Si le champ de recherche est vide, charger à nouveau tous les produits
-    //   this.loadProducts();
-    // }
-  }
   logout() {
     this.af
       .signOut()
@@ -179,7 +165,7 @@ export class NavbarComponent implements OnInit {
       .catch(() => {
         console.log('error');
       });
-      this.toggleNavbar()
+    this.toggleNavbar();
   }
   toggleNavbar() {
     const navbarCollapse = document.getElementById('navbarSmall');
@@ -195,4 +181,72 @@ export class NavbarComponent implements OnInit {
   toggleDropdown(dropdown: string): void {
     this.isDropdownOpen = this.isDropdownOpen === dropdown ? null : dropdown;
   }
+
+  onSearch() {
+    const searchTermLower = this.searchTerm.toLowerCase();
+    if (searchTermLower) {
+      combineLatest([
+        this.firestore.collection<Product>('products').valueChanges(),
+        this.firestore.collection<Chambre>('chambres').valueChanges(),
+        this.firestore.collection<Salon>('salons').valueChanges(),
+        this.firestore.collection<SalleAManger>('salles').valueChanges(),
+        this.firestore.collection<Pack>('packs').valueChanges(),
+      ])
+        .pipe(
+          map(([products, chambres, salons, salles, packs]) => {
+            // Filter each collection based on the search term
+            const filteredProducts = products.filter(
+              (product) =>
+                product.name.toLowerCase().includes(searchTermLower) ||
+                product.type.toLowerCase().includes(searchTermLower)
+            );
+  
+            const filteredChambres = chambres.filter(
+              (chambre) =>
+                chambre.name.toLowerCase().includes(searchTermLower) ||
+                chambre.type.toLowerCase().includes(searchTermLower)
+            );
+  
+            const filteredSalons = salons.filter(
+              (salon) =>
+                salon.name.toLowerCase().includes(searchTermLower) ||
+                salon.type.toLowerCase().includes(searchTermLower)
+            );
+  
+            const filteredSalles = salles.filter(
+              (salle) =>
+                salle.name.toLowerCase().includes(searchTermLower) ||
+                salle.type.toLowerCase().includes(searchTermLower)
+            );
+  
+            const filteredPacks = packs.filter(
+              (pack) => pack.name.toLowerCase().includes(searchTermLower)
+            );
+  
+            // Merge all filtered results
+            return [
+              ...filteredProducts,
+              ...filteredChambres,
+              ...filteredSalons,
+              ...filteredSalles,
+              ...filteredPacks,
+            ];
+          })
+        )
+        .subscribe((results) => {
+          console.log('Tous les résultats trouvés:', results);
+          this.allResults = results;
+  
+          // Mettre à jour le service avec les résultats
+          this.searchService.setResults(this.allResults);
+
+          if (this.allResults.length > 0) {
+            this.route.navigate(['/search-results']);
+          } else {
+            console.warn('Aucun résultat trouvé pour la recherche.');
+          }
+        });
+    }
+  }
+  
 }

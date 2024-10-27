@@ -26,6 +26,7 @@ import { CommandeComponent } from './commande/commande.component';
 import { CommandesManagementComponent } from './commandes-management/commandes-management.component';
 import { AdminGuard } from './guards/admin.guard';
 import { ErrorComponent } from './error/error.component';
+import { SearchResultsComponent } from './search-results/search-results.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -35,6 +36,7 @@ const routes: Routes = [
   { path: 'resetpassword', component: ResetpasswordComponent },
   { path: 'error', component: ErrorComponent },
   // { path: 'varify-email', component: VarifyEmailComponent },
+  { path: 'search-results', component: SearchResultsComponent },
 
   { path: 'packs', component: PackComponent },
   { path: 'packs-management', component: PackManagementComponent, canActivate: [AdminGuard] },
