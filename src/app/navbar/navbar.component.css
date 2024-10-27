@@ -79,50 +79,29 @@
 }
 /* Styles pour les grands écrans */
 @media (min-width: 992px) {
-.dropdown-menu {
-  display: block; /* Permettre à l'animation de s'appliquer */
-  opacity: 0; /* Initialement invisible */
-  visibility: hidden; /* Pour éviter les interactions avant l'affichage */
-  transform: translateY(-20px); /* Position de départ légèrement en dessous */
-  background-color: #ffffff; /* Fond blanc pour le dropdown */
-  border: 1px solid #e1e1e1; /* Bordure grise claire */
-  border-radius: 5px; /* Coins légèrement arrondis */
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Ombre pour un effet de profondeur */
-  padding: 10px 0; /* Espacement interne */
-  z-index: 1000; /* S'assurer que le dropdown est au-dessus des autres éléments */
-  transition: opacity 0.3s ease, transform 0.3s ease; /* Animation douce */
-}
-.nav-item.dropdown:hover .dropdown-menu {
-  opacity: 1; /* Complètement visible */
-  visibility: visible; /* Permettre les interactions */
-  transform: translateY(0); /* Retour à la position normale */
-  position: absolute; /* Position absolue pour garder le dropdown sous le lien parent */
-  top: 100%; /* Alignement sous le lien parent */
-  left: 0; /* Alignement à gauche */
-}
+  .dropdown-menu {
+    display: block; /* Permettre à l'animation de s'appliquer */
+    opacity: 0; /* Initialement invisible */
+    visibility: hidden; /* Pour éviter les interactions avant l'affichage */
+    transform: translateY(-20px); /* Position de départ légèrement en dessous */
+    background-color: #ffffff; /* Fond blanc pour le dropdown */
+    border: 1px solid #e1e1e1; /* Bordure grise claire */
+    border-radius: 5px; /* Coins légèrement arrondis */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Ombre pour un effet de profondeur */
+    padding: 10px 0; /* Espacement interne */
+    z-index: 1000; /* S'assurer que le dropdown est au-dessus des autres éléments */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Animation douce */
+  }
+  .nav-item.dropdown:hover .dropdown-menu {
+    opacity: 1; /* Complètement visible */
+    visibility: visible; /* Permettre les interactions */
+    transform: translateY(0); /* Retour à la position normale */
+    position: absolute; /* Position absolue pour garder le dropdown sous le lien parent */
+    top: 100%; /* Alignement sous le lien parent */
+    left: 0; /* Alignement à gauche */
+  }
 }
 
-/* Styles pour les petits écrans */
-@media (max-width: 992px) {
-  .dropdown-menu {
-    position: absolute;
-    top: calc(50% + 0px);
-    left: 100%;
-    transform: translateX(-100%);
-    background-color: #ffffff;
-    visibility: hidden;
-    margin-top: 0.5rem;
-    border-radius: 5px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    opacity: 0;
-    transition: opacity 1s ease, transform 1s ease;
-  }
-  .dropdown-menu.show {
-    visibility: visible;
-    opacity: 1;
-    transform: translateX(-100%) translateY(0);
-  }
-}
 /* Styles des éléments du menu dropdown */
 .dropdown-item {
   font-size: 14px;
@@ -202,5 +181,22 @@
     display: flex;
     align-items: center;
   }
-  
+  .dropdown-menu {
+    position: absolute;
+    top: calc(50% + 0px);
+    left: 100%;
+    transform: translateX(-100%);
+    background-color: #ffffff;
+    visibility: hidden;
+    margin-top: 0.5rem;
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: opacity 1s ease, transform 1s ease;
+  }
+  .dropdown-menu.show {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-100%) translateY(0);
+  }
 }
