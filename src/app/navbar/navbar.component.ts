@@ -186,44 +186,36 @@ export class NavbarComponent implements OnInit {
     const searchTermLower = this.searchTerm.toLowerCase();
     if (searchTermLower) {
       combineLatest([
-        this.firestore.collection<Product>('products').valueChanges(),
-        this.firestore.collection<Chambre>('chambres').valueChanges(),
-        this.firestore.collection<Salon>('salons').valueChanges(),
-        this.firestore.collection<SalleAManger>('salles').valueChanges(),
-        this.firestore.collection<Pack>('packs').valueChanges(),
+        this.firestore.collection<Product>('products').snapshotChanges(),
+        this.firestore.collection<Chambre>('chambres').snapshotChanges(),
+        this.firestore.collection<Salon>('salons').snapshotChanges(),
+        this.firestore.collection<SalleAManger>('salles').snapshotChanges(),
+        this.firestore.collection<Pack>('packs').snapshotChanges(),
       ])
         .pipe(
           map(([products, chambres, salons, salles, packs]) => {
-            // Filter each collection based on the search term
-            const filteredProducts = products.filter(
-              (product) =>
-                product.name.toLowerCase().includes(searchTermLower) ||
-                product.type.toLowerCase().includes(searchTermLower)
+            const extractDataWithId = (collection: any[]) =>
+              collection.map(doc => ({
+                id: doc.payload.doc.id, // Ajout de l'id
+                ...doc.payload.doc.data(),
+              }));
+
+            const filteredProducts = extractDataWithId(products).filter(product =>
+              product.name.toLowerCase().includes(searchTermLower)
             );
-  
-            const filteredChambres = chambres.filter(
-              (chambre) =>
-                chambre.name.toLowerCase().includes(searchTermLower) ||
-                chambre.type.toLowerCase().includes(searchTermLower)
+            const filteredChambres = extractDataWithId(chambres).filter(chambre =>
+              chambre.name.toLowerCase().includes(searchTermLower)
             );
-  
-            const filteredSalons = salons.filter(
-              (salon) =>
-                salon.name.toLowerCase().includes(searchTermLower) ||
-                salon.type.toLowerCase().includes(searchTermLower)
+            const filteredSalons = extractDataWithId(salons).filter(salon =>
+              salon.name.toLowerCase().includes(searchTermLower)
             );
-  
-            const filteredSalles = salles.filter(
-              (salle) =>
-                salle.name.toLowerCase().includes(searchTermLower) ||
-                salle.type.toLowerCase().includes(searchTermLower)
+            const filteredSalles = extractDataWithId(salles).filter(salle =>
+              salle.name.toLowerCase().includes(searchTermLower)
             );
-  
-            const filteredPacks = packs.filter(
-              (pack) => pack.name.toLowerCase().includes(searchTermLower)
+            const filteredPacks = extractDataWithId(packs).filter(pack =>
+              pack.name.toLowerCase().includes(searchTermLower)
             );
-  
-            // Merge all filtered results
+
             return [
               ...filteredProducts,
               ...filteredChambres,
@@ -233,13 +225,10 @@ export class NavbarComponent implements OnInit {
             ];
           })
         )
-        .subscribe((results) => {
+        .subscribe(results => {
           console.log('Tous les résultats trouvés:', results);
           this.allResults = results;
-  
-          // Mettre à jour le service avec les résultats
           this.searchService.setResults(this.allResults);
-
           if (this.allResults.length > 0) {
             this.route.navigate(['/search-results']);
           } else {
@@ -248,5 +237,4 @@ export class NavbarComponent implements OnInit {
         });
     }
   }
-  
 }
