@@ -102,3 +102,39 @@
 .color-sample:hover {
   transform: scale(1.1); /* Scale effect on hover */
 }
+
+.sort-controls {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.sort-controls label {
+  font-weight: bold;
+  margin-right: 15px;
+  color: #333;
+}
+
+.form-check-inline {
+  margin-right: 15px;
+}
+
+.form-check-input {
+  accent-color: #007bff; /* Custom color for radio button */
+  cursor: pointer;
+}
+
+.form-check-label {
+  font-size: 16px;
+  color: #555;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.form-check-label:hover {
+  color: #007bff; /* Color change on hover */
+}

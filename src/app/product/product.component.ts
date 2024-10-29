@@ -3,8 +3,8 @@ import { ProductService } from '../services/product.service';
 import { Product } from '../models/product.model';
 import { Router } from '@angular/router';
 import { CartService } from '../services/cart.service';
-declare var bootstrap: any;
 import { ActivatedRoute } from '@angular/router';
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-product',
@@ -24,6 +24,7 @@ export class ProductComponent implements OnInit {
 
   filteredProducts: Product[] = [];
   currentType: string | null = null; // Ajouter une propriété pour stocker le type de produit
+  sortOrder: 'asc' | 'desc' | null = null;
 
   constructor(
     private productService: ProductService,
@@ -35,7 +36,7 @@ export class ProductComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       this.currentType = params.get('type');
-      console.log('currentType: ', this.currentType);
+      // console.log('currentType: ', this.currentType);
       this.loadProducts(); // Charger les produits
     });
   }
@@ -56,6 +57,19 @@ export class ProductComponent implements OnInit {
       this.updatePaginatedProducts(); // Mettre à jour la pagination après le filtrage
     });
   }
+  sortProductsByPrice() {
+    this.filteredProducts.sort((a, b) => {
+      return this.sortOrder === 'asc'
+        ? a.price - b.price
+        : b.price - a.price;
+    });
+    this.updatePaginatedProducts();
+  }
+  setSortOrder(order: 'asc' | 'desc') {
+    this.sortOrder = order;
+    this.sortProductsByPrice();
+  }
+  
 
   viewProductDetails(productId: string | undefined) {
     if (productId) {
