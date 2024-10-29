@@ -195,24 +195,32 @@ export class NavbarComponent implements OnInit {
         .pipe(
           map(([products, chambres, salons, salles, packs]) => {
             const extractDataWithId = (collection: any[]) =>
-              collection.map(doc => ({
+              collection.map((doc) => ({
                 id: doc.payload.doc.id, // Ajout de l'id
                 ...doc.payload.doc.data(),
               }));
 
-            const filteredProducts = extractDataWithId(products).filter(product =>
-              product.name.toLowerCase().includes(searchTermLower)
+            const filteredProducts = extractDataWithId(products).filter(
+              (product) =>
+                product.name.toLowerCase().includes(searchTermLower) ||
+                product.type.toLowerCase().includes(searchTermLower)
             );
-            const filteredChambres = extractDataWithId(chambres).filter(chambre =>
-              chambre.name.toLowerCase().includes(searchTermLower)
+            const filteredChambres = extractDataWithId(chambres).filter(
+              (chambre) =>
+                chambre.name.toLowerCase().includes(searchTermLower) ||
+                chambre.type.toLowerCase().includes(searchTermLower)
             );
-            const filteredSalons = extractDataWithId(salons).filter(salon =>
-              salon.name.toLowerCase().includes(searchTermLower)
+            const filteredSalons = extractDataWithId(salons).filter(
+              (salon) =>
+                salon.name.toLowerCase().includes(searchTermLower) ||
+                salon.type.toLowerCase().includes(searchTermLower)
             );
-            const filteredSalles = extractDataWithId(salles).filter(salle =>
-              salle.name.toLowerCase().includes(searchTermLower)
+            const filteredSalles = extractDataWithId(salles).filter(
+              (salle) =>
+                salle.name.toLowerCase().includes(searchTermLower) ||
+                salle.type.toLowerCase().includes(searchTermLower)
             );
-            const filteredPacks = extractDataWithId(packs).filter(pack =>
+            const filteredPacks = extractDataWithId(packs).filter((pack) =>
               pack.name.toLowerCase().includes(searchTermLower)
             );
 
@@ -225,7 +233,7 @@ export class NavbarComponent implements OnInit {
             ];
           })
         )
-        .subscribe(results => {
+        .subscribe((results) => {
           console.log('Tous les résultats trouvés:', results);
           this.allResults = results;
           this.searchService.setResults(this.allResults);

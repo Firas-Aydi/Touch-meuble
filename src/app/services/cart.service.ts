@@ -14,7 +14,9 @@ export class CartService {
 
   addToCart(item: any, type: string, quantity: number) {
     const itemId = item.packId || item.chambreId || item.salleId || item.salonId || item.productId;
-    const existingItem = this.cartItems.find(cartItem => cartItem.itemId === itemId && cartItem.type === type);
+    const existingItem = this.cartItems.find(cartItem => cartItem.itemId === itemId
+      //  && cartItem.type === type
+      );
 
     if (existingItem) {
       existingItem.quantity += quantity;
