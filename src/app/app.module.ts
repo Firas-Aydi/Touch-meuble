@@ -43,6 +43,7 @@ import { CommandeComponent } from './commande/commande.component';
 import { FooterComponent } from './footer/footer.component';
 import { ErrorComponent } from './error/error.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,8 @@ import { SearchResultsComponent } from './search-results/search-results.componen
 
     NavbarComponent,
     FooterComponent,
+    SidebarComponent,
+    
     PackComponent,
     PackDetailsComponent,
     ProductComponent,

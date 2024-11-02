@@ -57,6 +57,7 @@ export class NavbarComponent implements OnInit {
   commandeItemCount: number = 0;
   private pendingCommandeSubscription: Subscription | undefined;
 
+  
   constructor(
     private af: AngularFireAuth,
     private route: Router,
@@ -245,4 +246,5 @@ export class NavbarComponent implements OnInit {
         });
     }
   }
+
 }

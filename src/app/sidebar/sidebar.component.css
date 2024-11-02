@@ -1,0 +1,93 @@
+/* Styles pour la sidebar */
+.custom-sidebar {
+    position: fixed;
+    border-right: 1px solid #ccc;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f8f9fa; /* Couleur de fond de la sidebar */
+    /* box-shadow: 2px 0 5px rgba(0,0,0,0.5); */
+    transform: translateX(calc(-100% + 60px)); /* Caché par défaut */
+    transition: transform 0.5s ease;
+    z-index: 1000; /* Assurez-vous qu'il est au-dessus du contenu */
+}
+
+.custom-sidebar.active {
+    transform: translateX(0); 
+    margin: 60;
+    width: 100%;
+}
+
+/* Style pour le bouton toggle */
+.toggle-btn {
+    transform: rotate(270deg); /* Rotation de 90 degrés */
+    position: fixed;
+    top: 50%;
+    left: 0px;
+    font-size: 1em;
+    background-color: #f8f9fa;
+    border: none;
+    z-index: 1100; /* Toujours au-dessus */
+    color: black;
+}
+
+.sidebar-content{
+    margin-left: 60px;
+}
+
+.custom-sidebar .container-fluid {
+    display: flex;
+    justify-content: center; /* Centre le logo horizontalement */
+    align-items: center; /* Centre le logo verticalement */
+    padding: 20px 0; /* Ajoute un peu de marge au-dessus et en dessous */
+}
+
+/* Sidebar List */
+.sidebar-side {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex; /* Définit la liste en flex */
+    flex-direction: row; /* Aligne les items en ligne */
+    flex-wrap: wrap; /* Permet le retour à la ligne si nécessaire */
+}
+
+.side-item {
+    margin: 30px; /* Supprime la marge verticale */
+}
+
+.side-link {
+    display: inline-block; /* Assure que les liens restent en ligne */
+    padding-top: 30px;
+    padding-left: 16px;
+    font-size: 20px;
+    color: #333;
+    text-decoration: none;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.side-link:hover,
+.side-link:focus {
+    color: #3498db;
+}
+
+/* Styles pour le menu et sous-menu */
+.submenu {
+    list-style-type: none;
+    margin-top: 5px;
+  }
+  
+  .side-sublink {
+    font-size: 14px;
+    color: #2c3e50;
+    text-decoration: none;
+    /* padding: 5px 0; */
+    display: block;
+    transition: color 0.3s;
+  }
+  
+  .side-sublink:hover {
+    color: #3498db;
+  }
+  
