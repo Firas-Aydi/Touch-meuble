@@ -66,7 +66,7 @@
                         </div>
 
                         <!-- Dimensions -->
-                        <div class="col-md-4 mb-3">
+                        <!-- <div class="col-md-4 mb-3">
                             <div class="form-floating">
                                 <textarea class="form-control" id="productDimensions" formControlName="dimensions"
                                     required></textarea>
@@ -76,10 +76,10 @@
                                     Les dimensions sont requises.
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- Matériau -->
-                        <div class="col-md-4 mb-3">
+                        <!-- <div class="col-md-4 mb-3">
                             <div class="form-floating">
                                 <input type="text" id="material" formControlName="material" class="form-control"
                                     required>
@@ -89,10 +89,10 @@
                                     Le matériau est requis.
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- Description -->
-                        <div class="col-md-12 mb-3">
+                        <div class="col-md-8 mb-3">
                             <div class="form-floating">
                                 <textarea class="form-control" id="productDescription" formControlName="description"
                                     required></textarea>
@@ -105,7 +105,7 @@
                         </div>
 
                         <!-- Chambre Colors Management -->
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-4 mb-3">
                             <div class="form-floating">
                                 <input type="color" id="color" (change)="addColor($event)" class="form-control"
                                     required>
@@ -131,7 +131,7 @@
                         <!-- </div> -->
 
                         <!-- Téléchargement d'images -->
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-4 mb-3">
                             <div class="form-floating">
                                 <input type="file" class="form-control" (change)="onFileChange($event)"
                                     id="categoryImage" accept="image/*" multiple required>
@@ -155,7 +155,30 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="form-floating">
+                                <input type="file" class="form-control" (change)="onFileChange($event)"
+                                    id="categoryImage" accept="image/*" multiple required>
+                                <label for="categoryImage">Détails</label>
+                                <div *ngIf="chambreForm.get('images')?.invalid && (chambreForm.get('images')?.touched || chambreForm.get('images')?.dirty)"
+                                    class="text-danger">
+                                    Les images sont requises.
+                                </div>
 
+                                <!-- Container for images -->
+                                <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px;">
+                                    <div *ngFor="let img of chambreForm.get('images')?.value" style="position: relative;">
+                                        <img [src]="img" alt="Image du Chambre" class="img-fluid img-thumbnail"
+                                            style="max-width: 100px;">
+                                        <button type="button" class="btn btn-danger badge position-absolute"
+                                            (click)="removeImage(img)"
+                                            style="width: 20px; height: 20px; padding: 0; border-radius: 50%; align-items: center; justify-content: center; top: 0; right: 0;">
+                                            <i class="fa-solid fa-xmark"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <!-- <div class="mb-3">
                             <label for="productSelection">Sélectionner des Produits</label>
                             <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 5px;">

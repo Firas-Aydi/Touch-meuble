@@ -1,8 +1,16 @@
 /* Styles généraux pour la navbar */
 .custom-navbar {
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  /* padding: 10px 20px; */
+  /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); */
   height: 130px;
+  display: flex;
+  align-items: center;
+}
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* flex-grow: 1; */
+  margin-left: 45%;
 }
 .navbar-logo {
   width: 90px;
@@ -16,7 +24,6 @@
   max-height: 40px;
 }
 
-/* Bouton de menu hamburger */
 .navbar-toggler {
   border: none;
   color: #000000;
@@ -25,15 +32,6 @@
 .navbar-toggler-icon {
   font-size: 1.5rem;
 }
-
-/* Position et style pour le bouton flèche */
-/* .dropdown-toggle-btn {
-  background: none;
-  border: none;
-  color: #ffffff;
-  font-size: 1rem;
-  margin-left: 0.3rem;
-} */
 
 .dropdown-toggle-btn:focus {
   outline: none;
@@ -51,14 +49,10 @@
 .nav-link:hover,
 .nav-link:focus {
   color: #375778;
-  /* background-color: #2c3e50; */
-  /* border-radius: 50px; */
-  /* transform: translateY(-2px); */
 }
 /* Styles pour le lien dropdown */
 .nav-link.chic-link {
   position: relative;
-  /* padding-right: 1.5rem; */
 }
 
 /* Styles pour la flèche */
@@ -88,7 +82,7 @@
     background-color: #ffffff; /* Fond blanc pour le dropdown */
     border: 1px solid #e1e1e1; /* Bordure grise claire */
     border-radius: 5px; /* Coins légèrement arrondis */
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Ombre pour un effet de profondeur */
+    /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); */
     padding: 10px 0; /* Espacement interne */
     z-index: 1000; /* S'assurer que le dropdown est au-dessus des autres éléments */
     transition: opacity 0.3s ease, transform 0.3s ease; /* Animation douce */
@@ -191,7 +185,7 @@
     visibility: hidden;
     margin-top: 0.5rem;
     border-radius: 5px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); */
     opacity: 0;
     transition: opacity 1s ease, transform 1s ease;
   }
@@ -199,5 +193,72 @@
     visibility: visible;
     opacity: 1;
     transform: translateX(-100%) translateY(0);
+  }
+}
+
+
+.search-bar {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  background: white;
+  padding: 10px 0;
+  /* box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); */
+  z-index: 1000;
+  animation: slideDown 0.3s ease forwards;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-bar.closing {
+  animation: slideUp 0.3s ease forwards;
+}
+
+.search-input {
+  width: 90%;
+  border: none;
+  outline: none;
+  padding: 10px;
+  font-size: 1em;
+}
+.input-group-text{
+  border: none;
+  outline: none;
+  background: white;
+}
+.btn-close {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 20px; /* Ajustez la position droite si nécessaire */
+  background: transparent;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  padding: 0;
+}
+
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-100%);
+    opacity: 0;
   }
 }

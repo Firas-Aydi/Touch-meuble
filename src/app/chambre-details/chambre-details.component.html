@@ -1,7 +1,7 @@
 <div class="container mt-5">
     <div *ngIf="chambre" class="row align-items-start">
         <!-- Left Section: Sidebar and Main Image -->
-        <div class="col-md-6 d-flex">
+        <div class="col-md-8 d-flex">
             <div class="sidebar">
                 <div class="thumbnails">
                     <img *ngFor="let image of chambre.images" [src]="image" alt="{{ chambre.name }}"
@@ -14,8 +14,9 @@
         </div>
 
         <!-- Right Section: chambre Information -->
-        <div class="col-md-6">
+        <div class="col-md-4">
             <h2 class="chambre-title">{{ chambre.name }}</h2>
+            <hr>
             <h3> <strong>
                     <p class="text-success price">
                         <!-- <strong>Prix:</strong> -->
@@ -23,24 +24,27 @@
                     </p>
                 </strong>
             </h3>
-            <div class="chambre-info mt-3">
-                <p class="description">
-                    <!-- <strong>Description:</strong> -->
-                    {{ chambre.description }}
-                </p>
-                <p class="dimensions"><strong>Dimensions:</strong> {{ chambre.dimensions }}</p>
-                <p class="material"><strong>Matières:</strong> {{ chambre.material }}</p>
-                <div class="color-samples">
-                    <!-- <strong>Couleurs:</strong> -->
-                    <span *ngFor="let color of chambre.colors" [style.backgroundColor]="color" class="color-sample"
-                        title="{{ color }}"></span>
-                </div>
-                <!-- <p><strong>Type:</strong> {{ chambre.type }}</p> -->
+            <hr>
+            <!-- <div class="chambre-info mt-3"> -->
+            <p class="description">
+                <strong>Description</strong>
+                <!-- {{ chambre.description }} -->
+            </p>
+            <p class="dimensions">
+                Dimensions: {{ chambre.dimensions }}</p>
+            <p class="material">
+                Matières: {{ chambre.material }}</p>
+            <div class="color-samples">
+                <!-- <strong>Couleurs:</strong> -->
+                <span *ngFor="let color of chambre.colors" [style.backgroundColor]="color" class="color-sample"
+                    title="{{ color }}"></span>
             </div>
+            <!-- <p><strong>Type:</strong> {{ chambre.type }}</p> -->
+            <!-- </div> -->
             <div class="input-group mb-3 quantity-input">
                 <span class="input-group-text">Quantité:</span>
-                <input type="number" [(ngModel)]="quantity" min="1" max="{{ chambre.stock }}"
-                    class="form-control" [disabled]="chambre.stock === 0" (input)="validateQuantity()" />
+                <input type="number" [(ngModel)]="quantity" min="1" max="{{ chambre.stock }}" class="form-control"
+                    [disabled]="chambre.stock === 0" (input)="validateQuantity()" />
             </div>
             <!-- Error messages -->
             <div *ngIf="quantityError" class="text-danger">

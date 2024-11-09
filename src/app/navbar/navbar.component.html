@@ -1,57 +1,65 @@
 <!-- Première partie de la navbar : Logo, Recherche, Panier et Compte/Contact -->
 <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary custom-navbar d-none d-lg-flex">
   <div class="container-fluid">
-    <a (click)="toggleNavbar()" class="navbar-brand" routerLink="">
-      <img src="assets/TM-.png" alt="Logo" class="navbar-logo" />
-    </a>
-
+    <!-- Logo au centre -->
+    <div class="logo-container">
+      <a (click)="toggleNavbar()" class="navbar-brand" routerLink="">
+        <img src="assets/TM-.png" alt="Logo" class="navbar-logo" />
+      </a>
+    </div>
+    <!-- Liens Panier, Compte, et autres éléments alignés à droite -->
     <div class="collapse navbar-collapse" id="navbarTopLarge">
-      <!-- Recherche avec recherche en temps réel -->
-      <form class="d-flex mx-auto justify-content-center mb-2 mb-lg-0">
-        <div class="input-group" style="width: 500px;">
-          <span class="input-group-text" id="search-icon" (click)="onSearch()" style="cursor: pointer;">
+      <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
+        <!-- Bouton de recherche -->
+        <li class="nav-item" *ngIf="!isUser">
+          <span class="nav-link chic-link" (click)="toggleSearch()" style="cursor: pointer;">
             <i class="fa-solid fa-magnifying-glass"></i>
           </span>
-          <input (keyup.enter)="onSearch()" class="form-control" type="search" placeholder="Je recherche..." [(ngModel)]="searchTerm"
-            name="searchTerm" aria-label="Search" aria-describedby="search-icon">
-        </div>
-      </form>
-      <!-- Liens Panier, Compte, et Contact -->
-      <ul class="navbar-nav mb-2 mb-lg-0">
-        <!-- <ul class="navbar-nav mx-auto"> -->
-          <li class="nav-item" *ngIf="!isUser">
-            <span class="nav-link chic-link" (click)="onSearch()" style="cursor: pointer;">
-              <i class="fa-solid fa-magnifying-glass"></i>
-            </span>
-          </li>
+        </li>
+        <!-- Lien du Panier -->
         <li class="nav-item" *ngIf="userType !== 'admin'">
           <a (click)="toggleNavbar()" class="nav-link chic-link position-relative" routerLink="cart">
             <i class="fas fa-shopping-cart"></i>
             <span class="badge bg-danger">{{ cartItemCount }}</span>
           </a>
         </li>
-        
+        <!-- Lien de Connexion -->
         <li class="nav-item" *ngIf="!isUser">
           <a (click)="toggleNavbar()" class="nav-link chic-link" routerLink="login">
             <i class="fa-regular fa-user"></i>
-            </a>
+          </a>
         </li>
+        <!-- Lien des Commandes pour l'admin -->
         <li class="nav-item" *ngIf="isUser && userType === 'admin'">
           <a class="nav-link chic-link position-relative" aria-current="page" routerLink="commandes-management">
-              Commandes
-              <span class="badge bg-danger">{{ commandeItemCount }}</span>
+            Commandes
+            <span class="badge bg-danger">{{ commandeItemCount }}</span>
           </a>
-      </li>
+        </li>
+        <!-- Bouton de Déconnexion -->
         <li class="nav-item" *ngIf="isUser">
-          <a (click)="toggleNavbar()" class="btn btn-outline-danger chic-button" (click)="logout()" routerLink="/"><i
-              class="fas fa-sign-out-alt"></i></a>
+          <a (click)="toggleNavbar()" class="btn btn-outline-danger chic-button" (click)="logout()" routerLink="/">
+            <i class="fas fa-sign-out-alt"></i>
+          </a>
         </li>
       </ul>
     </div>
   </div>
+  <!-- Barre de recherche avec bouton de fermeture -->
+  <div class="search-bar" *ngIf="isSearchVisible" [ngClass]="{ closing: isClosing }">
+    <div class="input-group" style="height: 110px; width: 100%; margin: 0 auto;">
+      <span class="input-group-text" id="search-icon" (click)="onSearch()" style="cursor: pointer;">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </span>
+      <input class="search-input" type="search" placeholder="Je recherche..." [(ngModel)]="searchTerm"
+        (keyup.enter)="onSearch()" name="searchTerm" aria-label="Search" aria-describedby="search-icon" />
+      <button class="btn-close" (click)="closeSearchBar()">X</button>
+    </div>
+  </div>
 </nav>
 
- 
+
+
 
 <!-- Navbar pour les petits écrans -->
 <nav class="navbar navbar-light bg-body-tertiary custom-navbar d-flex d-lg-none">

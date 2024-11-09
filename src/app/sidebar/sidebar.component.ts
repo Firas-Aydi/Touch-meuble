@@ -26,7 +26,7 @@ interface UserData {
   styleUrls: ['./sidebar.component.css'],
 })
 export class SidebarComponent implements OnInit{
-  isSidebarOpen: boolean = true;
+  isSidebarOpen: boolean = false;
   isUser: boolean = false;
   userType: string = '';
   

@@ -30,6 +30,8 @@ export class NavbarComponent implements OnInit {
   userType: string = '';
   isNavbarOpen = false;
   isDropdownOpen: string | null = null;
+  isSearchVisible: boolean = false;
+  isClosing = false;
 
   chambres$: Observable<Chambre[]>;
   salons$: Observable<Salon[]>;
@@ -183,6 +185,18 @@ export class NavbarComponent implements OnInit {
     this.isDropdownOpen = this.isDropdownOpen === dropdown ? null : dropdown;
   }
 
+  toggleSearch() {
+    this.isSearchVisible = !this.isSearchVisible;
+    this.isClosing = false;
+
+  }
+  closeSearchBar() {
+    this.isClosing = true;
+    setTimeout(() => {
+      this.isSearchVisible = false;
+      this.isClosing = false;
+    }, 300); // Le délai correspond à la durée de l'animation slideUp
+  }
   onSearch() {
     const searchTermLower = this.searchTerm.toLowerCase();
     if (searchTermLower) {

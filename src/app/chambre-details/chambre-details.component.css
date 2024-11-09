@@ -35,8 +35,8 @@
 }
 
 .main-image {
-    width: 400px; /* Make the main image responsive */
-    height: 400px; /* Maintain aspect ratio */
+    width: 600px; /* Make the main image responsive */
+    height: 600px; /* Maintain aspect ratio */
     border-radius: 8px; /* Rounded corners */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow around the image */
     transition: transform 0.3s; /* Smooth transition */
@@ -44,8 +44,8 @@
 
 .chambre-title {
     font-size: 24px; /* Title font size */
-    font-weight: bold; /* Bold title */
-    margin-bottom: 10px; /* Space below title */
+    /* font-weight: bold;  */
+    /* margin-bottom: 10px;  */
 }
 
 .chambre-info {
