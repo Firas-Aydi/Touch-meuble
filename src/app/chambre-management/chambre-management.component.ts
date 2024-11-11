@@ -26,56 +26,57 @@ export class ChambreManagementComponent implements OnInit {
   chambreForm: FormGroup;
   chambres: Chambre[] = [];
   images: string[] = [];
+  details: string[] = [];
   isEdit: boolean = false;
-  products: Product[] = [];
+  // products: Product[] = [];
 
   constructor(
     private fb: FormBuilder,
     private firestore: AngularFirestore,
-    private chambreservice: ChambreService,
-    private productService: ProductService
-  ) {
+    private chambreservice: ChambreService
+  ) // private productService: ProductService
+  {
     this.chambreForm = this.fb.group({
       chambreId: [''],
       name: ['', Validators.required],
       price: ['', Validators.required],
       description: ['', Validators.required],
       stock: ['', Validators.required],
-      dimensions: ['', Validators.required],
-      material: ['', Validators.required],
-      items: [[]], // List of selected products
+      // dimensions: ['', Validators.required],
+      // material: ['', Validators.required],
       colors: [[], Validators.required],
       images: [[], Validators.required],
+      details: [[]],
       type: [[], Validators.required],
     });
   }
   ngOnInit(): void {
     this.loadChambre();
-    this.loadProducts(); // Fetch available products
+    // this.loadProducts();
   }
   loadChambre() {
     this.chambreservice.getChambre().subscribe((data) => {
       this.chambres = data;
     });
   }
-  loadProducts() {
-    // Assuming you have a ProductService to fetch products
-    this.productService.getAllProducts().subscribe((data: Product[]) => {
-      this.products = data; // Assign available products
-      console.log('Products: ', this.products);
-    });
-  }
-  getProductById(productId: string): Product | undefined {
-    return this.products.find((product) => product.productId === productId);
-  }
-  getSelectedProductNames(): string[] {
-    const selectedProductIds = this.chambreForm.get('items')?.value || [];
-    return selectedProductIds.map(
-      (productId: string) =>
-        this.products.find((p) => p.productId === productId)?.name ||
-        'Unknown Product'
-    );
-  }
+  // loadProducts() {
+  //   // Assuming you have a ProductService to fetch products
+  //   this.productService.getAllProducts().subscribe((data: Product[]) => {
+  //     this.products = data; // Assign available products
+  //     console.log('Products: ', this.products);
+  //   });
+  // }
+  // getProductById(productId: string): Product | undefined {
+  //   return this.products.find((product) => product.productId === productId);
+  // }
+  // getSelectedProductNames(): string[] {
+  //   const selectedProductIds = this.chambreForm.get('items')?.value || [];
+  //   return selectedProductIds.map(
+  //     (productId: string) =>
+  //       this.products.find((p) => p.productId === productId)?.name ||
+  //       'Unknown Product'
+  //   );
+  // }
   onProductSelect(event: any, product: Product) {
     const selectedProducts = this.chambreForm.get('items')?.value || [];
 
@@ -182,6 +183,25 @@ export class ChambreManagementComponent implements OnInit {
         });
     }
   }
+
+  onFileDetailsChange(event: any) {
+    const files: FileList = event.target.files;
+    const chambreId =
+      this.chambreForm.value.chambreId || this.generateUniqueId();
+
+    const detailsArray: string[] = [];
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+
+      this.chambreservice
+        .uploadImage(file, chambreId)
+        .subscribe((imageUrl: string) => {
+          detailsArray.push(imageUrl);
+          this.chambreForm.patchValue({ details: detailsArray });
+        });
+    }
+  }
+
   // Méthode pour générer un ID unique pour les chambres
   generateUniqueId(): string {
     return this.firestore.createId();
@@ -222,15 +242,23 @@ export class ChambreManagementComponent implements OnInit {
       this.chambreForm.patchValue({ images: imagesArray }); // Met à jour le FormGroup
     }
   }
-  removeProduct(categoryName: string) {
-    const currentItems = this.chambreForm.get('items')?.value || [];
-
-    // Find the index of the category to remove based on the name
-    const updatedItems = currentItems.filter(
-      (item: string) => this.getProductById(item)?.name !== categoryName
-    );
-
-    // Update the form with the new list
-    this.chambreForm.get('items')?.setValue(updatedItems);
+  removeDetails(image: string) {
+    const imagesArray = this.chambreForm.get('details')?.value || [];
+    const index = imagesArray.indexOf(image);
+    if (index > -1) {
+      imagesArray.splice(index, 1); // Supprime l'image du tableau
+      this.chambreForm.patchValue({ details: imagesArray }); // Met à jour le FormGroup
+    }
   }
+  // removeProduct(categoryName: string) {
+  //   const currentItems = this.chambreForm.get('items')?.value || [];
+
+  //   // Find the index of the category to remove based on the name
+  //   const updatedItems = currentItems.filter(
+  //     (item: string) => this.getProductById(item)?.name !== categoryName
+  //   );
+
+  //   // Update the form with the new list
+  //   this.chambreForm.get('items')?.setValue(updatedItems);
+  // }
 }

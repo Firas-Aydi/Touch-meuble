@@ -5,13 +5,16 @@ import {
   ɵcacheInstance,
   ɵfirebaseAppFactory,
   ɵlazySDKProxy
-} from "./chunk-VMQWH4IX.js";
+} from "./chunk-P5WCSQHX.js";
+import {
+  firebase
+} from "./chunk-VXWY3GT5.js";
 import {
   VERSION,
   keepUnstableUntilFirst,
   ɵAngularFireSchedulers,
   ɵAppCheckInstances
-} from "./chunk-D4TCYX7M.js";
+} from "./chunk-GEVHBNB7.js";
 import {
   isPlatformServer
 } from "./chunk-LWCYPPMW.js";
@@ -46,9 +49,6 @@ import {
   switchMap,
   switchMapTo
 } from "./chunk-D5YRXC5P.js";
-import {
-  firebase
-} from "./chunk-VXWY3GT5.js";
 
 // node_modules/@angular/fire/fesm2022/angular-fire-compat-auth.mjs
 var proxyPolyfillCompat = {
@@ -140,7 +140,7 @@ var AngularFireAuth = class _AngularFireAuth {
   credential;
   constructor(options, name, platformId, zone, schedulers, useEmulator, settings, tenantId, languageCode, useDeviceLanguage, persistence, _appCheckInstances) {
     const logins = new Subject();
-    const auth = of(void 0).pipe(observeOn(schedulers.outsideAngular), switchMap(() => zone.runOutsideAngular(() => import("./index.esm-D76MJR7E.js"))), map(() => ɵfirebaseAppFactory(options, zone, name)), map((app) => ɵauthFactory(app, zone, useEmulator, tenantId, languageCode, useDeviceLanguage, settings, persistence)), shareReplay({
+    const auth = of(void 0).pipe(observeOn(schedulers.outsideAngular), switchMap(() => zone.runOutsideAngular(() => import("./index.esm-XSOEYADY.js"))), map(() => ɵfirebaseAppFactory(options, zone, name)), map((app) => ɵauthFactory(app, zone, useEmulator, tenantId, languageCode, useDeviceLanguage, settings, persistence)), shareReplay({
       bufferSize: 1,
       refCount: false
     }));
@@ -315,4 +315,4 @@ export {
   AngularFireAuth,
   AngularFireAuthModule
 };
-//# sourceMappingURL=chunk-QBIX4WQJ.js.map
+//# sourceMappingURL=chunk-PJI5YDR5.js.map

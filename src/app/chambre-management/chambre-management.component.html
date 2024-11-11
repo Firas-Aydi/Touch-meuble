@@ -143,7 +143,8 @@
 
                                 <!-- Container for images -->
                                 <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px;">
-                                    <div *ngFor="let img of chambreForm.get('images')?.value" style="position: relative;">
+                                    <div *ngFor="let img of chambreForm.get('images')?.value"
+                                        style="position: relative;">
                                         <img [src]="img" alt="Image du Chambre" class="img-fluid img-thumbnail"
                                             style="max-width: 100px;">
                                         <button type="button" class="btn btn-danger badge position-absolute"
@@ -155,30 +156,32 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Détails des Images -->
                         <div class="col-md-4 mb-3">
                             <div class="form-floating">
-                                <input type="file" class="form-control" (change)="onFileChange($event)"
-                                    id="categoryImage" accept="image/*" multiple required>
-                                <label for="categoryImage">Détails</label>
-                                <div *ngIf="chambreForm.get('images')?.invalid && (chambreForm.get('images')?.touched || chambreForm.get('images')?.dirty)"
-                                    class="text-danger">
-                                    Les images sont requises.
-                                </div>
+                                <input type="file" class="form-control" (change)="onFileDetailsChange($event)"
+                                    id="DetailsImage" accept="image/*" multiple required>
+                                <label for="DetailsImage">Détails</label>
+                                <div *ngIf="chambreForm.get('details')?.invalid && (chambreForm.get('details')?.touched || chambreForm.get('details')?.dirty)"
+                                    class="text-danger">Les images des détails sont requises.</div>
 
-                                <!-- Container for images -->
+                                <!-- Affichage des images de détails -->
                                 <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px;">
-                                    <div *ngFor="let img of chambreForm.get('images')?.value" style="position: relative;">
-                                        <img [src]="img" alt="Image du Chambre" class="img-fluid img-thumbnail"
+                                    <div *ngFor="let detailImg of chambreForm.get('details')?.value"
+                                        style="position: relative;">
+                                        <img [src]="detailImg" alt="Détails Image" class="img-fluid img-thumbnail"
                                             style="max-width: 100px;">
                                         <button type="button" class="btn btn-danger badge position-absolute"
-                                            (click)="removeImage(img)"
-                                            style="width: 20px; height: 20px; padding: 0; border-radius: 50%; align-items: center; justify-content: center; top: 0; right: 0;">
+                                            (click)="removeDetails(detailImg)"
+                                            style="width: 20px; height: 20px; padding: 0; border-radius: 50%; top: 0; right: 0;">
                                             <i class="fa-solid fa-xmark"></i>
                                         </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <!-- <div class="mb-3">
                             <label for="productSelection">Sélectionner des Produits</label>
                             <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 5px;">
@@ -227,10 +230,10 @@
                     <th>Prix</th>
                     <th>Description</th>
                     <th scope="col">Stock</th>
-                    <th scope="col">Dimensions</th>
-                    <th scope="col">Matériau</th>
+                    <!-- <th scope="col">Dimensions</th> -->
+                    <!-- <th scope="col">Matériau</th> -->
                     <th>Images</th>
-                    <!-- <th>Produits</th> -->
+                    <th>Détails</th>
                     <th>Couleurs</th>
                     <th>Actions</th>
                 </tr>
@@ -243,22 +246,20 @@
                     <td>{{ Chambre.price }} TND</td>
                     <td>{{ Chambre.description }}</td>
                     <td>{{ Chambre.stock }}</td>
-                    <td>{{ Chambre.dimensions }}</td>
-                    <td>{{ Chambre.material }}</td>
+                    <!-- <td>{{ Chambre.dimensions }}</td> -->
+                    <!-- <td>{{ Chambre.material }}</td> -->
                     <td>
                         <div style="display: flex; flex-wrap: wrap;">
                             <img *ngFor="let img of Chambre.images" [src]="img" alt="Image de la Chambre"
                                 class="img-fluid img-thumbnail me-2" style="max-width: 100px; margin-bottom: 5px;">
                         </div>
                     </td>
-                    <!-- <td>
-                        <ul>
-                            <li *ngFor="let productId of Chambre.items">
-                                {{ getProductById(productId)?.name || 'Produit introuvable' }} -
-                                {{ getProductById(productId)?.price || '0' }} TND
-                            </li>
-                        </ul>
-                    </td> -->
+                    <td>
+                        <div style="display: flex; flex-wrap: wrap;">
+                            <img *ngFor="let detailImg of Chambre.details" [src]="detailImg" alt="Détails de la Chambre"
+                                class="img-fluid img-thumbnail me-2" style="max-width: 100px; margin-bottom: 5px;">
+                        </div>
+                    </td>
 
                     <td>
                         <div style="display: flex; flex-wrap: wrap;">

@@ -157,7 +157,7 @@ export class HomeComponent implements OnInit {
   }
   openChambreDetailsModal(chambre: Chambre) {
     console.log('chambre', chambre);
-    this.selectedPack = chambre;
+    // this.selectedPack = chambre;
     console.log('selectedchambre', this.selectedPack);
     this.selectedImage = chambre.images[0]; // Set the default selected image
 

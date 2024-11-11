@@ -1,6 +1,6 @@
 import {
   FirebaseApp
-} from "./chunk-BJLA62CD.js";
+} from "./chunk-C7YTF3IW.js";
 import {
   VERSION,
   ɵAPP_CHECK_PROVIDER_NAME,
@@ -8,22 +8,7 @@ import {
   ɵgetAllInstancesOf,
   ɵgetDefaultInstanceOf,
   ɵzoneWrap
-} from "./chunk-D4TCYX7M.js";
-import {
-  InjectionToken,
-  NgModule,
-  Optional,
-  PLATFORM_ID,
-  setClassMetadata,
-  ɵɵdefineInjector,
-  ɵɵdefineNgModule
-} from "./chunk-KDR5S3NA.js";
-import {
-  concatMap,
-  distinct,
-  from,
-  timer
-} from "./chunk-D5YRXC5P.js";
+} from "./chunk-GEVHBNB7.js";
 import {
   Component,
   Deferred,
@@ -39,6 +24,21 @@ import {
   registerVersion,
   uuidv4
 } from "./chunk-4DY6MUNU.js";
+import {
+  InjectionToken,
+  NgModule,
+  Optional,
+  PLATFORM_ID,
+  setClassMetadata,
+  ɵɵdefineInjector,
+  ɵɵdefineNgModule
+} from "./chunk-KDR5S3NA.js";
+import {
+  concatMap,
+  distinct,
+  from,
+  timer
+} from "./chunk-D5YRXC5P.js";
 import {
   __async
 } from "./chunk-35ENWJA4.js";
@@ -987,4 +987,4 @@ var setTokenAutoRefreshEnabled2 = ɵzoneWrap(setTokenAutoRefreshEnabled, true);
    * limitations under the License.
    *)
 */
-//# sourceMappingURL=chunk-ICROFJ75.js.map
+//# sourceMappingURL=chunk-KJXADKOF.js.map

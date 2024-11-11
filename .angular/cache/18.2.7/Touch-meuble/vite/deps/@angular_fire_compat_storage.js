@@ -1,18 +1,31 @@
-import "./chunk-ICROFJ75.js";
+import "./chunk-KJXADKOF.js";
+import "./chunk-C7YTF3IW.js";
 import {
   FIREBASE_APP_NAME,
   FIREBASE_OPTIONS,
   ɵcacheInstance,
   ɵfirebaseAppFactory
-} from "./chunk-VMQWH4IX.js";
-import "./chunk-BJLA62CD.js";
+} from "./chunk-P5WCSQHX.js";
+import "./chunk-W6R5MHSY.js";
+import {
+  firebase
+} from "./chunk-VXWY3GT5.js";
 import {
   VERSION,
   keepUnstableUntilFirst,
   observeOutsideAngular,
   ɵAngularFireSchedulers,
   ɵAppCheckInstances
-} from "./chunk-D4TCYX7M.js";
+} from "./chunk-GEVHBNB7.js";
+import {
+  Component,
+  FirebaseError,
+  SDK_VERSION,
+  _registerComponent,
+  createMockUserToken,
+  getModularInstance,
+  registerVersion
+} from "./chunk-4DY6MUNU.js";
 import {
   AsyncPipe
 } from "./chunk-LWCYPPMW.js";
@@ -48,19 +61,6 @@ import {
   tap
 } from "./chunk-D5YRXC5P.js";
 import "./chunk-NTERNHDG.js";
-import "./chunk-W6R5MHSY.js";
-import {
-  firebase
-} from "./chunk-VXWY3GT5.js";
-import {
-  Component,
-  FirebaseError,
-  SDK_VERSION,
-  _registerComponent,
-  createMockUserToken,
-  getModularInstance,
-  registerVersion
-} from "./chunk-4DY6MUNU.js";
 import {
   __async
 } from "./chunk-35ENWJA4.js";

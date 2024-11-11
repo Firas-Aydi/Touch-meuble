@@ -9,15 +9,15 @@ import {
 import {
   InputText,
   InputTextModule
-} from "./chunk-PSPA4AJE.js";
+} from "./chunk-6WELIET4.js";
+import {
+  NG_VALUE_ACCESSOR
+} from "./chunk-4VGWNYXB.js";
 import {
   PrimeNGConfig,
   PrimeTemplate,
   SharedModule
 } from "./chunk-3Q4A64JF.js";
-import {
-  NG_VALUE_ACCESSOR
-} from "./chunk-4VGWNYXB.js";
 import {
   CommonModule,
   DOCUMENT,

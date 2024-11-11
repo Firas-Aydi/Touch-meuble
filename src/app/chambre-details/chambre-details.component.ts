@@ -12,6 +12,7 @@ import { CartService } from '../services/cart.service';
 export class ChambreDetailsComponent implements OnInit {
   chambre: Chambre | null = null; // Pour stocker les détails de la chambre
   selectedImage: string = ''; // Initialize selectedImage
+  showDetails: boolean = false;
 
   quantity: number = 1; // Default quantity
   quantityError: string | null = null;
@@ -38,6 +39,9 @@ export class ChambreDetailsComponent implements OnInit {
         }
       });
     }
+  }
+  toggleDetails() {
+    this.showDetails = !this.showDetails;
   }
   selectImage(image: string) {
     this.selectedImage = image; // Set the selected image when clicked

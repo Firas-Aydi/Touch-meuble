@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { Chambre } from '../models/chambre.model';
 import { ChambreService } from '../services/chambre.service';
 import { CartService } from '../services/cart.service';
-declare var bootstrap: any;
 import { ActivatedRoute } from '@angular/router';
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-chambre',
@@ -24,6 +24,10 @@ export class ChambreComponent implements OnInit {
 
   filteredChambres: Chambre[] = [];
   currentType: string | null = null;
+
+  imageIntervals: { [key: string]: any } = {}; // Utiliser un dictionnaire pour stocker les intervalles par chambreId
+  rotationDuration = 1000; // Durée de chaque image en ms (1 seconde ici)
+
   constructor(
     private chambreService: ChambreService,
     private cartService: CartService,
@@ -57,6 +61,7 @@ export class ChambreComponent implements OnInit {
 
   viewProductDetails(chambreId: string | undefined) {
     if (chambreId) {
+      this.stopImageRotation(chambreId);
       this.router.navigate(['/chambres', chambreId]);
     } else {
       console.error(
@@ -75,6 +80,75 @@ export class ChambreComponent implements OnInit {
     chambreDetailsModal.show();
   }
 
+  startImageRotation(chambreId: string): void {
+    const chambre = this.paginatedProducts.find(
+      (c) => c.chambreId === chambreId
+    );
+    if (chambre) {
+      let currentIndex = 0;
+      this.imageIntervals[chambreId] = setInterval(() => {
+        currentIndex = (currentIndex + 1) % chambre.images.length;
+        const imgElement = document.getElementById(
+          'image-' + chambreId
+        ) as HTMLImageElement;
+        if (imgElement) {
+          imgElement.src = chambre.images[currentIndex];
+        }
+      }, 2000);
+    }
+  }
+
+  stopImageRotation(chambreId: string): void {
+    if (this.imageIntervals[chambreId]) {
+      clearInterval(this.imageIntervals[chambreId]);
+      delete this.imageIntervals[chambreId];
+    }
+  }
+  // startImageRotation(chambreId: string): void {
+  //   const chambre = this.paginatedProducts.find(c => c.chambreId === chambreId);
+  //   if (chambre) {
+  //       let currentIndex = 0;
+  //       const progressBar = document.getElementById('progress-bar-' + chambreId) as HTMLDivElement;
+
+  //       // Fonction pour réinitialiser et redémarrer la barre de progression
+  //       const resetProgressBar = () => {
+  //           if (progressBar) {
+  //               progressBar.style.transition = 'none';
+  //               progressBar.style.width = '0%';
+  //               setTimeout(() => {
+  //                   progressBar.style.transition = `width ${this.rotationDuration}ms linear`;
+  //                   progressBar.style.width = '100%';
+  //               }, 10);
+  //           }
+  //       };
+
+  //       resetProgressBar();
+
+  //       // Définir l'intervalle pour changer les images et redémarrer la barre de progression
+  //       this.imageIntervals[chambreId] = setInterval(() => {
+  //           currentIndex = (currentIndex + 1) % chambre.images.length;
+  //           const imgElement = document.getElementById('image-' + chambreId) as HTMLImageElement;
+  //           if (imgElement) {
+  //               imgElement.src = chambre.images[currentIndex];
+  //           }
+  //           resetProgressBar();
+  //       }, this.rotationDuration);
+  //   }
+  // }
+
+  // stopImageRotation(chambreId: string): void {
+  //   if (this.imageIntervals[chambreId]) {
+  //       clearInterval(this.imageIntervals[chambreId]);
+  //       delete this.imageIntervals[chambreId];
+
+  //       // Réinitialiser la barre de progression immédiatement
+  //       const progressBar = document.getElementById('progress-bar-' + chambreId) as HTMLDivElement;
+  //       if (progressBar) {
+  //           progressBar.style.transition = 'none'; // Annule l'animation
+  //           progressBar.style.width = '0%'; // Réinitialise la largeur
+  //       }
+  //   }
+  // }
   selectImage(image: string) {
     this.selectedImage = image; // Set the selected image when clicked
   }
@@ -138,21 +212,19 @@ export class ChambreComponent implements OnInit {
   //   const endIndex = startIndex + this.pageSize;
   //   this.paginatedProducts = this.filteredChambres.slice(startIndex, endIndex);
   // }
-  
+
   // changePage(pageNumber: number) {
   //   if (pageNumber >= 1 && pageNumber <= this.totalPages) {
   //     this.currentPage = pageNumber;
   //     this.updatePaginatedProducts();
   //   }
   // }
-  
+
   // get totalPages(): number {
   //   return Math.ceil(this.filteredChambres.length / this.pageSize);
   // }
-  
+
   // getPagesArray(): number[] {
   //   return Array.from({ length: this.totalPages }, (_, i) => i + 1);
   // }
-  
-  
 }

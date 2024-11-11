@@ -5,10 +5,10 @@ export interface Chambre {
   price: number;
   description: string;
   stock: number;
-  dimensions: string;
-  material: string;
+  // dimensions: string;
+  // material: string;
   images: string[];
-  items: string[]; // Liste des produits dans cette catégorie
+  details: string[];
   colors: string[];
   type: string;
 }
