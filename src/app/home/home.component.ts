@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 // import { CartService } from '../services/cart.service'; // Assuming you have a CartService for managing the cart
 import { PackService } from '../services/pack.service'; // Assuming you have a PackService for fetching packs
-import { CategoryService } from '../services/category.service'; // Assuming you have a CategoryService
+// import { CategoryService } from '../services/category.service'; // Assuming you have a CategoryService
 import { SalonService } from '../services/salon.service';
 import { SalleAMangeService } from '../services/salle-amange.service';
 import { ChambreService } from '../services/chambre.service';
@@ -18,7 +18,7 @@ declare var bootstrap: any;
 })
 export class HomeComponent implements OnInit {
   // packs: any[] = [];
-  categories: any[] = [];
+  // categories: any[] = [];
   chambres: any[] = [];
   salon: any[] = [];
   salles: any[] = [];
@@ -29,6 +29,7 @@ export class HomeComponent implements OnInit {
   quantityError: string | null = null;
 
   selectedPack: Pack | null = null;
+  selectedChambre: Chambre | null = null;
   selectedImage: string = '';
   selectedChambreName: string | null = null;
   selectedSalleName: string | null = null;
@@ -37,7 +38,7 @@ export class HomeComponent implements OnInit {
   constructor(
     // private cartService: CartService,
     private packService: PackService,
-    private categoryService: CategoryService,
+    // private categoryService: CategoryService,
     private chambreService: ChambreService,
     private salleService: SalleAMangeService,
     private salonService: SalonService,
@@ -47,7 +48,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadPacks();
-    this.loadCategories();
+    // this.loadCategories();
     this.loadChambres();
     this.loadSalles();
     this.loadSalon();
@@ -62,11 +63,11 @@ export class HomeComponent implements OnInit {
   }
 
   // Load categories from the category service
-  loadCategories(): void {
-    this.categoryService.getAllCategories().subscribe((data: any[]) => {
-      this.categories = data;
-    });
-  }
+  // loadCategories(): void {
+  //   this.categoryService.getAllCategories().subscribe((data: any[]) => {
+  //     this.categories = data;
+  //   });
+  // }
   loadChambres(): void {
     this.chambreService.getChambre().subscribe((data: any[]) => {
       this.chambres = data;
@@ -157,8 +158,8 @@ export class HomeComponent implements OnInit {
   }
   openChambreDetailsModal(chambre: Chambre) {
     console.log('chambre', chambre);
-    // this.selectedPack = chambre;
-    console.log('selectedchambre', this.selectedPack);
+    this.selectedChambre = chambre;
+    console.log('selectedchambre', this.selectedChambre);
     this.selectedImage = chambre.images[0]; // Set the default selected image
 
     // const selectedChambre = (pack as any)['selectedChambre'];
@@ -213,7 +214,26 @@ export class HomeComponent implements OnInit {
       alert('An error occurred. Please try again.');
     }
   }
+  addChambreToCart(chambre: Chambre, quantity: number) {
+    // Check if the product and quantity are valid
+    if (chambre && quantity > 0) {
+      // Logic to add the item to the cart
+      console.log(`Added ${quantity} of ${chambre.name} to the cart.`);
 
+      // Assuming you have a CartService to manage the cart:
+      this.cartService.addToCart(chambre, 'chambre', quantity);
+      alert(`${quantity} ${chambre.name}(s) added to the cart!`);
+
+      // Optionally show a success message or notification
+      // alert(`${quantity} ${product.name}(s) added to the cart!`);
+    } else if (quantity <= 0) {
+      // Handle case where the quantity is invalid (e.g., less than 1)
+      alert('Please enter a valid quantity greater than 0.');
+    } else {
+      // Handle other invalid cases, like if the product object is null
+      alert('An error occurred. Please try again.');
+    }
+  }
   validateQuantity() {
     this.quantityError = null; // Reset error message
 

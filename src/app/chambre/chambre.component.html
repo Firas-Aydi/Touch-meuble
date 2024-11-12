@@ -123,9 +123,9 @@
                     <h2 class="card-title">{{ selectedChambre?.name }}</h2>
                     <p class="card-text text-success">{{ selectedChambre?.price | currency:' DT ':'symbol' }}</p>
                     <strong>Description</strong><br>
-                    <p class="card-text">{{ selectedChambre?.description }}</p>
-                    <!-- <p class="dimensions"><strong>Dimensions:</strong> {{ selectedChambre?.dimensions }}</p>
-                    <p class="material"><strong>Matières:</strong> {{ selectedChambre?.material }}</p> -->
+                    <!-- <p class="card-text">{{ selectedChambre?.description }}</p> -->
+                    <p class="dimensions">Dimensions: {{ selectedChambre?.dimensions }}</p>
+                    <p class="material">Matières: {{ selectedChambre?.material }}</p>
                     <div class="color-samples">
                         <!-- <strong>Couleurs:</strong> -->
                         <span *ngFor="let color of selectedChambre?.colors" [style.backgroundColor]="color"

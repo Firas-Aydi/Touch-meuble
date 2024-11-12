@@ -28,24 +28,14 @@
             <!-- <div class="chambre-info mt-3"> -->
             <p class="description">
                 <strong>Description</strong><br>
-                {{ chambre.description }}
-            </p><hr>
-            <!-- <p class="dimensions">
+                <!-- {{ chambre.description }} -->
+            </p>
+            <p class="dimensions">
                 Dimensions: {{ chambre.dimensions }}</p>
-                <p class="material">
-                    Matières: {{ chambre.material }}</p> -->
-            <div>
-                <strong style="cursor: pointer;" (click)="toggleDetails()">
-                    Détails
-                    <span [ngClass]="{'fa-solid fa-angle-down': !showDetails, 'fa fa-chevron-up': showDetails}"></span>
-                </strong>
-
-                <div class="details-container" [ngClass]="{'show': showDetails}">
-                    <img *ngFor="let image of chambre.details" [src]="image" alt="{{ chambre.name }}"
-                        class="img-thumbnail" (click)="selectImage(image)" [class.active]="image === selectedImage" />
-                </div>
-            </div>
+            <p class="material">
+                Matières: {{ chambre.material }}</p>
             <hr>
+            product
 
             <div class="color-samples">
                 <!-- <strong>Couleurs:</strong> -->

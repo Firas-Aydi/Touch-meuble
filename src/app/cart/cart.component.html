@@ -51,15 +51,15 @@
                     <span>{{ getTotalItemsCount() }} article(s) :</span>
                     <strong>{{ totalPrice | currency:'DT ':'symbol' }}</strong>
                 </div>
-                <div class="d-flex justify-content-between">
+                <!-- <div class="d-flex justify-content-between">
                     <span>Livraison :</span>
                     <strong>DT 70</strong>
-                </div>
+                </div> -->
                 <hr>
-                <div class="d-flex justify-content-between">
+                <!-- <div class="d-flex justify-content-between">
                     <span>Total avec livraison :</span>
                     <strong>{{ (totalPrice + 70) | currency:'DT ':'symbol' }}</strong>
-                </div>
+                </div> -->
 
                 <button class="btn btn-success mt-3 w-100" (click)="proceedToCheckout()">
                     Passer la commande

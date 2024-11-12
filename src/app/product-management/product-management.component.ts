@@ -24,11 +24,12 @@ export class ProductManagementComponent implements OnInit {
       productId: [''],
       name: ['', Validators.required],
       price: ['', Validators.required],
-      description: ['', Validators.required],
+      // description: ['', Validators.required],
       stock: ['', Validators.required],
       dimensions: ['', Validators.required],
       material: ['', Validators.required],
       images: [[], Validators.required], // Images array
+      details: [[]],
       colors: [[], Validators.required],
       type: [[], Validators.required],
     });
@@ -59,10 +60,32 @@ export class ProductManagementComponent implements OnInit {
         this.productForm.patchValue({ images: imagesArray });
       };
 
-      reader.readAsDataURL(file); // Read the image file as data URL
+      reader.readAsDataURL(file);
     }
   }
+  onFileDetailsChange(event: any) {
+    const files: FileList = event.target.files;
 
+    const detailsArray: string[] = [];
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        detailsArray.push(e.target?.result as string);
+        this.productForm.patchValue({ details: detailsArray });
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+  removeDetails(image: string) {
+    const imagesArray = this.productForm.get('details')?.value || [];
+    const index = imagesArray.indexOf(image);
+    if (index > -1) {
+      imagesArray.splice(index, 1); // Supprime l'image du tableau
+      this.productForm.patchValue({ details: imagesArray }); // Met à jour le FormGroup
+    }
+  }
   addOrUpdateProduct() {
     if (this.isEdit) {
       this.updateProduct();

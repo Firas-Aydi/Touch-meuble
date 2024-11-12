@@ -97,9 +97,10 @@
                 <div class="w-50 ps-3">
                     <h2 class="card-title">{{ selectedProduct?.name }}</h2>
                     <p class="card-text text-success">{{ selectedProduct?.price | currency:' DT ':'symbol' }}</p>
-                    <p class="card-text">{{ selectedProduct?.description }}</p>
-                    <p class="dimensions"><strong>Dimensions:</strong> {{ selectedProduct?.dimensions }}</p>
-                    <p class="material"><strong>Matières:</strong> {{ selectedProduct?.material }}</p>
+                    <strong>Description</strong><br>
+                    <!-- <p class="card-text">{{ selectedChambre?.description }}</p> -->
+                    <p class="dimensions">Dimensions: {{ selectedProduct?.dimensions }}</p>
+                    <p class="material">Matières: {{ selectedProduct?.material }}</p>
                 <div class="color-samples">
                     <!-- <strong>Couleurs:</strong> -->
                     <span *ngFor="let color of selectedProduct?.colors" [style.backgroundColor]="color" class="color-sample"

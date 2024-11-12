@@ -1,7 +1,7 @@
 <div class="container mt-5">
     <div *ngIf="product" class="row align-items-start">
         <!-- Left Section: Sidebar and Main Image -->
-        <div class="col-md-6 d-flex">
+        <div class="col-md-8 d-flex">
             <div class="sidebar">
                 <div class="thumbnails">
                     <img *ngFor="let image of product.images" [src]="image" alt="{{ product.name }}"
@@ -14,7 +14,7 @@
         </div>
 
         <!-- Right Section: Product Information -->
-        <div class="col-md-6">
+        <div class="col-md-4">
             <h2 class="product-title">{{ product.name }}</h2>
             <h3> <strong>
                     <p class="text-success price">
@@ -24,12 +24,29 @@
                 </strong>
             </h3>
             <div class="product-info mt-3">
-                <p class="description">
-                    <!-- <strong>Description:</strong> -->
-                    {{ product.description }}
-                </p>
-                <p class="dimensions"><strong>Dimensions:</strong> {{ product.dimensions }}</p>
-                <p class="material"><strong>Matières:</strong> {{ product.material }}</p>
+                <hr>
+            <!-- <div class="chambre-info mt-3"> -->
+            <p class="description">
+                <strong>Description</strong><br>
+                <!-- {{ chambre.description }} -->
+            </p>
+            <p class="dimensions">
+                Dimensions: {{ product.dimensions }}</p>
+            <p class="material">
+                Matières: {{ product.material }}</p>
+            <hr>
+            <div>
+                <strong style="cursor: pointer;" (click)="toggleDetails()">
+                    Détails
+                    <span [ngClass]="{'fa-solid fa-angle-down': !showDetails, 'fa fa-chevron-up': showDetails}"></span>
+                </strong>
+
+                <div class="details-container" [ngClass]="{'show': showDetails}">
+                    <img *ngFor="let image of product.details" [src]="image" alt="{{ product.name }}"
+                        class="img-thumbnail" (click)="selectImage(image)" [class.active]="image === selectedImage" />
+                </div>
+            </div>
+            <hr>
                 <div class="color-samples">
                     <!-- <strong>Couleurs:</strong> -->
                     <span *ngFor="let color of product.colors" [style.backgroundColor]="color" class="color-sample"

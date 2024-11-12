@@ -35,8 +35,8 @@
 }
 
 .main-image {
-    width: 600px; /* Make the main image responsive */
-    height: 600px; /* Maintain aspect ratio */
+    width: 100%; /* Make the main image responsive */
+    height: auto; /* Maintain aspect ratio */
     border-radius: 8px; /* Rounded corners */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow around the image */
     transition: transform 0.3s; /* Smooth transition */

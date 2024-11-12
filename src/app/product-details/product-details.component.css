@@ -114,3 +114,14 @@
     outline: none; /* Remove focus outline */
     box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2); /* Custom focus effect */
 }
+.details-container {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 1.3s ease, opacity 2.6s ease;
+}
+
+.details-container.show {
+    max-height: 500px; /* Ajustez selon la hauteur maximale attendue */
+    opacity: 1;
+}

@@ -3,10 +3,10 @@ export interface Chambre {
   chambreId?: string; // Identifiant de la catégorie
   name: string;
   price: number;
-  description: string;
+  // description: string;
   stock: number;
-  // dimensions: string;
-  // material: string;
+  dimensions: string;
+  material: string;
   images: string[];
   details: string[];
   colors: string[];

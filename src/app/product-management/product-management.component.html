@@ -65,7 +65,7 @@
                         <!-- Dimensions -->
                         <div class="col-md-4 mb-3">
                             <div class="form-floating">
-                                <textarea class="form-control" id="productDescription" formControlName="description"
+                                <textarea class="form-control" id="productDimensions" formControlName="dimensions"
                                     required></textarea>
                                 <label for="productDimensions">Dimensions</label>
                                 <div *ngIf="productForm.get('dimensions')?.invalid && (productForm.get('dimensions')?.touched || productForm.get('dimensions')?.dirty)"
@@ -89,7 +89,7 @@
                         </div>
 
                         <!-- Description -->
-                        <div class="col-md-12 mb-3">
+                        <!-- <div class="col-md-12 mb-3">
                             <div class="form-floating">
                                 <textarea class="form-control" id="productDescription" formControlName="description"
                                     required></textarea>
@@ -99,10 +99,10 @@
                                     La description est requise.
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- Couleur -->
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-4 mb-3">
                             <div class="form-floating">
                                 <input type="color" id="color" (change)="addColor($event)" class="form-control"
                                     required>
@@ -125,7 +125,7 @@
                         </div>
 
                         <!-- Téléchargement d'images -->
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-4 mb-3">
                             <div class="form-floating">
                                 <input type="file" class="form-control" (change)="onFileChange($event)"
                                     id="productImage" accept="image/*" multiple required>
@@ -149,7 +149,30 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Détails des Images -->
+                        <div class="col-md-4 mb-3">
+                            <div class="form-floating">
+                                <input type="file" class="form-control" (change)="onFileDetailsChange($event)"
+                                    id="DetailsImage" accept="image/*" multiple required>
+                                <label for="DetailsImage">Détails</label>
+                                <div *ngIf="productForm.get('details')?.invalid && (productForm.get('details')?.touched || productForm.get('details')?.dirty)"
+                                    class="text-danger">Les images des détails sont requises.</div>
 
+                                <!-- Affichage des images de détails -->
+                                <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px;">
+                                    <div *ngFor="let detailImg of productForm.get('details')?.value"
+                                        style="position: relative;">
+                                        <img [src]="detailImg" alt="Détails Image" class="img-fluid img-thumbnail"
+                                            style="max-width: 100px;">
+                                        <button type="button" class="btn btn-danger badge position-absolute"
+                                            (click)="removeDetails(detailImg)"
+                                            style="width: 20px; height: 20px; padding: 0; border-radius: 50%; top: 0; right: 0;">
+                                            <i class="fa-solid fa-xmark"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <!-- Boutons d'action -->
                         <div class="col-md-12 text-center">
                             <button type="submit" class="btn btn-outline-success" *ngIf="!isEdit">Ajouter
@@ -174,10 +197,11 @@
                     <th scope="col">Prix</th>
                     <th scope="col">Description</th>
                     <th scope="col">Stock</th>
-                    <th scope="col">Dimensions</th>
-                    <th scope="col">Matériau</th>
+                    <!-- <th scope="col">Dimensions</th>
+                    <th scope="col">Matériau</th> -->
+                    <th>Images</th>
+                    <th>Détails</th>
                     <th scope="col">Couleur</th>
-                    <th scope="col">Images</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
@@ -186,19 +210,32 @@
                     <td>{{ product.name }}</td>
                     <td>{{ product.type }}</td>
                     <td>{{ product.price }}</td>
-                    <td>{{ product.description }}</td>
-                    <td>{{ product.stock }}</td>
-                    <td>{{ product.dimensions }}</td>
-                    <td>{{ product.material }}</td>
+                    <!-- <td>{{ product.description }}</td> -->
                     <td>
-                        <div *ngFor="let color of product.colors">
-                            <span class="color-box color-circle" [ngStyle]="{'background-color': color}"></span>
-                        </div>
+                        <p class="dimensions">
+                            Dimensions: {{ product.dimensions }}</p>
+                        <p class="material">
+                            Matières: {{ product.material }}</p>
                     </td>
+                    <td>{{ product.stock }}</td>
+                    <!-- <td>{{ product.dimensions }}</td>
+                    <td>{{ product.material }}</td> -->
+
                     <td>
                         <div *ngIf="product.images && product.images.length > 0">
                             <img *ngFor="let image of product.images" [src]="image" alt="Image du produit"
                                 class="img-fluid img-thumbnail me-2" style="max-width: 100px;">
+                        </div>
+                    </td>
+                    <td>
+                        <div style="display: flex; flex-wrap: wrap;">
+                            <img *ngFor="let detailImg of product.details" [src]="detailImg" alt="Détails de la Chambre"
+                                class="img-fluid img-thumbnail me-2" style="max-width: 100px; margin-bottom: 5px;">
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngFor="let color of product.colors">
+                            <span class="color-box color-circle" [ngStyle]="{'background-color': color}"></span>
                         </div>
                     </td>
                     <td>

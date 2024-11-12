@@ -5,6 +5,7 @@ export interface Commande {
   address: string;
   city: string;
   region: string;
+  codePostal: string;
   email: string;
   phone: string;
   notes?: string;

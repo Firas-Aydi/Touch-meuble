@@ -1,38 +1,40 @@
 <!-- sidebar menu -->
-
 <button class="toggle-btn" (click)="toggleSidebar()">
     <span *ngIf="!isSidebarOpen"><i class="fas fa-bars"></i> Menu</span>
     <span *ngIf="isSidebarOpen"><i class="fas fa-times"></i> Close</span>
 </button>
+
 <div class="custom-sidebar" [class.active]="isSidebarOpen">
     <div class="container-fluid">
-        <a class="navbar-brand" routerLink="">
+        <a class="navbar-brand" routerLink="" (click)="toggleSidebar()">
             <img src="assets/TM-.png" alt="Logo" class="navbar-logo" />
         </a>
     </div>
     <div class="sidebar-content" *ngIf="isSidebarOpen">
         <ul class="sidebar-side mx-auto">
-            <li class="side-item" *ngIf="isUser && userType === 'admin'">
-                <a class="side-link chic-link" aria-current="page" routerLink="products-management">Gestion des
-                    Meubles</a>
+            <li class="side-item" *ngIf="isUser && userType === 'admin'" (click)="toggleSidebar()">
+                <a class="side-link chic-link" aria-current="page" routerLink="products-management">
+                    Gestion des Meubles</a>
             </li>
-            <li class="side-item" *ngIf="isUser && userType === 'admin'">
-                <a class="side-link chic-link" aria-current="page" routerLink="salons-management">Gestion des Salons</a>
+            <li class="side-item" *ngIf="isUser && userType === 'admin'" (click)="toggleSidebar()">
+                <a class="side-link chic-link" aria-current="page" routerLink="salons-management">
+                    Gestion des Salons</a>
             </li>
-            <li class="side-item" *ngIf="isUser && userType === 'admin'">
-                <a class="side-link chic-link" aria-current="page" routerLink="chambres-management">Gestion des
-                    Chambres</a>
+            <li class="side-item" *ngIf="isUser && userType === 'admin'" (click)="toggleSidebar()">
+                <a class="side-link chic-link" aria-current="page" routerLink="chambres-management">
+                    Gestion des Chambres</a>
             </li>
-            <li class="side-item" *ngIf="isUser && userType === 'admin'">
-                <a class="side-link chic-link" aria-current="page" routerLink="salles-management">Gestion des Salle à
-                    Manger</a>
+            <li class="side-item" *ngIf="isUser && userType === 'admin'" (click)="toggleSidebar()">
+                <a class="side-link chic-link" aria-current="page" routerLink="salles-management">
+                    Gestion des Salle à Manger</a>
             </li>
-            <li class="side-item" *ngIf="isUser && userType === 'admin'">
-                <a class="side-link chic-link" aria-current="page" routerLink="packs-management">Gestion des Packs</a>
+            <li class="side-item" *ngIf="isUser && userType === 'admin'" (click)="toggleSidebar()">
+                <a class="side-link chic-link" aria-current="page" routerLink="packs-management">
+                    Gestion des Packs</a>
             </li>
 
 
-            <!-- <li class="side-item dropdown" *ngIf="userType !== 'admin'">
+            <!-- <li class="side-item dropdown" *ngIf="userType !== 'admin'" (click)="toggleSidebar()">
             <a class="side-link dropdown-toggle chic-link me-3 ms-3" routerLink="products"
               id="meublesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Meuble</a>
             <ul class="dropdown-menu" aria-labelledby="meublesDropdown">
@@ -42,7 +44,7 @@
               </li>
             </ul>
           </li> -->
-            <li class="side-item" *ngIf="userType !== 'admin'">
+            <li class="side-item" *ngIf="userType !== 'admin'" (click)="toggleSidebar()">
                 <a class="side-link chic-link me-3 ms-3" routerLink="products">Meuble</a>
                 <ul class="submenu">
                     <li *ngFor="let type of meublesUnique$ | async">
@@ -51,7 +53,7 @@
                 </ul>
             </li>
 
-            <li class="side-item " *ngIf="userType !== 'admin'">
+            <li class="side-item " *ngIf="userType !== 'admin'" (click)="toggleSidebar()">
                 <a class="side-link  chic-link  me-3 ms-3" routerLink="salons">Salon</a>
                 <ul class="submenu">
                     <li *ngFor="let type of salonsUnique$ | async">
@@ -60,7 +62,7 @@
                 </ul>
             </li>
 
-            <li class="side-item " *ngIf="userType !== 'admin'">
+            <li class="side-item " *ngIf="userType !== 'admin'" (click)="toggleSidebar()">
                 <a class="side-link chic-link me-3 ms-3" routerLink="chambres">Chambre</a>
                 <ul class="submenu" aria-labelledby="chambresDropdown">
                     <li *ngFor="let type of chambresUnique$ | async">
@@ -69,7 +71,7 @@
                 </ul>
             </li>
 
-            <li class="side-item " *ngIf="userType !== 'admin'">
+            <li class="side-item " *ngIf="userType !== 'admin'" (click)="toggleSidebar()">
                 <a class="side-link chic-link me-3 ms-3" routerLink="salles">
                     Salle à Manger
                 </a>
@@ -79,12 +81,22 @@
                     </li>
                 </ul>
             </li>
-            <li class="side-item" *ngIf="userType !== 'admin'">
+            <li class="side-item" *ngIf="userType !== 'admin'" (click)="toggleSidebar()">
                 <a class="side-link chic-link me-3 ms-3" aria-current="page" routerLink="packs">Packs</a>
             </li>
-            <li class="side-item" *ngIf="userType !== 'admin'">
+            <li class="side-item" *ngIf="userType !== 'admin'" (click)="toggleSidebar()">
                 <a class="side-link chic-link me-3 ms-3" routerLink="contact">Contact</a>
             </li>
         </ul>
     </div>
+</div>
+
+<!-- Sidebar des réseaux sociaux -->
+<div class="social-sidebar">
+    <a href="https://www.instagram.com/touch.meuble?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+        target="_blank">
+        <i class="fab fa-instagram"></i></a>
+    <a href="https://www.facebook.com/touchmeuble?mibextid=ZbWKwL" target="_blank"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://whatsapp.com" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <!-- <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a> -->
 </div>
