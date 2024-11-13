@@ -25,6 +25,9 @@ export class SalonComponent implements OnInit{
   filteredSalons: Salon[] = [];
   currentType: string | null = null;
 
+  imageIntervals: { [key: string]: any } = {}; // Utiliser un dictionnaire pour stocker les intervalles par chambreId
+  rotationDuration = 1000; // Durée de chaque image en ms (1 seconde ici)
+
   constructor(
     private salonService: SalonService,
     private cartService: CartService,
@@ -53,7 +56,30 @@ export class SalonComponent implements OnInit{
       this.updatePaginatedProducts(); // Mettre à jour la pagination après le filtrage
     });
   }
+  startImageRotation(salonId: string): void {
+    const salon = this.paginatedProducts.find(
+      (c) => c.salonId === salonId
+    );
+    if (salon) {
+      let currentIndex = 0;
+      this.imageIntervals[salonId] = setInterval(() => {
+        currentIndex = (currentIndex + 1) % salon.images.length;
+        const imgElement = document.getElementById(
+          'image-' + salonId
+        ) as HTMLImageElement;
+        if (imgElement) {
+          imgElement.src = salon.images[currentIndex];
+        }
+      }, 2000);
+    }
+  }
 
+  stopImageRotation(salonId: string): void {
+    if (this.imageIntervals[salonId]) {
+      clearInterval(this.imageIntervals[salonId]);
+      delete this.imageIntervals[salonId];
+    }
+  }
   viewProductDetails(salonId: string | undefined) {
     if (salonId) {
       this.router.navigate(['/salons', salonId]);

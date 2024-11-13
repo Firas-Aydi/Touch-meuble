@@ -32,10 +32,32 @@
     <div class="container">
         <div class="row">
             <!-- Display only paginated products -->
-            <div class="col-lg-3 col-md-6 mb-4" *ngFor="let product of paginatedProducts">
+            <!-- <div class="col-lg-3 col-md-6 mb-4" *ngFor="let product of paginatedProducts">
                 <div class="card h-100 d-flex flex-column">
                     <div style="cursor: pointer;" (click)="viewProductDetails(product.productId)">
                         <img [src]="product.images[0]" class="card-img-top" alt="{{ product.name }}">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="text-success fw-bold">{{ product.price }} DT</p>
+                        </div>
+                    </div>
+                    <div class="card-footer p-0 mt-auto d-flex">
+                        <button class="btn btn-outline-secondary btn-custom" (click)="openProductDetailsModal(product)">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+            </div> -->
+
+            <div class="col-lg-3 col-md-6 mb-4" *ngFor="let product of paginatedProducts">
+                <div class="card h-100 d-flex flex-column">
+                    <div style="cursor: pointer;" (mouseover)="startImageRotation(product.productId!)"
+                        (mouseleave)="stopImageRotation(product.productId!)"
+                        (click)="viewProductDetails(product.productId)">
+
+                        <img [src]="product.images[0]" class="card-img-top" alt="{{ product.name }}"
+                            [id]="'image-' + product.productId">
+
                         <div class="card-body text-center">
                             <h5 class="card-title">{{ product.name }}</h5>
                             <p class="text-success fw-bold">{{ product.price }} DT</p>

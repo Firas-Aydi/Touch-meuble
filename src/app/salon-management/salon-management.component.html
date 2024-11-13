@@ -92,7 +92,7 @@
                         </div>
 
                         <!-- Description -->
-                        <div class="col-md-12 mb-3">
+                        <!-- <div class="col-md-12 mb-3">
                             <div class="form-floating">
                                 <textarea class="form-control" id="productDescription" formControlName="description"
                                     required></textarea>
@@ -102,10 +102,10 @@
                                     La description est requise.
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- salon Colors Management -->
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-4 mb-3">
                             <div class="form-floating">
                                 <input type="color" id="color" (change)="addColor($event)" class="form-control"
                                     required>
@@ -130,7 +130,7 @@
                         <!-- </div> -->
 
                         <!-- Téléchargement d'images -->
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-4 mb-3">
                             <div class="form-floating">
                                 <input type="file" class="form-control" (change)="onFileChange($event)"
                                     id="categoryImage" accept="image/*" multiple required>
@@ -154,7 +154,30 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Détails des Images -->
+                        <div class="col-md-4 mb-3">
+                            <div class="form-floating">
+                                <input type="file" class="form-control" (change)="onFileDetailsChange($event)"
+                                    id="DetailsImage" accept="image/*" multiple required>
+                                <label for="DetailsImage">Détails</label>
+                                <div *ngIf="salonForm.get('details')?.invalid && (salonForm.get('details')?.touched || salonForm.get('details')?.dirty)"
+                                    class="text-danger">Les images des détails sont requises.</div>
 
+                                <!-- Affichage des images de détails -->
+                                <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px;">
+                                    <div *ngFor="let detailImg of salonForm.get('details')?.value"
+                                        style="position: relative;">
+                                        <img [src]="detailImg" alt="Détails Image" class="img-fluid img-thumbnail"
+                                            style="max-width: 100px;">
+                                        <button type="button" class="btn btn-danger badge position-absolute"
+                                            (click)="removeDetails(detailImg)"
+                                            style="width: 20px; height: 20px; padding: 0; border-radius: 50%; top: 0; right: 0;">
+                                            <i class="fa-solid fa-xmark"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <!-- <div class="mb-3">
                             <label for="productSelection">Sélectionner des Produits</label>
                             <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 5px;">
@@ -203,10 +226,10 @@
                     <th>Prix</th>
                     <th>Description</th>
                     <th scope="col">Stock</th>
-                    <th scope="col">Dimensions</th>
-                    <th scope="col">Matériau</th>
+                    <!-- <th scope="col">Dimensions</th>
+                    <th scope="col">Matériau</th> -->
                     <th>Images</th>
-                    <!-- <th>Produits</th> -->
+                    <th>Détails</th>
                     <th>Couleurs</th>
                     <th>Actions</th>
                 </tr>
@@ -217,29 +240,29 @@
                     <td>{{ salon.name }}</td>
                     <td>{{ salon.type }}</td>
                     <td>{{ salon.price }} TND</td>
-                    <td>{{ salon.description }}</td>
+                    <!-- <td>{{ salon.description }}</td> -->
+                    <td><p>Dimensions: {{ salon.dimensions }}</p>
+                        <p> Matières: {{ salon.material }}</p></td>
                     <td>{{ salon.stock }}</td>
-                    <td>{{ salon.dimensions }}</td>
-                    <td>{{ salon.material }}</td>
+                    <!-- <td>{{ salon.dimensions }}</td>
+                    <td>{{ salon.material }}</td> -->
                     <td>
                         <div style="display: flex; flex-wrap: wrap;">
                             <img *ngFor="let img of salon.images" [src]="img" alt="Image de la Salon"
                                 class="img-fluid img-thumbnail me-2" style="max-width: 100px; margin-bottom: 5px;">
                         </div>
                     </td>
-                    <!-- <td>
-                        <ul>
-                            <li *ngFor="let productId of salon.items">
-                                {{ getProductById(productId)?.name || 'Produit introuvable' }} -
-                                {{ getProductById(productId)?.price || '0' }} TND
-                            </li>
-                        </ul>
-                    </td> -->
+                    <td>
+                        <div style="display: flex; flex-wrap: wrap;">
+                            <img *ngFor="let detailImg of salon.details" [src]="detailImg" alt="Détails de la Chambre"
+                                class="img-fluid img-thumbnail me-2" style="max-width: 100px; margin-bottom: 5px;">
+                        </div>
+                    </td>
 
                     <td>
                         <div style="display: flex; flex-wrap: wrap;">
                             <span *ngFor="let color of salon.colors" class="color-box color-circle"
-                            [ngStyle]="{'background-color': color}"   ></span>
+                                [ngStyle]="{'background-color': color}"></span>
                         </div>
                     </td>
                     <td>

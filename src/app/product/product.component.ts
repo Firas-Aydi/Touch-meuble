@@ -26,6 +26,9 @@ export class ProductComponent implements OnInit {
   currentType: string | null = null; // Ajouter une propriété pour stocker le type de produit
   sortOrder: 'asc' | 'desc' | null = null;
 
+  imageIntervals: { [key: string]: any } = {}; // Utiliser un dictionnaire pour stocker les intervalles par chambreId
+  rotationDuration = 1000; // Durée de chaque image en ms (1 seconde ici)
+
   constructor(
     private productService: ProductService,
     private cartService: CartService,
@@ -90,7 +93,30 @@ export class ProductComponent implements OnInit {
     );
     productDetailsModal.show();
   }
+  startImageRotation(productId: string): void {
+    const product = this.paginatedProducts.find(
+      (c) => c.productId === productId
+    );
+    if (product) {
+      let currentIndex = 0;
+      this.imageIntervals[productId] = setInterval(() => {
+        currentIndex = (currentIndex + 1) % product.images.length;
+        const imgElement = document.getElementById(
+          'image-' + productId
+        ) as HTMLImageElement;
+        if (imgElement) {
+          imgElement.src = product.images[currentIndex];
+        }
+      }, 2000);
+    }
+  }
 
+  stopImageRotation(productId: string): void {
+    if (this.imageIntervals[productId]) {
+      clearInterval(this.imageIntervals[productId]);
+      delete this.imageIntervals[productId];
+    }
+  }
   selectImage(image: string) {
     this.selectedImage = image;
   }

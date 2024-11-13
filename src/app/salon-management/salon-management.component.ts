@@ -38,13 +38,13 @@ export class SalonManagementComponent implements OnInit {
       salonId: [''],
       name: ['', Validators.required],
       price: ['', Validators.required],
-      description: ['', Validators.required],
+      // description: ['', Validators.required],
       stock: ['', Validators.required],
       dimensions: ['', Validators.required],
       material: ['', Validators.required],
-      items: [[]], // List of selected products
       colors: [[], Validators.required],
       images: [[], Validators.required],
+      details: [[]],
       type: [[], Validators.required],
     });
   }
@@ -179,7 +179,22 @@ export class SalonManagementComponent implements OnInit {
         });
     }
   }
+  onFileDetailsChange(event: any) {
+    const files: FileList = event.target.files;
+    const salonId = this.salonForm.value.salonId || this.generateUniqueId();
 
+    const detailsArray: string[] = [];
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+
+      this.salonService
+        .uploadImage(file, salonId)
+        .subscribe((imageUrl: string) => {
+          detailsArray.push(imageUrl);
+          this.salonForm.patchValue({ details: detailsArray });
+        });
+    }
+  }
   // Méthode pour générer un ID unique pour les chambres
   generateUniqueId(): string {
     return this.firestore.createId();
@@ -229,5 +244,13 @@ export class SalonManagementComponent implements OnInit {
 
     // Update the form with the new list
     this.salonForm.get('items')?.setValue(updatedItems);
+  }
+  removeDetails(image: string) {
+    const imagesArray = this.salonForm.get('details')?.value || [];
+    const index = imagesArray.indexOf(image);
+    if (index > -1) {
+      imagesArray.splice(index, 1); // Supprime l'image du tableau
+      this.salonForm.patchValue({ details: imagesArray }); // Met à jour le FormGroup
+    }
   }
 }
