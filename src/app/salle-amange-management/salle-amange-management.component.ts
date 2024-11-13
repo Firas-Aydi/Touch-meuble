@@ -38,13 +38,13 @@ export class SalleAMangeManagementComponent implements OnInit{
       salleId: [''],
       name: ['', Validators.required],
       price: ['', Validators.required],
-      description: ['', Validators.required],
+      // description: ['', Validators.required],
       stock: ['', Validators.required],
       dimensions: ['', Validators.required],
       material: ['', Validators.required],
-      items: [[]], // List of selected products
       colors: [[], Validators.required],
       images: [[], Validators.required],
+      details: [[]],
       type: [[], Validators.required],
     });
   }
@@ -178,6 +178,23 @@ export class SalleAMangeManagementComponent implements OnInit{
       });
     }
   }
+  onFileDetailsChange(event: any) {
+    const files: FileList = event.target.files;
+    const salleId =
+      this.salleForm.value.salleId || this.generateUniqueId();
+
+    const detailsArray: string[] = [];
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+
+      this.salleAMangeService
+        .uploadImage(file, salleId)
+        .subscribe((imageUrl: string) => {
+          detailsArray.push(imageUrl);
+          this.salleForm.patchValue({ details: detailsArray });
+        });
+    }
+  }
   // Méthode pour générer un ID unique pour les chambres
 generateUniqueId(): string {
   return this.firestore.createId();
@@ -226,6 +243,14 @@ generateUniqueId(): string {
   
     // Update the form with the new list
     this.salleForm.get('items')?.setValue(updatedItems);
+  }
+  removeDetails(image: string) {
+    const imagesArray = this.salleForm.get('details')?.value || [];
+    const index = imagesArray.indexOf(image);
+    if (index > -1) {
+      imagesArray.splice(index, 1); // Supprime l'image du tableau
+      this.salleForm.patchValue({ details: imagesArray }); // Met à jour le FormGroup
+    }
   }
 }
 

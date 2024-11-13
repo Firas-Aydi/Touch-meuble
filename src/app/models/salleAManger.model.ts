@@ -3,12 +3,12 @@ export interface SalleAManger {
   salleId?: string; // Identifiant de la catégorie
   name: string;
   price: number;
-  description: string;
+  // description: string;
   stock: number;
   dimensions: string;
   material: string;
   images: string[];
-  items: string[]; // Liste des produits dans cette catégorie
+  details: string[];
   colors: string[];
   type: string;
 }

@@ -4,7 +4,7 @@
 
   .container-fluid {
     padding: 20px;
-    background-color: #f9f9f9;
+    background-color: #ffffff;
   }
   
   h2 {
@@ -19,7 +19,7 @@
   }
   
   .form-floating label {
-    color: #6c757d;
+    color: #6c7d6d;
   }
   
   .img-thumbnail {
