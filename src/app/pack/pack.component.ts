@@ -28,6 +28,9 @@ export class PackComponent implements OnInit {
   selectedSalleName: string | null = null;
   selectedSalonName: string | null = null;
 
+  imageIntervals: { [key: string]: any } = {}; // Utiliser un dictionnaire pour stocker les intervalles par chambreId
+  rotationDuration = 1000;
+
   constructor(
     private packService: PackService,
     private chambreService: ChambreService,
@@ -46,14 +49,39 @@ export class PackComponent implements OnInit {
     this.packService.getAllPacks().subscribe((data) => {
       this.packs = data;
       this.updatePaginatedPacks();
-        });
+    });
   }
 
   viewPackDetails(packId: string | undefined) {
     if (packId) {
+      this.stopImageRotation(packId);
       this.router.navigate(['/packs', packId]);
     } else {
       console.error('Pack ID is undefined. Cannot navigate to pack details.');
+    }
+  }
+  startImageRotation(packId: string): void {
+    const pack = this.paginatedPacks.find(
+      (c) => c.packId === packId
+    );
+    if (pack) {
+      let currentIndex = 0;
+      this.imageIntervals[packId] = setInterval(() => {
+        currentIndex = (currentIndex + 1) % pack.images.length;
+        const imgElement = document.getElementById(
+          'image-' + packId
+        ) as HTMLImageElement;
+        if (imgElement) {
+          imgElement.src = pack.images[currentIndex];
+        }
+      }, 2000);
+    }
+  }
+
+  stopImageRotation(packId: string): void {
+    if (this.imageIntervals[packId]) {
+      clearInterval(this.imageIntervals[packId]);
+      delete this.imageIntervals[packId];
     }
   }
   loadItemDetails(chambreId: string, salleId: string, salonId: string) {

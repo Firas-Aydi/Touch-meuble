@@ -1,7 +1,7 @@
 <div class="container mt-5">
   <div *ngIf="pack" class="row align-items-start">
     <!-- Left Section: Sidebar and Main Image -->
-    <div class="col-md-6 d-flex">
+    <div class="col-md-8 d-flex">
       <div class="sidebar">
         <div class="thumbnails">
           <img *ngFor="let image of pack.images" [src]="image" alt="{{ pack.name }}" class="img-thumbnail"
@@ -14,8 +14,9 @@
     </div>
 
     <!-- Right Section: pack Information -->
-    <div class="col-md-6">
+    <div class="col-md-4">
       <h2 class="pack-title">{{ pack.name }}</h2>
+      <hr>
       <h3> <strong>
           <p class="text-success price">
             <!-- <strong>Prix:</strong> -->
@@ -23,13 +24,14 @@
           </p>
         </strong>
       </h3>
-      <div class="pack-info mt-3">
+      <hr>
+      <!-- <div class="pack-info mt-3"> -->
         <p class="description">
-          <!-- <strong>Description:</strong> -->
-          {{ pack.description }}
+          <strong>Description:</strong>
+          <!-- {{ pack.description }} -->
         </p>
         <div *ngIf="selectedChambreName || selectedSalleName || selectedSalonName">
-          <h6>Contenu du Pack:</h6>
+          <!-- <h6>Contenu du Pack:</h6> -->
           <ul>
             <li *ngIf="selectedChambreName">
               <a [routerLink]="['/chambres', selectedChambreId]">{{ selectedChambreName }}</a>
@@ -42,6 +44,19 @@
             </li>
           </ul>
         </div>
+        <hr>
+            <div>
+                <strong style="cursor: pointer;" (click)="toggleDetails()">
+                    Détails
+                    <span [ngClass]="{'fa-solid fa-angle-down': !showDetails, 'fa fa-chevron-up': showDetails}"></span>
+                </strong>
+
+                <div class="details-container" [ngClass]="{'show': showDetails}">
+                    <img *ngFor="let image of pack.details" [src]="image" alt="{{ pack.name }}"
+                        class="img-thumbnail" (click)="selectImage(image)" [class.active]="image === selectedImage" />
+                </div>
+            </div>
+            <hr>
         
         <div class="color-samples">
           <!-- <strong>Couleurs:</strong> -->
@@ -49,7 +64,7 @@
             title="{{ color }}"></span>
         </div>
         <!-- <p><strong>Type:</strong> {{ pack.type }}</p> -->
-      </div>
+      <!-- </div> -->
       <div class="input-group mb-3 quantity-input">
         <span class="input-group-text">Quantité:</span>
         <input type="number" class="form-control" [(ngModel)]="quantity" min="1" (input)="validateQuantity()">

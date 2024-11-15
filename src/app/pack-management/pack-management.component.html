@@ -57,7 +57,7 @@
               </div>
             </div>
 
-            <div class="col-md-6 mb-3">
+            <!-- <div class="col-md-6 mb-3">
               <div class="form-floating">
                 <textarea id="description" class="form-control" formControlName="description" required></textarea>
                 <label for="description">Description</label>
@@ -67,7 +67,7 @@
                   La description est requise.
                 </div>
               </div>
-            </div>
+            </div> -->
 
 
             <div class="col-md-6 mb-3">
@@ -94,22 +94,36 @@
               </div>
             </div>
 
-            <!-- <div class="mb-3">
-              <label for="categorySelection">Sélectionner des Catégories</label>
-              <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 5px;">
+            <!-- Détails des Images -->
+            <div class="col-md-6 mb-3">
+              <div class="form-floating">
+                <input type="file" class="form-control" (change)="onFileDetailsChange($event)" id="DetailsImage"
+                  accept="image/*" multiple required>
+                <label for="DetailsImage">Détails</label>
+                <div
+                  *ngIf="packForm.get('details')?.invalid && (packForm.get('details')?.touched || packForm.get('details')?.dirty)"
+                  class="text-danger">Les images des détails sont requises.</div>
 
-                <div *ngFor="let chambre of chambres">
-                  <input type="checkbox" [value]="chambre.chambreId" (change)="onChambreSelect($event, chambre)" />
-                  {{ chambre.name }}
+                <!-- Affichage des images de détails -->
+                <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px;">
+                  <div *ngFor="let detailImg of packForm.get('details')?.value" style="position: relative;">
+                    <img [src]="detailImg" alt="Détails Image" class="img-fluid img-thumbnail"
+                      style="max-width: 100px;">
+                    <button type="button" class="btn btn-danger badge position-absolute"
+                      (click)="removeDetails(detailImg)"
+                      style="width: 20px; height: 20px; padding: 0; border-radius: 50%; top: 0; right: 0;">
+                      <i class="fa-solid fa-xmark"></i>
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div> -->
+            </div>
             <div class="col-md-4 mb-3">
-              <!-- <label for="categorySelection">Sélectionner une Chambre</label> -->
+              <!-- <label for="categorySelection">Sélectionner une pack</label> -->
               <select id="categorySelection" formControlName="selectedChambre" (change)="onChambreSelect()">
-                <option value="" disabled>Sélectionner une chambre</option>
-                <option *ngFor="let chambre of chambres" [value]="chambre.chambreId">
-                  {{ chambre.name }}
+                <option value="" disabled>Sélectionner une pack</option>
+                <option *ngFor="let pack of chambres" [value]="pack.chambreId">
+                  {{ pack.name }}
                 </option>
               </select>
             </div>
@@ -138,7 +152,7 @@
               <h5>Sélectionnées :</h5>
               <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 5px;">
                 <div *ngFor="let itemId of packForm.get('items')?.value">
-                  <span>{{ getSelectedItemsNames(itemId) || 'Chambre introuvable' }}</span>
+                  <span>{{ getSelectedItemsNames(itemId) || 'pack introuvable' }}</span>
                   <button type="button" class="btn btn-danger btn-sm" (click)="removeChambre(itemId)">X</button>
                 </div>
               </div>
@@ -165,8 +179,9 @@
         <tr>
           <th>Nom</th>
           <th>Prix</th>
-          <th>Description</th>
+          <!-- <th>Description</th> -->
           <th>Images</th>
+          <th>Détails</th>
           <th>Categories</th>
           <th>Couleurs</th>
           <th>Actions</th>
@@ -176,11 +191,17 @@
         <tr *ngFor="let pack of packs">
           <td>{{ pack.name }}</td>
           <td>{{ pack.price }} TND</td>
-          <td>{{ pack.description }}</td>
+          <!-- <td>{{ pack.description }}</td> -->
           <td>
             <div style="display: flex; flex-wrap: wrap;">
               <img *ngFor="let img of pack.images" [src]="img" alt="Image de la catégorie"
                 class="img-fluid img-thumbnail me-2">
+            </div>
+          </td>
+          <td>
+            <div style="display: flex; flex-wrap: wrap;">
+              <img *ngFor="let detailImg of pack.details" [src]="detailImg" alt="Détails de la pack"
+                class="img-fluid img-thumbnail me-2" style="max-width: 100px; margin-bottom: 5px;">
             </div>
           </td>
           <td>

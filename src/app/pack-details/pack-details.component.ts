@@ -15,6 +15,7 @@ import { SalonService } from '../services/salon.service';
 export class PackDetailsComponent implements OnInit {
   pack: Pack | null = null;
   selectedImage: string = ''; // Initialize selectedImage
+  showDetails: boolean = false;
 
   quantity: number = 1; // Default quantity
   quantityError: string | null = null;
@@ -59,6 +60,9 @@ export class PackDetailsComponent implements OnInit {
         }
       });
     }
+  }
+  toggleDetails() {
+    this.showDetails = !this.showDetails;
   }
   loadItemDetails(chambreId: string, salleId: string, salonId: string) {
     // Charger le nom de la chambre

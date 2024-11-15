@@ -39,7 +39,8 @@ export class PackManagementComponent implements OnInit {
   isEdit: boolean = false;
   packToDeleteId: string | null = null;
   images: string[] = [];
-  // categories: any[] = [];
+  details: string[] = [];
+
   chambres: Chambre[] = [];
   salles: SalleAManger[] = [];
   salons: Salon[] = [];
@@ -59,9 +60,10 @@ export class PackManagementComponent implements OnInit {
     this.packForm = this.fb.group({
       packId: [''],
       name: ['', Validators.required],
-      description: ['', Validators.required],
+      // description: ['', Validators.required],
       price: ['', Validators.required],
       images: [[], Validators.required],
+      details: [[]],
       items: [[]],
       colors: [[], Validators.required],
       selectedChambre: [''],
@@ -250,6 +252,31 @@ export class PackManagementComponent implements OnInit {
           imagesArray.push(imageUrl); // Ajoute l'URL de l'image après le téléchargement
           this.packForm.patchValue({ images: imagesArray }); // Met à jour le formulaire avec les URLs
         });
+    }
+  }
+  onFileDetailsChange(event: any) {
+    const files: FileList = event.target.files;
+    const packId = this.packForm.value.packId || this.generateUniqueId();
+    
+    const detailsArray: string[] = [];
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      
+      this.packService
+      .uploadImage(file, packId)
+      .subscribe((imageUrl: string) => {
+        detailsArray.push(imageUrl);
+        // console.log('detailsArray: ',detailsArray)
+          this.packForm.patchValue({ details: detailsArray });
+        });
+    }
+  }
+  removeDetails(image: string) {
+    const imagesArray = this.packForm.get('details')?.value || [];
+    const index = imagesArray.indexOf(image);
+    if (index > -1) {
+      imagesArray.splice(index, 1); // Supprime l'image du tableau
+      this.packForm.patchValue({ details: imagesArray }); // Met à jour le FormGroup
     }
   }
   // Méthode pour générer un ID unique pour les chambres

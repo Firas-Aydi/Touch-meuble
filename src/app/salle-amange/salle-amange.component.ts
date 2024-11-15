@@ -25,12 +25,16 @@ export class SalleAmangeComponent implements OnInit {
   filteredSalles: SalleAManger[] = [];
   currentType: string | null = null;
 
+  imageIntervals: { [key: string]: any } = {}; // Utiliser un dictionnaire pour stocker les intervalles par salleId
+  rotationDuration = 1000;
+
   constructor(
     private salleService: SalleAMangeService,
     private cartService: CartService,
-    private router: Router,private route: ActivatedRoute
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
-  
+
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       this.currentType = params.get('type');
@@ -56,6 +60,7 @@ export class SalleAmangeComponent implements OnInit {
 
   viewProductDetails(salleId: string | undefined) {
     if (salleId) {
+      this.stopImageRotation(salleId);
       this.router.navigate(['/salles', salleId]);
     } else {
       console.error(
@@ -65,6 +70,7 @@ export class SalleAmangeComponent implements OnInit {
   }
 
   openSalleDetailsModal(salleAManger: SalleAManger) {
+    this.stopImageRotation(salleAManger.salleId!);
     this.selectedSalle = salleAManger;
     this.selectedImage = salleAManger.images[0]; // Set the default selected image
 
@@ -73,7 +79,28 @@ export class SalleAmangeComponent implements OnInit {
     );
     salleDetailsModal.show();
   }
+  startImageRotation(salleId: string): void {
+    const salle = this.paginatedProducts.find((c) => c.salleId === salleId);
+    if (salle) {
+      let currentIndex = 0;
+      this.imageIntervals[salleId] = setInterval(() => {
+        currentIndex = (currentIndex + 1) % salle.images.length;
+        const imgElement = document.getElementById(
+          'image-' + salleId
+        ) as HTMLImageElement;
+        if (imgElement) {
+          imgElement.src = salle.images[currentIndex];
+        }
+      }, 2000);
+    }
+  }
 
+  stopImageRotation(salleId: string): void {
+    if (this.imageIntervals[salleId]) {
+      clearInterval(this.imageIntervals[salleId]);
+      delete this.imageIntervals[salleId];
+    }
+  }
   selectImage(image: string) {
     this.selectedImage = image; // Set the selected image when clicked
   }

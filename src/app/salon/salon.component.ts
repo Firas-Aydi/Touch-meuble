@@ -82,6 +82,7 @@ export class SalonComponent implements OnInit{
   }
   viewProductDetails(salonId: string | undefined) {
     if (salonId) {
+      this.stopImageRotation(salonId);
       this.router.navigate(['/salons', salonId]);
     } else {
       console.error(

@@ -57,7 +57,7 @@
           <div class="w-50 ps-3">
             <h1 class="card-title">{{ selectedPack?.name }}</h1>
             <p class="card-text text-success"> {{ selectedPack?.price | currency:' DT ':'symbol' }}</p>
-            <p class="card-text">{{ selectedPack?.description }}</p>
+            <!-- <p class="card-text">{{ selectedPack?.description }}</p> -->
             <!-- Affichage des noms des items dans le pack -->
             <div *ngIf="selectedChambreName || selectedSalleName || selectedSalonName">
               <h6>Contenu du Pack:</h6>
@@ -115,7 +115,7 @@
         <div class="w-50 ps-3">
           <h1 class="card-title">{{ selectedPack?.name }}</h1>
           <p class="card-text text-success"> {{ selectedPack?.price | currency:' DT ':'symbol' }}</p>
-          <p class="card-text">{{ selectedPack?.description }}</p>
+          <!-- <p class="card-text">{{ selectedPack?.description }}</p> -->
 
           <div class="color-samples">
             <!-- <strong>Couleurs:</strong> -->
