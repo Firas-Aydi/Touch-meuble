@@ -7,16 +7,18 @@
     width: 100%;
     height: 100%;
     background-color: #f8f9fa; /* Couleur de fond de la sidebar */
-    /* box-shadow: 2px 0 5px rgba(0,0,0,0.5); */
-    transform: translateX(calc(-100% + 60px)); /* Caché par défaut */
+    overflow-y: auto; /* Active le défilement vertical si nécessaire */
+    overflow-x: hidden; /* Empêche le défilement horizontal */
+    transform: translateX(calc(-100% + 60px)); /* Cachée par défaut */
     transition: transform 0.5s ease;
-    z-index: 1000; /* Assurez-vous qu'il est au-dessus du contenu */
+    z-index: 1000; /* Assurez-vous qu'elle est au-dessus du contenu */
+    padding: 10px; /* Ajoute un peu de marge intérieure */
 }
 
 .custom-sidebar.active {
     transform: translateX(0); 
-    margin: 60;
-    width: 100%;
+    /* margin: 60; */
+    width: calc(100% - 60px);
 }
 
 /* Style pour le bouton toggle */
@@ -33,6 +35,7 @@
 }
 
 .sidebar-content{
+    padding: 20px; /* Ajoute une marge intérieure */
     margin-left: 60px;
 }
 
@@ -49,19 +52,19 @@
     padding: 0;
     margin: 0;
     display: flex; /* Définit la liste en flex */
-    flex-direction: row; /* Aligne les items en ligne */
-    flex-wrap: wrap; /* Permet le retour à la ligne si nécessaire */
+    flex-direction: row; 
+    flex-wrap: wrap; 
 }
 
 .side-item {
-    margin: 30px; /* Supprime la marge verticale */
+    margin: 0; /* Supprime les marges excessives */
 }
 
 .side-link {
-    display: inline-block; /* Assure que les liens restent en ligne */
+    display: block; /* Assure que les liens restent en ligne */
     padding-top: 30px;
     padding-left: 16px;
-    font-size: 20px;
+    font-size: 18px;
     color: #333;
     text-decoration: none;
     transition: background 0.3s ease, color 0.3s ease;
@@ -109,6 +112,7 @@
     border-radius: 10px 0 0 10px; */
     justify-content: center; /* Centre verticalement les liens */
     align-items: center;
+    z-index: 1000;
 }
 
 .social-sidebar a {

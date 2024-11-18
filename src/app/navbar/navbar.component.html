@@ -1,6 +1,6 @@
 <!-- Première partie de la navbar : Logo, Recherche, Panier et Compte/Contact -->
-<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary custom-navbar d-none d-lg-flex">
-  <div class="container-fluid">
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary custom-navbar">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
     <!-- Logo au centre -->
     <div class="logo-container">
       <a (click)="toggleNavbar()" class="navbar-brand" routerLink="">
@@ -8,10 +8,12 @@
       </a>
     </div>
     <!-- Liens Panier, Compte, et autres éléments alignés à droite -->
-    <div class="collapse navbar-collapse" id="navbarTopLarge">
-      <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
+    <!-- <div class="collapse navbar-collapse" id="navbarTopLarge"> -->
+      <!-- <ul class="navbar-nav mb-2 mb-lg-0 ms-auto"> -->
+        <ul class="navbar-nav d-flex align-items-center">
+
         <!-- Bouton de recherche -->
-        <li class="nav-item" *ngIf="!isUser">
+        <li class="nav-item" *ngIf="userType !== 'admin'">
           <span class="nav-link chic-link" (click)="toggleSearch()" style="cursor: pointer;">
             <i class="fa-solid fa-magnifying-glass"></i>
           </span>
@@ -32,7 +34,7 @@
         <!-- Lien des Commandes pour l'admin -->
         <li class="nav-item" *ngIf="isUser && userType === 'admin'">
           <a class="nav-link chic-link position-relative" aria-current="page" routerLink="commandes-management">
-            Commandes
+            <i class="fa-regular fa-bell"></i>
             <span class="badge bg-danger">{{ commandeItemCount }}</span>
           </a>
         </li>
@@ -44,10 +46,10 @@
         </li>
       </ul>
     </div>
-  </div>
+  <!-- </div> -->
   <!-- Barre de recherche avec bouton de fermeture -->
   <div class="search-bar" *ngIf="isSearchVisible" [ngClass]="{ closing: isClosing }">
-    <div class="input-group" style="height: 110px; width: 100%; margin: 0 auto;">
+    <div class="input-group" style="height: 110px; width: 100%; margin: 0 auto; margin-left: 120px;">
       <span class="input-group-text" id="search-icon" (click)="onSearch()" style="cursor: pointer;">
         <i class="fa-solid fa-magnifying-glass"></i>
       </span>
@@ -62,7 +64,7 @@
 
 
 <!-- Navbar pour les petits écrans -->
-<nav class="navbar navbar-light bg-body-tertiary custom-navbar d-flex d-lg-none">
+<!-- <nav class="navbar navbar-light bg-body-tertiary custom-navbar d-flex d-lg-none">
   <div class="container-fluid">
     <a (click)="toggleNavbar()" class="navbar-brand" routerLink="">
       <img src="assets/TM-.png" alt="Logo" class="navbar-logo" />
@@ -103,9 +105,9 @@
             <span class="badge bg-danger">{{ commandeItemCount }}</span>
           </a>
         </li>
-
+ -->
         <!-- Dropdowns pour Meubles, Salons, Chambres, etc. -->
-        <li class="nav-item dropdown" *ngIf="userType !== 'admin'">
+        <!-- <li class="nav-item dropdown" *ngIf="userType !== 'admin'">
           <a (click)="toggleNavbar()" class="nav-link chic-link d-flex align-items-center me-3 ms-3"
             routerLink="products" id="meublesDropdown" role="button">Meuble</a>
           <i class="fas fa-chevron-down ms-2 dropdown-arrow" [class.rotate]="isDropdownOpen === 'meublesDropdown'"
@@ -117,9 +119,9 @@
                 }}</a>
             </li>
           </ul>
-        </li>
+        </li> -->
 
-        <li class="nav-item dropdown" *ngIf="userType !== 'admin'">
+        <!-- <li class="nav-item dropdown" *ngIf="userType !== 'admin'">
           <a (click)="toggleNavbar()" class="nav-link chic-link d-flex align-items-center me-3 ms-3" routerLink="salons"
             id="salonsDropdown" role="button">Salon</a>
           <i class="fas fa-chevron-down ms-2 dropdown-arrow" [class.rotate]="isDropdownOpen === 'salonDropdown'"
@@ -129,10 +131,10 @@
               <a (click)="toggleNavbar()" class="dropdown-item" [routerLink]="['salons', { type: type }]">{{ type }}</a>
             </li>
           </ul>
-        </li>
+        </li> -->
 
         <!-- Chambres Dropdown -->
-        <li class="nav-item dropdown" *ngIf="userType !== 'admin'">
+        <!-- <li class="nav-item dropdown" *ngIf="userType !== 'admin'">
           <a (click)="toggleNavbar()" class="nav-link chic-link d-flex align-items-center me-3 ms-3"
             routerLink="chambres" id="chambresDropdown" role="button">Chambre</a>
           <i class="fas fa-chevron-down ms-2 dropdown-arrow" [class.rotate]="isDropdownOpen === 'chambreDropdown'"
@@ -144,10 +146,10 @@
                 }}</a>
             </li>
           </ul>
-        </li>
+        </li> -->
 
         <!-- Salles à Manger Dropdown -->
-        <li class="nav-item dropdown" *ngIf="userType !== 'admin'">
+        <!-- <li class="nav-item dropdown" *ngIf="userType !== 'admin'">
           <a (click)="toggleNavbar()" class="nav-link chic-link d-flex align-items-center me-3 ms-3" routerLink="salles"
             id="salleDropdown" role="button">Salle à Manger</a>
           <i class="fas fa-chevron-down ms-2 dropdown-arrow" [class.rotate]="isDropdownOpen === 'salleDropdown'"
@@ -181,11 +183,10 @@
           <a (click)="toggleNavbar()" class="btn btn-outline-danger chic-button" (click)="logout()" routerLink="/"><i
               class="fas fa-sign-out-alt"></i></a>
         </li>
-        <!-- Ajoutez d'autres éléments de menu pour petits écrans ici -->
       </ul>
     </div>
   </div>
-</nav>
+</nav> -->
 
 
 <!-- <div *ngIf="allResults.length > 0; else noResults">
