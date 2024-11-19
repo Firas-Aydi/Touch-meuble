@@ -26,7 +26,6 @@ export class ChambreComponent implements OnInit {
   currentType: string | null = null;
 
   imageIntervals: { [key: string]: any } = {}; // Utiliser un dictionnaire pour stocker les intervalles par chambreId
-  rotationDuration = 1000; // Durée de chaque image en ms (1 seconde ici)
 
   constructor(
     private chambreService: ChambreService,
@@ -42,7 +41,14 @@ export class ChambreComponent implements OnInit {
       this.loadChambres(); // Charger les produits
     });
   }
-
+  ngOnDestroy(): void {
+    for (const chambreId in this.imageIntervals) {
+      if (this.imageIntervals.hasOwnProperty(chambreId)) {
+        clearInterval(this.imageIntervals[chambreId]);
+      }
+    }
+    this.imageIntervals = {};
+  }
   loadChambres() {
     this.chambreService.getChambre().subscribe((data) => {
       this.chambres = data;
@@ -71,6 +77,9 @@ export class ChambreComponent implements OnInit {
   }
 
   openChambreDetailsModal(chambre: Chambre) {
+    if (chambre.chambreId) {
+      this.stopImageRotation(chambre.chambreId); // Arrête toute rotation active
+    }
     this.selectedChambre = chambre;
     this.selectedImage = chambre.images[0]; // Set the default selected image
 
@@ -81,6 +90,10 @@ export class ChambreComponent implements OnInit {
   }
 
   startImageRotation(chambreId: string): void {
+    if (this.imageIntervals[chambreId]) {
+      return;
+    }
+    
     const chambre = this.paginatedProducts.find(
       (c) => c.chambreId === chambreId
     );
@@ -99,6 +112,10 @@ export class ChambreComponent implements OnInit {
   }
 
   stopImageRotation(chambreId: string): void {
+    if (!chambreId) {
+      return;
+    }
+  
     if (this.imageIntervals[chambreId]) {
       clearInterval(this.imageIntervals[chambreId]);
       delete this.imageIntervals[chambreId];

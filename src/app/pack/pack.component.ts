@@ -28,8 +28,7 @@ export class PackComponent implements OnInit {
   selectedSalleName: string | null = null;
   selectedSalonName: string | null = null;
 
-  imageIntervals: { [key: string]: any } = {}; // Utiliser un dictionnaire pour stocker les intervalles par chambreId
-  rotationDuration = 1000;
+  imageIntervals: { [key: string]: any } = {};
 
   constructor(
     private packService: PackService,
@@ -44,7 +43,14 @@ export class PackComponent implements OnInit {
     this.loadPacks();
     this.updatePaginatedPacks();
   }
-
+  ngOnDestroy(): void {
+    for (const packId in this.imageIntervals) {
+      if (this.imageIntervals.hasOwnProperty(packId)) {
+        clearInterval(this.imageIntervals[packId]);
+      }
+    }
+    this.imageIntervals = {};
+  }
   loadPacks() {
     this.packService.getAllPacks().subscribe((data) => {
       this.packs = data;
@@ -61,6 +67,10 @@ export class PackComponent implements OnInit {
     }
   }
   startImageRotation(packId: string): void {
+    if (this.imageIntervals[packId]) {
+      return;
+    }
+    
     const pack = this.paginatedPacks.find(
       (c) => c.packId === packId
     );
@@ -79,6 +89,10 @@ export class PackComponent implements OnInit {
   }
 
   stopImageRotation(packId: string): void {
+    if (!packId) {
+      return;
+    }
+  
     if (this.imageIntervals[packId]) {
       clearInterval(this.imageIntervals[packId]);
       delete this.imageIntervals[packId];
@@ -107,7 +121,10 @@ export class PackComponent implements OnInit {
     }
   }
   openPackDetailsModal(pack: Pack) {
-    console.log('pack', pack);
+    if (pack.packId) {
+      this.stopImageRotation(pack.packId); // Arrête toute rotation active
+    }
+        
     this.selectedPack = pack;
     console.log('selectedPack', this.selectedPack);
     this.selectedImage = pack.images[0]; // Set the default selected image

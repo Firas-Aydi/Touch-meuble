@@ -25,8 +25,7 @@ export class SalonComponent implements OnInit{
   filteredSalons: Salon[] = [];
   currentType: string | null = null;
 
-  imageIntervals: { [key: string]: any } = {}; // Utiliser un dictionnaire pour stocker les intervalles par chambreId
-  rotationDuration = 1000; // Durée de chaque image en ms (1 seconde ici)
+  imageIntervals: { [key: string]: any } = {}; 
 
   constructor(
     private salonService: SalonService,
@@ -41,6 +40,14 @@ export class SalonComponent implements OnInit{
       console.log('currentType: ', this.currentType);
       this.loadSalons(); // Charger les produits
     });
+  }
+  ngOnDestroy(): void {
+    for (const salonId in this.imageIntervals) {
+      if (this.imageIntervals.hasOwnProperty(salonId)) {
+        clearInterval(this.imageIntervals[salonId]);
+      }
+    }
+    this.imageIntervals = {};
   }
   loadSalons() {
     this.salonService.getSalons().subscribe((data) => {
@@ -57,6 +64,10 @@ export class SalonComponent implements OnInit{
     });
   }
   startImageRotation(salonId: string): void {
+    if (this.imageIntervals[salonId]) {
+      return;
+    }
+    
     const salon = this.paginatedProducts.find(
       (c) => c.salonId === salonId
     );
@@ -75,6 +86,10 @@ export class SalonComponent implements OnInit{
   }
 
   stopImageRotation(salonId: string): void {
+    if (!salonId) {
+      return;
+    }
+  
     if (this.imageIntervals[salonId]) {
       clearInterval(this.imageIntervals[salonId]);
       delete this.imageIntervals[salonId];
@@ -92,6 +107,9 @@ export class SalonComponent implements OnInit{
   }
 
   openSalonDetailsModal(salon: Salon) {
+    if (salon.salonId) {
+      this.stopImageRotation(salon.salonId); // Arrête toute rotation active
+    }
     this.selectedSalon = salon;
     this.selectedImage = salon.images[0]; // Set the default selected image
 

@@ -26,8 +26,7 @@ export class ProductComponent implements OnInit {
   currentType: string | null = null; // Ajouter une propriété pour stocker le type de produit
   sortOrder: 'asc' | 'desc' | null = null;
 
-  imageIntervals: { [key: string]: any } = {}; // Utiliser un dictionnaire pour stocker les intervalles par chambreId
-  rotationDuration = 1000; // Durée de chaque image en ms (1 seconde ici)
+  imageIntervals: { [key: string]: any } = {}; 
 
   constructor(
     private productService: ProductService,
@@ -42,6 +41,14 @@ export class ProductComponent implements OnInit {
       // console.log('currentType: ', this.currentType);
       this.loadProducts(); // Charger les produits
     });
+  }
+  ngOnDestroy(): void {
+    for (const productId in this.imageIntervals) {
+      if (this.imageIntervals.hasOwnProperty(productId)) {
+        clearInterval(this.imageIntervals[productId]);
+      }
+    }
+    this.imageIntervals = {};
   }
 
   loadProducts() {
@@ -76,6 +83,7 @@ export class ProductComponent implements OnInit {
 
   viewProductDetails(productId: string | undefined) {
     if (productId) {
+      this.stopImageRotation(productId)
       this.router.navigate(['/products', productId]);
     } else {
       console.error(
@@ -85,6 +93,9 @@ export class ProductComponent implements OnInit {
   }
 
   openProductDetailsModal(product: Product) {
+    if (product.productId) {
+      this.stopImageRotation(product.productId); 
+    }
     this.selectedProduct = product;
     this.selectedImage = product.images[0];
 
@@ -94,6 +105,10 @@ export class ProductComponent implements OnInit {
     productDetailsModal.show();
   }
   startImageRotation(productId: string): void {
+    if (this.imageIntervals[productId]) {
+      return;
+    }
+    
     const product = this.paginatedProducts.find(
       (c) => c.productId === productId
     );
@@ -112,6 +127,10 @@ export class ProductComponent implements OnInit {
   }
 
   stopImageRotation(productId: string): void {
+    if (!productId) {
+      return;
+    }
+  
     if (this.imageIntervals[productId]) {
       clearInterval(this.imageIntervals[productId]);
       delete this.imageIntervals[productId];

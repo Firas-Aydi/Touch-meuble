@@ -35,6 +35,9 @@ export class HomeComponent implements OnInit {
   selectedSalleName: string | null = null;
   selectedSalonName: string | null = null;
 
+  imageIntervals: { [key: string]: any } = {};
+  // rotationDuration = 1000;
+  
   constructor(
     // private cartService: CartService,
     private packService: PackService,
@@ -54,7 +57,16 @@ export class HomeComponent implements OnInit {
     this.loadSalon();
     this.loadTestimonials();
   }
-
+  ngOnDestroy(): void {
+    for (const packId in this.imageIntervals) {
+      if (this.imageIntervals.hasOwnProperty(packId)) {
+        clearInterval(this.imageIntervals[packId]);
+      }
+    }
+    this.imageIntervals = {};
+    console.info("Tous les intervalles ont été arrêtés.");
+  }
+  
   // Load packs from the pack service
   loadPacks(): void {
     this.packService.getAllPacks().subscribe((data: any[]) => {
@@ -62,12 +74,6 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  // Load categories from the category service
-  // loadCategories(): void {
-  //   this.categoryService.getAllCategories().subscribe((data: any[]) => {
-  //     this.categories = data;
-  //   });
-  // }
   loadChambres(): void {
     this.chambreService.getChambre().subscribe((data: any[]) => {
       this.chambres = data;
@@ -104,10 +110,52 @@ export class HomeComponent implements OnInit {
       },
     ];
   }
+  startImageRotation(packId: string): void {
+    if (this.imageIntervals[packId]) {
+      console.warn(`Rotation déjà active pour packId = ${packId}`);
+      return;
+    }
+    
+    const pack = this.packs.find(
+      (c) => c.packId === packId
+    );
+    if (pack) {
+      let currentIndex = 0;
+      this.imageIntervals[packId] = setInterval(() => {
+        currentIndex = (currentIndex + 1) % pack.images.length;
+        const imgElement = document.getElementById(
+          'image-' + packId
+        ) as HTMLImageElement;
+        if (imgElement) {
+          imgElement.src = pack.images[currentIndex];
+        }
+      }, 2000);
+    }
+  }
 
+  stopImageRotation(packId: string): void {
+    if (!packId) {
+      console.warn("stopImageRotation: Aucun packId fourni !");
+      return;
+    }
+  
+    if (this.imageIntervals[packId]) {
+      try {
+        clearInterval(this.imageIntervals[packId]); // Arrête l'intervalle
+        delete this.imageIntervals[packId]; // Supprime la référence
+        console.info(`stopImageRotation: Rotation arrêtée pour packId = ${packId}`);
+      } catch (error) {
+        console.error(`Erreur lors de l'arrêt de la rotation pour packId = ${packId}`, error);
+      }
+    } else {
+      console.warn(`stopImageRotation: Aucun intervalle actif pour packId = ${packId}`);
+    }
+  }
+  
   // Navigate to pack details
   viewPackDetails(packId: string | undefined) {
     if (packId) {
+      this.stopImageRotation(packId)
       this.router.navigate(['/packs', packId]);
     } else {
       console.error('Pack ID is undefined. Cannot navigate to pack details.');
@@ -174,7 +222,9 @@ export class HomeComponent implements OnInit {
   }
   
   openPackDetailsModal(pack: Pack) {
-    console.log('pack', pack);
+    if (pack.packId) {
+      this.stopImageRotation(pack.packId); // Arrête toute rotation active
+    }
     this.selectedPack = pack;
     console.log('selectedPack', this.selectedPack);
     this.selectedImage = pack.images[0]; // Set the default selected image

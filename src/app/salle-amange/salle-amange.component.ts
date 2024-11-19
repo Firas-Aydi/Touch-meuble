@@ -25,8 +25,7 @@ export class SalleAmangeComponent implements OnInit {
   filteredSalles: SalleAManger[] = [];
   currentType: string | null = null;
 
-  imageIntervals: { [key: string]: any } = {}; // Utiliser un dictionnaire pour stocker les intervalles par salleId
-  rotationDuration = 1000;
+  imageIntervals: { [key: string]: any } = {}; 
 
   constructor(
     private salleService: SalleAMangeService,
@@ -42,7 +41,14 @@ export class SalleAmangeComponent implements OnInit {
       this.loadSalles(); // Charger les produits
     });
   }
-
+  ngOnDestroy(): void {
+    for (const salleId in this.imageIntervals) {
+      if (this.imageIntervals.hasOwnProperty(salleId)) {
+        clearInterval(this.imageIntervals[salleId]);
+      }
+    }
+    this.imageIntervals = {};
+  }
   loadSalles() {
     this.salleService.getSalle().subscribe((data) => {
       this.salles = data;
@@ -70,7 +76,10 @@ export class SalleAmangeComponent implements OnInit {
   }
 
   openSalleDetailsModal(salleAManger: SalleAManger) {
-    this.stopImageRotation(salleAManger.salleId!);
+    if (salleAManger.salleId) {
+      this.stopImageRotation(salleAManger.salleId); // Arrête toute rotation active
+    }
+        
     this.selectedSalle = salleAManger;
     this.selectedImage = salleAManger.images[0]; // Set the default selected image
 
@@ -80,6 +89,10 @@ export class SalleAmangeComponent implements OnInit {
     salleDetailsModal.show();
   }
   startImageRotation(salleId: string): void {
+    if (this.imageIntervals[salleId]) {
+      return;
+    }
+    
     const salle = this.paginatedProducts.find((c) => c.salleId === salleId);
     if (salle) {
       let currentIndex = 0;
@@ -96,6 +109,10 @@ export class SalleAmangeComponent implements OnInit {
   }
 
   stopImageRotation(salleId: string): void {
+    if (!salleId) {
+      return;
+    }
+  
     if (this.imageIntervals[salleId]) {
       clearInterval(this.imageIntervals[salleId]);
       delete this.imageIntervals[salleId];
