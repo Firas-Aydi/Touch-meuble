@@ -1,11 +1,11 @@
 <div class="container mt-5">
     <div *ngIf="salle" class="row align-items-start">
         <!-- Left Section: Sidebar and Main Image -->
-        <div class="col-md-6 d-flex">
+        <div class="col-md-8 d-flex">
             <div class="sidebar">
                 <div class="thumbnails">
-                    <img *ngFor="let image of salle.images" [src]="image" alt="{{ salle.name }}"
-                        class="img-thumbnail" (click)="selectImage(image)" [class.active]="image === selectedImage" />
+                    <img *ngFor="let image of salle.images" [src]="image" alt="{{ salle.name }}" class="img-thumbnail"
+                        (click)="selectImage(image)" [class.active]="image === selectedImage" />
                 </div>
             </div>
             <div class="main-image-container">
@@ -14,8 +14,9 @@
         </div>
 
         <!-- Right Section: salle Information -->
-        <div class="col-md-6">
+        <div class="col-md-4">
             <h2 class="salle-title">{{ salle.name }}</h2>
+            <hr>
             <h3> <strong>
                     <p class="text-success price">
                         <!-- <strong>Prix:</strong> -->
@@ -23,25 +24,38 @@
                     </p>
                 </strong>
             </h3>
-            <div class="salle-info mt-3">
-                <p class="description">
-                    <!-- <strong>Description:</strong> -->
-                    <!-- {{ salle.description }} -->
-                </p>
-                <p class="dimensions"><strong>Dimensions:</strong> {{ salle.dimensions }}</p>
-                <p class="material"><strong>Matières:</strong> {{ salle.material }}</p>
-                <div class="color-samples">
-                    <!-- <strong>Couleurs:</strong> -->
-                    <span *ngFor="let color of salle.colors" [style.backgroundColor]="color" class="color-sample"
-                        title="{{ color }}"></span>
+            <hr>
+            <!-- <div class="salle-info mt-3"> -->
+            <p class="description">
+                <strong>Description:</strong>
+                <!-- {{ salle.description }} -->
+            </p>
+            <p class="dimensions">Dimensions: {{ salle.dimensions }}</p>
+            <p class="material">Matières: {{ salle.material }}</p>
+            <hr>
+            <div>
+                <strong style="cursor: pointer;" (click)="toggleDetails()">
+                    Détails
+                    <span [ngClass]="{'fa-solid fa-angle-down': !showDetails, 'fa fa-chevron-up': showDetails}"></span>
+                </strong>
+
+                <div class="details-container" [ngClass]="{'show': showDetails}">
+                    <img *ngFor="let image of salle.details" [src]="image" alt="{{ salle.name }}" class="img-thumbnail"
+                        (click)="selectImage(image)" [class.active]="image === selectedImage" />
                 </div>
-                <!-- <p><strong>Type:</strong> {{ salle.type }}</p> -->
             </div>
+            <hr>
+            <div class="color-samples">
+                <!-- <strong>Couleurs:</strong> -->
+                <span *ngFor="let color of salle.colors" [style.backgroundColor]="color" class="color-sample"
+                    title="{{ color }}"></span>
+            </div>
+            <!-- <p><strong>Type:</strong> {{ salle.type }}</p> -->
+            <!-- </div> -->
             <div class="input-group mb-3 quantity-input">
                 <span class="input-group-text">Quantité:</span>
-                <input type="number" class="form-control" [(ngModel)]="quantity" min="1"
-                    max="{{salle.stock}}" [disabled]="salle.stock === 0"
-                    (input)="validateQuantity()">
+                <input type="number" class="form-control" [(ngModel)]="quantity" min="1" max="{{salle.stock}}"
+                    [disabled]="salle.stock === 0" (input)="validateQuantity()">
             </div>
             <!-- Error messages -->
             <div *ngIf="quantityError" class="text-danger">
@@ -56,6 +70,10 @@
     </div>
 
     <div *ngIf="!salle">
-        <p>salle non trouvé.</p>
+        <div class="error-page">
+            <div class="error-content">
+                <p>salle non trouvé.</p>
+            </div>
+        </div>
     </div>
 </div>

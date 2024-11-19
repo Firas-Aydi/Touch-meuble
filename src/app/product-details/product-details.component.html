@@ -16,6 +16,7 @@
         <!-- Right Section: Product Information -->
         <div class="col-md-4">
             <h2 class="product-title">{{ product.name }}</h2>
+            <hr>
             <h3> <strong>
                     <p class="text-success price">
                         <!-- <strong>Prix:</strong> -->
@@ -23,8 +24,8 @@
                     </p>
                 </strong>
             </h3>
-            <div class="product-info mt-3">
-                <hr>
+            <!-- <div class="product-info mt-3"> -->
+            <hr>
             <!-- <div class="chambre-info mt-3"> -->
             <p class="description">
                 <strong>Description</strong><br>
@@ -47,18 +48,17 @@
                 </div>
             </div>
             <hr>
-                <div class="color-samples">
-                    <!-- <strong>Couleurs:</strong> -->
-                    <span *ngFor="let color of product.colors" [style.backgroundColor]="color" class="color-sample"
-                        title="{{ color }}"></span>
-                </div>
-                <!-- <p><strong>Type:</strong> {{ product.type }}</p> -->
+            <div class="color-samples">
+                <!-- <strong>Couleurs:</strong> -->
+                <span *ngFor="let color of product.colors" [style.backgroundColor]="color" class="color-sample"
+                    title="{{ color }}"></span>
             </div>
+            <!-- <p><strong>Type:</strong> {{ product.type }}</p> -->
+            <!-- </div> -->
             <div class="input-group mb-3 quantity-input">
                 <span class="input-group-text">Quantité:</span>
-                <input type="number" class="form-control" [(ngModel)]="quantity" min="1"
-                    max="{{product.stock}}" [disabled]="product.stock === 0"
-                    (input)="validateQuantity()">
+                <input type="number" class="form-control" [(ngModel)]="quantity" min="1" max="{{product.stock}}"
+                    [disabled]="product.stock === 0" (input)="validateQuantity()">
             </div>
             <!-- Error messages -->
             <div *ngIf="quantityError" class="text-danger">

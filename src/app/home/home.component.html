@@ -49,10 +49,10 @@
         </div>
       </div> -->
 
-      <div class="col-lg-3 col-md-6 mb-4" *ngFor="let pack of packs">
+      <div class="col-lg-3 col-md-6 mb-4" *ngFor="let pack of packs | slice:0:4">
         <div class="card h-100 d-flex flex-column">
-          <div style="cursor: pointer;" (mouseover)="startImageRotation(pack.packId!)"
-            (mouseleave)="stopImageRotation(pack.packId!)" (click)="viewPackDetails(pack.packId)">
+          <div style="cursor: pointer;" (mouseover)="startPackImageRotation(pack.packId!)"
+            (mouseleave)="stopPackImageRotation(pack.packId!)" (click)="viewPackDetails(pack.packId)">
 
             <img [src]="pack.images[0]" class="card-img-top" alt="{{ pack.name }}" [id]="'image-' + pack.packId">
 
@@ -78,7 +78,7 @@
   <div class="container">
     <h2 class="text-center mb-5">Chambre à Coucher</h2>
     <div class="row">
-      <div class="col-lg-3 col-md-6 mb-4" *ngFor="let chambre of chambres | slice:0:4">
+      <!-- <div class="col-lg-3 col-md-6 mb-4" *ngFor="let chambre of chambres | slice:0:4">
         <div class="card h-100 d-flex flex-column">
           <div style="cursor: pointer;" (click)="viewChambreDetails(chambre.chambreId)">
             <img [src]="chambre.images[0]" class="card-img-top" alt="{{ chambre.name }}">
@@ -88,6 +88,26 @@
             </div>
           </div>
           <div class="card-footer p-0 mt-auto">
+            <button class="btn btn-outline-secondary btn-custom" (click)="openChambreDetailsModal(chambre)">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+        </div>
+      </div> -->
+      <div class="col-lg-3 col-md-6 mb-4" *ngFor="let chambre of chambres | slice:0:4">
+        <div class="card h-100 d-flex flex-column">
+          <div style="cursor: pointer;" (mouseover)="startChambreImageRotation(chambre.chambreId!)"
+            (mouseleave)="stopChambreImageRotation(chambre.chambreId!)" (click)="viewChambreDetails(chambre.chambreId)">
+
+            <img [src]="chambre.images[0]" class="card-img-top" alt="{{ chambre.name }}"
+              [id]="'image-' + chambre.chambreId">
+
+            <div class="card-body text-center">
+              <h5 class="card-title">{{ chambre.name }}</h5>
+              <p class="text-success fw-bold">{{ chambre.price }} DT</p>
+            </div>
+          </div>
+          <div class="card-footer p-0 mt-auto d-flex">
             <button class="btn btn-outline-secondary btn-custom" (click)="openChambreDetailsModal(chambre)">
               <i class="fas fa-eye"></i>
             </button>
@@ -103,11 +123,21 @@
   <div class="container">
     <h2 class="text-center mb-5">Salon</h2>
     <div class="row">
-      <div class="col-lg-3 col-md-6 mb-4" *ngFor="let salon of salon  | slice:0:4">
+      <div class="col-lg-3 col-md-6 mb-4" *ngFor="let salon of salons  | slice:0:4">
         <div class="card h-100 d-flex flex-column">
-          <div style="cursor: pointer;" (click)="viewSalonDetails(salon.salonId)">
+          <!-- <div style="cursor: pointer;" (click)="viewSalonDetails(salon.salonId)">
 
             <img [src]="salon.images[0]" class="card-img-top" alt="{{ salon.name }}">
+            <div class="card-body text-center">
+              <h5 class="card-title">{{ salon.name }}</h5>
+              <p class="text-success fw-bold">{{ salon.price }} DT</p>
+            </div>
+          </div> -->
+          <div style="cursor: pointer;" (mouseover)="startSalonImageRotation(salon.salonId!)"
+            (mouseleave)="stopSalonImageRotation(salon.salonId!)" (click)="viewSalonDetails(salon.salonId)">
+
+            <img [src]="salon.images[0]" class="card-img-top" alt="{{ salon.name }}" [id]="'image-' + salon.salonId">
+
             <div class="card-body text-center">
               <h5 class="card-title">{{ salon.name }}</h5>
               <p class="text-success fw-bold">{{ salon.price }} DT</p>
@@ -131,8 +161,18 @@
     <div class="row">
       <div class="col-lg-3 col-md-6 mb-4" *ngFor="let salle of salles  | slice:0:4">
         <div class="card h-100 d-flex flex-column">
-          <div style="cursor: pointer;" (click)="viewSalleDetails(salle.salleId)">
+          <!-- <div style="cursor: pointer;" (click)="viewSalleDetails(salle.salleId)">
             <img [src]="salle.images[0]" class="card-img-top" alt="{{ salle.name }}">
+            <div class="card-body text-center">
+              <h5 class="card-title">{{ salle.name }}</h5>
+              <p class="text-success fw-bold">{{ salle.price }} DT</p>
+            </div>
+          </div> -->
+          <div style="cursor: pointer;" (mouseover)="startSalleImageRotation(salle.salleId!)"
+            (mouseleave)="stopSalleImageRotation(salle.salleId!)" (click)="viewSalleDetails(salle.salleId)">
+
+            <img [src]="salle.images[0]" class="card-img-top" alt="{{ salle.name }}" [id]="'image-' + salle.salleId">
+
             <div class="card-body text-center">
               <h5 class="card-title">{{ salle.name }}</h5>
               <p class="text-success fw-bold">{{ salle.price }} DT</p>

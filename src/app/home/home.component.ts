@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
   // packs: any[] = [];
   // categories: any[] = [];
   chambres: any[] = [];
-  salon: any[] = [];
+  salons: any[] = [];
   salles: any[] = [];
   testimonials: any[] = [];
 
@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
 
   imageIntervals: { [key: string]: any } = {};
   // rotationDuration = 1000;
-  
+
   constructor(
     // private cartService: CartService,
     private packService: PackService,
@@ -63,10 +63,25 @@ export class HomeComponent implements OnInit {
         clearInterval(this.imageIntervals[packId]);
       }
     }
+    for (const chambreId in this.imageIntervals) {
+      if (this.imageIntervals.hasOwnProperty(chambreId)) {
+        clearInterval(this.imageIntervals[chambreId]);
+      }
+    }
+    for (const salonId in this.imageIntervals) {
+      if (this.imageIntervals.hasOwnProperty(salonId)) {
+        clearInterval(this.imageIntervals[salonId]);
+      }
+    }
+    for (const salleId in this.imageIntervals) {
+      if (this.imageIntervals.hasOwnProperty(salleId)) {
+        clearInterval(this.imageIntervals[salleId]);
+      }
+    }
     this.imageIntervals = {};
-    console.info("Tous les intervalles ont été arrêtés.");
+    console.info('Tous les intervalles ont été arrêtés.');
   }
-  
+
   // Load packs from the pack service
   loadPacks(): void {
     this.packService.getAllPacks().subscribe((data: any[]) => {
@@ -86,7 +101,7 @@ export class HomeComponent implements OnInit {
   }
   loadSalon(): void {
     this.salonService.getSalons().subscribe((data: any[]) => {
-      this.salon = data;
+      this.salons = data;
     });
   }
 
@@ -110,15 +125,23 @@ export class HomeComponent implements OnInit {
       },
     ];
   }
-  startImageRotation(packId: string): void {
+
+  // Navigate to pack details
+  viewPackDetails(packId: string | undefined) {
+    if (packId) {
+      this.stopPackImageRotation(packId);
+      this.router.navigate(['/packs', packId]);
+    } else {
+      console.error('Pack ID is undefined. Cannot navigate to pack details.');
+    }
+  }
+  startPackImageRotation(packId: string): void {
     if (this.imageIntervals[packId]) {
       console.warn(`Rotation déjà active pour packId = ${packId}`);
       return;
     }
-    
-    const pack = this.packs.find(
-      (c) => c.packId === packId
-    );
+
+    const pack = this.packs.find((c) => c.packId === packId);
     if (pack) {
       let currentIndex = 0;
       this.imageIntervals[packId] = setInterval(() => {
@@ -132,55 +155,48 @@ export class HomeComponent implements OnInit {
       }, 2000);
     }
   }
-
-  stopImageRotation(packId: string): void {
+  stopPackImageRotation(packId: string): void {
     if (!packId) {
-      console.warn("stopImageRotation: Aucun packId fourni !");
+      console.warn('stopImageRotation: Aucun packId fourni !');
       return;
     }
-  
+
     if (this.imageIntervals[packId]) {
       try {
         clearInterval(this.imageIntervals[packId]); // Arrête l'intervalle
         delete this.imageIntervals[packId]; // Supprime la référence
-        console.info(`stopImageRotation: Rotation arrêtée pour packId = ${packId}`);
+        console.info(
+          `stopImageRotation: Rotation arrêtée pour packId = ${packId}`
+        );
       } catch (error) {
-        console.error(`Erreur lors de l'arrêt de la rotation pour packId = ${packId}`, error);
+        console.error(
+          `Erreur lors de l'arrêt de la rotation pour packId = ${packId}`,
+          error
+        );
       }
     } else {
-      console.warn(`stopImageRotation: Aucun intervalle actif pour packId = ${packId}`);
+      console.warn(
+        `stopImageRotation: Aucun intervalle actif pour packId = ${packId}`
+      );
     }
   }
-  
-  // Navigate to pack details
-  viewPackDetails(packId: string | undefined) {
-    if (packId) {
-      this.stopImageRotation(packId)
-      this.router.navigate(['/packs', packId]);
-    } else {
-      console.error('Pack ID is undefined. Cannot navigate to pack details.');
+  openPackDetailsModal(pack: Pack) {
+    if (pack.packId) {
+      this.stopPackImageRotation(pack.packId); // Arrête toute rotation active
     }
-  }
-  viewChambreDetails(chambreId: string | undefined) {
-    if (chambreId) {
-      this.router.navigate(['/chambres', chambreId]);
-    } else {
-      console.error('Pack ID is undefined. Cannot navigate to pack details.');
-    }
-  }
-  viewSalonDetails(salonId: string | undefined) {
-    if (salonId) {
-      this.router.navigate(['/salons', salonId]);
-    } else {
-      console.error('Pack ID is undefined. Cannot navigate to pack details.');
-    }
-  }
-  viewSalleDetails(salleId: string | undefined) {
-    if (salleId) {
-      this.router.navigate(['/salles', salleId]);
-    } else {
-      console.error('Pack ID is undefined. Cannot navigate to pack details.');
-    }
+    this.selectedPack = pack;
+    console.log('selectedPack', this.selectedPack);
+    this.selectedImage = pack.images[0]; // Set the default selected image
+
+    const selectedChambre = (pack as any)['selectedChambre'];
+    const selectedSalle = (pack as any)['selectedSalle'];
+    const selectedSalon = (pack as any)['selectedSalon'];
+
+    this.loadItemDetails(selectedChambre, selectedSalle, selectedSalon);
+    const packDetailsModal = new bootstrap.Modal(
+      document.getElementById('packDetailsModal')
+    );
+    packDetailsModal.show();
   }
   loadItemDetails(chambreId: string, salleId: string, salonId: string) {
     // Charger le nom de la chambre
@@ -204,40 +220,134 @@ export class HomeComponent implements OnInit {
       });
     }
   }
+
+  viewChambreDetails(chambreId: string | undefined) {
+    if (chambreId) {
+      this.stopPackImageRotation(chambreId);
+      this.router.navigate(['/chambres', chambreId]);
+    } else {
+      console.error('Pack ID is undefined. Cannot navigate to pack details.');
+    }
+  }
+  startChambreImageRotation(chambreId: string): void {
+    if (this.imageIntervals[chambreId]) {
+      return;
+    }
+
+    const chambre = this.chambres.find((c) => c.chambreId === chambreId);
+    if (chambre) {
+      let currentIndex = 0;
+      this.imageIntervals[chambreId] = setInterval(() => {
+        currentIndex = (currentIndex + 1) % chambre.images.length;
+        const imgElement = document.getElementById(
+          'image-' + chambreId
+        ) as HTMLImageElement;
+        if (imgElement) {
+          imgElement.src = chambre.images[currentIndex];
+        }
+      }, 2000);
+    }
+  }
+  stopChambreImageRotation(chambreId: string): void {
+    if (!chambreId) {
+      return;
+    }
+
+    if (this.imageIntervals[chambreId]) {
+        clearInterval(this.imageIntervals[chambreId]); // Arrête l'intervalle
+        delete this.imageIntervals[chambreId];
+      
+    } 
+  }
+
+  viewSalonDetails(salonId: string | undefined) {
+    if (salonId) {
+      this.stopPackImageRotation(salonId);
+      this.router.navigate(['/salons', salonId]);
+    } else {
+      console.error('Pack ID is undefined. Cannot navigate to pack details.');
+    }
+  }
+  startSalonImageRotation(salonId: string): void {
+    if (this.imageIntervals[salonId]) {
+      return;
+    }
+
+    const salon = this.salons.find((c) => c.salonId === salonId);
+    if (salon) {
+      let currentIndex = 0;
+      this.imageIntervals[salonId] = setInterval(() => {
+        currentIndex = (currentIndex + 1) % salon.images.length;
+        const imgElement = document.getElementById(
+          'image-' + salonId
+        ) as HTMLImageElement;
+        if (imgElement) {
+          imgElement.src = salon.images[currentIndex];
+        }
+      }, 2000);
+    }
+  }
+  stopSalonImageRotation(salonId: string): void {
+    if (!salonId) {
+      return;
+    }
+
+    if (this.imageIntervals[salonId]) {
+        clearInterval(this.imageIntervals[salonId]); // Arrête l'intervalle
+        delete this.imageIntervals[salonId];
+      
+    } 
+  }
+  viewSalleDetails(salleId: string | undefined) {
+    if (salleId) {
+      this.stopPackImageRotation(salleId);
+      this.router.navigate(['/salles', salleId]);
+    } else {
+      console.error('Pack ID is undefined. Cannot navigate to pack details.');
+    }
+  }
+  startSalleImageRotation(salleId: string): void {
+    if (this.imageIntervals[salleId]) {
+      return;
+    }
+
+    const salle = this.salles.find((c) => c.salleId === salleId);
+    if (salle) {
+      let currentIndex = 0;
+      this.imageIntervals[salleId] = setInterval(() => {
+        currentIndex = (currentIndex + 1) % salle.images.length;
+        const imgElement = document.getElementById(
+          'image-' + salleId
+        ) as HTMLImageElement;
+        if (imgElement) {
+          imgElement.src = salle.images[currentIndex];
+        }
+      }, 2000);
+    }
+  }
+  stopSalleImageRotation(salleId: string): void {
+    if (!salleId) {
+      return;
+    }
+
+    if (this.imageIntervals[salleId]) {
+        clearInterval(this.imageIntervals[salleId]); // Arrête l'intervalle
+        delete this.imageIntervals[salleId];
+      
+    } 
+  }
+
   openChambreDetailsModal(chambre: Chambre) {
-    console.log('chambre', chambre);
+    if (chambre.chambreId) {
+      this.stopChambreImageRotation(chambre.chambreId); // Arrête toute rotation active
+    }
     this.selectedChambre = chambre;
     console.log('selectedchambre', this.selectedChambre);
-    this.selectedImage = chambre.images[0]; // Set the default selected image
-
-    // const selectedChambre = (pack as any)['selectedChambre'];
-    // const selectedSalle = (pack as any)['selectedSalle'];
-    // const selectedSalon = (pack as any)['selectedSalon'];
-
-    // this.loadItemDetails(selectedChambre, selectedSalle, selectedSalon);
+    this.selectedImage = chambre.images[0]; 
     const chambreDetailsModal = new bootstrap.Modal(
       document.getElementById('chambreDetailsModal')
     );
     chambreDetailsModal.show();
-  }
-  
-  openPackDetailsModal(pack: Pack) {
-    if (pack.packId) {
-      this.stopImageRotation(pack.packId); // Arrête toute rotation active
-    }
-    this.selectedPack = pack;
-    console.log('selectedPack', this.selectedPack);
-    this.selectedImage = pack.images[0]; // Set the default selected image
-
-    const selectedChambre = (pack as any)['selectedChambre'];
-    const selectedSalle = (pack as any)['selectedSalle'];
-    const selectedSalon = (pack as any)['selectedSalon'];
-
-    this.loadItemDetails(selectedChambre, selectedSalle, selectedSalon);
-    const packDetailsModal = new bootstrap.Modal(
-      document.getElementById('packDetailsModal')
-    );
-    packDetailsModal.show();
   }
 
   selectImage(image: string) {
