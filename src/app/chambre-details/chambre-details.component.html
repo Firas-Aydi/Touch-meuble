@@ -1,28 +1,34 @@
 <div class="container mt-5">
     <div *ngIf="chambre" class="row align-items-start">
         <!-- Left Section: Sidebar and Main Image -->
-        <div class="col-md-8 d-flex">
-            <div class="sidebar">
-                <div class="thumbnails">
-                    <img *ngFor="let image of chambre.images" [src]="image" alt="{{ chambre.name }}"
-                        class="img-thumbnail" (click)="selectImage(image)" [class.active]="image === selectedImage" />
-                </div>
-            </div>
+        <div class="col-md-8 d-flex flex-column">
+            <!-- Conteneur pour l'image principale -->
             <div class="main-image-container">
                 <img [src]="selectedImage" alt="{{ chambre.name }}" class="main-image" />
             </div>
+        
+            <!-- Conteneur pour les thumbnails -->
+            <div class="thumbnails-container d-flex justify-content-center">
+                <img *ngFor="let image of chambre.images" 
+                     [src]="image" 
+                     alt="{{ chambre.name }}"
+                     class="thumbnail-image"
+                     (click)="selectImage(image)" 
+                     [class.active]="image === selectedImage" />
+            </div>
         </div>
+        
 
         <!-- Right Section: chambre Information -->
         <div class="col-md-4">
             <h2 class="chambre-title">{{ chambre.name }}</h2>
             <hr>
-            <h1>
+            <h6>
                 <p class="price">
-                    <!-- <strong>Prix:</strong> -->
-                    --------------------------------------------------------------------------- {{ chambre.price }} TND
+                    <span class="line"></span>{{ chambre.price }} TND
                 </p>
-            </h1>
+            </h6>
+            
             <hr>
             <!-- <div class="chambre-info mt-3"> -->
             <p class="description">

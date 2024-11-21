@@ -20,13 +20,12 @@ export class ChambreDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private chambreService: ChambreService,
     private cartService: CartService
-
   ) {}
 
   ngOnInit(): void {
     const chambreId = this.route.snapshot.paramMap.get('chambreId');
     this.loadChambreDetails(chambreId);
-    console.log('chambreId: ',chambreId)
+    console.log('chambreId: ', chambreId);
   }
 
   // Charger les détails de la chambre en utilisant l'ID

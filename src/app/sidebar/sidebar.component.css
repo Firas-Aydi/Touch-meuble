@@ -6,13 +6,13 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #f8f9fa; /* Couleur de fond de la sidebar */
+  background-color: #fff; /* Couleur de fond de la sidebar */
   overflow-y: auto; /* Active le défilement vertical si nécessaire */
   overflow-x: hidden; /* Empêche le défilement horizontal */
   transform: translateX(calc(-100% + 60px)); /* Cachée par défaut */
   transition: transform 0.5s ease;
   z-index: 1000; /* Assurez-vous qu'elle est au-dessus du contenu */
-  padding: 10px; /* Ajoute un peu de marge intérieure */
+  padding: 10px; 
 }
 
 .custom-sidebar.active {
@@ -27,9 +27,9 @@
   transform: rotate(270deg); /* Rotation de 90 degrés */
   position: fixed;
   top: 50%;
-  left: 0px;
-  font-size: 1em;
-  background-color: #f8f9fa;
+  left: -10px;
+  font-size: 14px;
+  background-color: #fff;
   border: none;
   z-index: 1100; /* Toujours au-dessus */
   color: black;
@@ -102,7 +102,7 @@
   right: 0;
   width: 60px;
   height: 100%;
-  background-color: #f8f9fa;
+  background-color: #fff;
   /* transform: translateY(-50%); */
   display: flex;
   flex-direction: column;
