@@ -43,9 +43,12 @@
 }
 
 .chambre-title {
-    font-size: 24px; /* Title font size */
-    /* font-weight: bold;  */
-    /* margin-bottom: 10px;  */
+    font-family: 'Montserrat'; /* Exemple de police moderne */
+    font-size: 24px; /* Taille supposée */
+    font-weight: 500; /* Semi-gras */
+    color: #333; /* Gris foncé */
+    margin-bottom: 10px; /* Espacement avec l'élément suivant */
+    /* text-transform: uppercase; */
 }
 
 .chambre-info {
@@ -55,8 +58,11 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Light shadow for depth */
 }
 
-.description, .price, .dimensions, .material {
-    margin-bottom: 10px; /* Space between paragraphs */
+.description, .price, .dimensions, .material, .details, .quantity{
+    font-family: 'Roboto'; /* Exemple de police claire */
+    font-size: 14px; /* Petite taille pour le texte descriptif */
+    font-weight: 400; /* Régulier */
+    line-height: 1.5; /* Espacement pour lisibilité */
 }
 
 .color-samples {

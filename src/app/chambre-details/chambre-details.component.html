@@ -17,13 +17,12 @@
         <div class="col-md-4">
             <h2 class="chambre-title">{{ chambre.name }}</h2>
             <hr>
-            <h3> <strong>
-                    <p class="text-success price">
-                        <!-- <strong>Prix:</strong> -->
-                        {{ chambre.price }} TND
-                    </p>
-                </strong>
-            </h3>
+            <h1>
+                <p class="price">
+                    <!-- <strong>Prix:</strong> -->
+                    --------------------------------------------------------------------------- {{ chambre.price }} TND
+                </p>
+            </h1>
             <hr>
             <!-- <div class="chambre-info mt-3"> -->
             <p class="description">
@@ -34,10 +33,12 @@
             <p class="material">Matières: {{ chambre.material }}</p>
             <hr>
             <div>
-                <strong style="cursor: pointer;" (click)="toggleDetails()">
-                    Détails
-                    <span [ngClass]="{'fa-solid fa-angle-down': !showDetails, 'fa fa-chevron-up': showDetails}"></span>
-                </strong>
+                <p class="details"><strong style="cursor: pointer;" (click)="toggleDetails()">
+                        Détails
+                        <span
+                            [ngClass]="{'fa-solid fa-angle-down': !showDetails, 'fa fa-chevron-up': showDetails}"></span>
+                    </strong>
+                </p>
 
                 <div class="details-container" [ngClass]="{'show': showDetails}">
                     <img *ngFor="let image of chambre.details" [src]="image" alt="{{ chambre.name }}"
@@ -54,7 +55,7 @@
             <!-- <p><strong>Type:</strong> {{ chambre.type }}</p> -->
             <!-- </div> -->
             <div class="input-group mb-3 quantity-input">
-                <span class="input-group-text">Quantité:</span>
+                <span class="input-group-text quantity">Quantité:</span>
                 <input type="number" [(ngModel)]="quantity" min="1" max="{{ chambre.stock }}" class="form-control"
                     [disabled]="chambre.stock === 0" (input)="validateQuantity()" />
             </div>
