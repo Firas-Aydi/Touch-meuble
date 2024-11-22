@@ -65,16 +65,18 @@
   display: block; /* Assure que les liens restent en ligne */
   padding-top: 30px;
   padding-left: 16px;
-  font-size: 18px;
-  color: #333;
+  font-family: "Harmonia Sans",sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  color: #424242;
   text-decoration: none;
   transition: background 0.3s ease, color 0.3s ease;
 }
 
-.side-link:hover,
+/* .side-link:hover,
 .side-link:focus {
   color: #3498db;
-}
+} */
 
 /* Styles pour le menu et sous-menu */
 .submenu {
@@ -83,17 +85,17 @@
 }
 
 .side-sublink {
-  font-size: 14px;
-  color: #2c3e50;
+  font-size: 12px;
+  color: #424242;
   text-decoration: none;
   /* padding: 5px 0; */
   display: block;
   transition: color 0.3s;
 }
 
-.side-sublink:hover {
+/* .side-sublink:hover {
   color: #3498db;
-}
+} */
 
 .social-sidebar {
   position: fixed;

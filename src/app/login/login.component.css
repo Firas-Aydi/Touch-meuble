@@ -10,8 +10,17 @@ body {
     align-items: center;
     min-height: 100vh;
 }
+.container {
+    max-width: 600px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    padding: 50px;
+    position: relative;
+    animation: fadeIn 1s ease-in-out;
+    overflow: hidden;
+}
 
-/* Container Styles */
 .login-container {
     /* max-width: 1800px; */
     margin: auto;

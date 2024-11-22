@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
       })
       .catch((error) => {
         console.error('Login failed', error);
-        this.errorMessage = 'Incorrect email and password';
+        this.errorMessage = 'Incorrect email ou password';
       });
   }
 

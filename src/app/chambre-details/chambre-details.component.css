@@ -45,14 +45,17 @@
     border: 2px solid transparent; /* Bordure transparente par défaut */
     cursor: pointer; /* Curseur "pointer" pour montrer que les miniatures sont cliquables */
     transition: all 0.3s ease-in-out;
+    /* filter: grayscale(100%); */
 }
 
 .thumbnail-image:hover {
     border: 2px solid #666; /* Bordure en survol */
+    /* filter: grayscale(50%); */
 }
 
 .thumbnail-image.active {
     border: 2px solid #333; /* Bordure pour l'image sélectionnée */
+    /* filter: grayscale(0%); */
 }
 
 
@@ -86,7 +89,7 @@
   display: flex; /* Utiliser flexbox pour aligner la ligne et le prix */
   align-items: center; /* Centrer verticalement les éléments */
   justify-content: flex-end; /* Aligner à droite */
-  font-family: "Harmonia Sans", sans-serif; /* Police pour le prix */
+  font-family: "Harmonia Sans", sans-serif; 
   font-size: 16px; /* Taille de texte pour le prix */
   font-weight: bold; /* Mettre le prix en gras */
   color: #333; /* Couleur du texte */
@@ -135,19 +138,20 @@
   font-size: 16px; /* Taille de la police */
 }
 .custom-btn {
-  background-color: #28a745; /* A vibrant green */
-  color: white; /* Text color */
-  border: none; /* Remove default border */
-  padding: 10px 20px; /* Adjust padding */
+  background-color: #ffffff; /* A vibrant green */
+  color: black; /* Text color */
+  border: 1px solid #ccc;;
+  padding: 10px 10px; /* Adjust padding */
+  font-family: "Harmonia Sans", sans-serif; 
   font-size: 16px; /* Font size */
-  border-radius: 50px; /* Rounded corners for a chic look */
+  border-radius: 0px; 
   transition: background-color 0.3s, transform 0.2s; /* Transition for hover effects */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  */
 }
 
 .custom-btn:hover {
-  background-color: #218838; /* Darker green on hover */
-  transform: translateY(-2px); /* Slight lift effect on hover */
+  background-color: #ccc; /* Darker green on hover */
+  /* transform: translateY(-2px);  */
 }
 
 .custom-btn:focus {

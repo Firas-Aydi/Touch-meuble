@@ -407,4 +407,12 @@ export class HomeComponent implements OnInit {
       this.quantityError = 'Quantity cannot be empty.';
     }
   }
+
+  scrollToSection(): void {
+    // Descend la page de manière douce jusqu'à une section spécifique
+    const targetElement = document.getElementById('nos-packs'); // ID de la section cible
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
 }

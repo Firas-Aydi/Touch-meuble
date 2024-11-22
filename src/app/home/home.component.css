@@ -1,9 +1,15 @@
+.container h2 {
+  font-family: "Tenor Sans", sans-serif;
+  font-weight: 400;
+  font-size: 33px;
+  font-style: normal;
+}
+
 .card {
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
-}
-.card {
+  border: none;
+  border-radius: 0px;
   transition: transform 0.2s;
 }
 
@@ -16,8 +22,9 @@
 }
 
 .card-title {
-  font-size: 18px;
-  font-weight: bold;
+  font-family: "Harmonia Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
 }
 
 .card-footer {
@@ -34,7 +41,7 @@
 }
 
 .btn-custom:first-child {
-  border-right: 1px solid #ffffff; 
+  border-right: 1px solid #ffffff;
 }
 
 .btn-custom:hover {
@@ -44,7 +51,8 @@
 /* Ensure image height is uniform for all cards */
 .card-img-top {
   height: 250px; /* Adjust this as needed */
-  object-fit: cover; /* Ensures image maintains aspect ratio */
+  border-radius: 0px;
+  object-fit: cover; 
 }
 
 .sidebar {
@@ -74,7 +82,7 @@
 }
 
 .main-image-container {
-  flex: 2; 
+  flex: 2;
   position: relative;
 }
 
@@ -86,19 +94,52 @@
   transition: transform 0.3s; /* Smooth transition */
 }
 .color-sample {
-width: 30px; /* Width of color sample */
-height: 30px; /* Height of color sample */
-margin-right: 10px; /* Space between samples */
-border: 1px solid #ccc; /* Border around color sample */
-border-radius: 50px; /* Rounded corners */
-cursor: pointer; /* Change cursor for clickability */
-transition: transform 0.3s; /* Smooth transition */
+  width: 30px; /* Width of color sample */
+  height: 30px; /* Height of color sample */
+  margin-right: 10px; /* Space between samples */
+  border: 1px solid #ccc; /* Border around color sample */
+  border-radius: 50px; /* Rounded corners */
+  cursor: pointer; /* Change cursor for clickability */
+  transition: transform 0.3s; /* Smooth transition */
 }
 .color-samples {
-display: flex;
-align-items: center; /* Center align color samples */
-margin: 10px 0; /* Vertical margin */
+  display: flex;
+  align-items: center; /* Center align color samples */
+  margin: 10px 0; /* Vertical margin */
 }
 .color-sample:hover {
-transform: scale(1.1); /* Scale effect on hover */
+  transform: scale(1.1); /* Scale effect on hover */
+}
+
+
+
+/* Style de la flèche */
+.scroll-down {
+  display: block;
+  position: absolute;
+  bottom: 20px; /* Positionnez la flèche en bas du carousel */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem; /* Taille de la flèche */
+  color: #000000; /* Couleur de la flèche */
+  text-decoration: none;
+  animation: bounce 1.5s infinite; /* Animation de rebond */
+  z-index: 10;
+}
+
+.scroll-down:hover {
+  color: #3EE8BB; /* Change la couleur de la flèche au survol */
+}
+
+/* Animation de rebond */
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+      transform: translate(-50%, 0);
+  }
+  40% {
+      transform: translate(-50%, -10px);
+  }
+  60% {
+      transform: translate(-50%, -5px);
+  }
 }
