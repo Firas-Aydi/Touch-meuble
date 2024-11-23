@@ -1,11 +1,10 @@
 .card {
-    display: flex;
-    flex-direction: column;
-    /* justify-content: space-between; */
-  }
-  .card {
-    transition: transform 0.2s;
-  }
+  display: flex;
+  flex-direction: column;
+  border: none;
+  border-radius: 0px;
+  transition: transform 0.2s;
+}
   
   .card:hover {
     transform: scale(1.05);
@@ -16,8 +15,9 @@
   }
   
   .card-title {
-    font-size: 18px;
-    font-weight: bold;
+    font-family: "Harmonia Sans", sans-serif;
+    font-size: 15px;
+    font-weight: 600;
   }
   
   .card-footer {
@@ -44,6 +44,7 @@
   /* Ensure image height is uniform for all cards */
   .card-img-top {
     height: 250px; /* Adjust this as needed */
+    border-radius: 0px;
     object-fit: cover; /* Ensures image maintains aspect ratio */
   }
   

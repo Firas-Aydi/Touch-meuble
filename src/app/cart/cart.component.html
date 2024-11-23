@@ -34,7 +34,7 @@
                         </td>
                         <td class="text-primary">{{ (cartItem.item.price * cartItem.quantity) | currency:'DT ':'symbol' }}</td>
                         <td>
-                            <button class="btn btn-danger" (click)="removeItem(cartItem.itemId, cartItem.type)">
+                            <button class="btn btn-outline-danger" (click)="removeItem(cartItem.itemId, cartItem.type)">
                                 <i class="fa fa-trash"></i>
                             </button>
                         </td>
@@ -44,7 +44,7 @@
         </div>
 
         <div class="col-md-4">
-            <div class="card p-3 bg-light shadow-sm">
+            <div class="card p-3 bg-light">
                 <!-- <h4>Résumé de la commande</h4>
                 <hr> -->
                 <div class="d-flex justify-content-between">
@@ -61,7 +61,7 @@
                     <strong>{{ (totalPrice + 70) | currency:'DT ':'symbol' }}</strong>
                 </div> -->
 
-                <button class="btn btn-success mt-3 w-100" (click)="proceedToCheckout()">
+                <button class="btn custom-btn mt-3 w-100" (click)="proceedToCheckout()">
                     Passer la commande
                 </button>
             </div>

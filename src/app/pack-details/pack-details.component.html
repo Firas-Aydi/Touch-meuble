@@ -1,72 +1,70 @@
 <div class="container mt-5">
   <div *ngIf="pack" class="row align-items-start">
     <!-- Left Section: Sidebar and Main Image -->
-    <div class="col-md-8 d-flex">
-      <div class="sidebar">
-        <div class="thumbnails">
-          <img *ngFor="let image of pack.images" [src]="image" alt="{{ pack.name }}" class="img-thumbnail"
-            (click)="selectImage(image)" [class.active]="image === selectedImage" />
-        </div>
-      </div>
+    <div class="col-md-8 d-flex flex-column">
       <div class="main-image-container">
         <img [src]="selectedImage" alt="{{ pack.name }}" class="main-image" />
       </div>
+      <!-- <div class="sidebar"> -->
+      <div class="thumbnails-container d-flex justify-content-center">
+        <img *ngFor="let image of pack.images" [src]="image" alt="{{ pack.name }}" class="thumbnail-image"
+          (click)="selectImage(image)" [class.active]="image === selectedImage" />
+      </div>
+      <!-- </div> -->
     </div>
 
     <!-- Right Section: pack Information -->
     <div class="col-md-4">
       <h2 class="pack-title">{{ pack.name }}</h2>
       <hr>
-      <h3> <strong>
-          <p class="text-success price">
-            <!-- <strong>Prix:</strong> -->
-            {{ pack.price }} TND
-          </p>
-        </strong>
-      </h3>
+      <h6>
+        <p class="price">
+          <span class="line"></span>{{ pack.price }} TND
+        </p>
+      </h6>
       <hr>
       <!-- <div class="pack-info mt-3"> -->
-        <p class="description">
-          <strong>Description:</strong>
-          <!-- {{ pack.description }} -->
+      <p class="description">
+        <strong>Description:</strong>
+        <!-- {{ pack.description }} -->
+      </p>
+      <div *ngIf="selectedChambreName || selectedSalleName || selectedSalonName">
+        <!-- <h6>Contenu du Pack:</h6> -->
+        <ul>
+          <li *ngIf="selectedChambreName">
+            <a [routerLink]="['/chambres', selectedChambreId]">{{ selectedChambreName }}</a>
+          </li>
+          <li *ngIf="selectedSalleName">
+            <a [routerLink]="['/salles', selectedSalleId]">{{ selectedSalleName }}</a>
+          </li>
+          <li *ngIf="selectedSalonName">
+            <a [routerLink]="['/salons', selectedSalonId]">{{ selectedSalonName }}</a>
+          </li>
+        </ul>
+      </div>
+      <hr>
+      <div>
+        <p class="details"><strong style="cursor: pointer;" (click)="toggleDetails()">
+            Détails
+            <span [ngClass]="{'fa-solid fa-angle-down': !showDetails, 'fa fa-chevron-up': showDetails}"></span>
+          </strong>
         </p>
-        <div *ngIf="selectedChambreName || selectedSalleName || selectedSalonName">
-          <!-- <h6>Contenu du Pack:</h6> -->
-          <ul>
-            <li *ngIf="selectedChambreName">
-              <a [routerLink]="['/chambres', selectedChambreId]">{{ selectedChambreName }}</a>
-            </li>
-            <li *ngIf="selectedSalleName">
-              <a [routerLink]="['/salles', selectedSalleId]">{{ selectedSalleName }}</a>
-            </li>
-            <li *ngIf="selectedSalonName">
-              <a [routerLink]="['/salons', selectedSalonId]">{{ selectedSalonName }}</a>
-            </li>
-          </ul>
-        </div>
-        <hr>
-            <div>
-                <strong style="cursor: pointer;" (click)="toggleDetails()">
-                    Détails
-                    <span [ngClass]="{'fa-solid fa-angle-down': !showDetails, 'fa fa-chevron-up': showDetails}"></span>
-                </strong>
 
-                <div class="details-container" [ngClass]="{'show': showDetails}">
-                    <img *ngFor="let image of pack.details" [src]="image" alt="{{ pack.name }}"
-                        class="img-thumbnail" (click)="selectImage(image)" [class.active]="image === selectedImage" />
-                </div>
-            </div>
-            <hr>
-        
-        <div class="color-samples">
-          <!-- <strong>Couleurs:</strong> -->
-          <span *ngFor="let color of pack.colors" [style.backgroundColor]="color" class="color-sample"
-            title="{{ color }}"></span>
+        <div class="details-container" [ngClass]="{'show': showDetails}">
+          <img *ngFor="let image of pack.details" [src]="image" alt="{{ pack.name }}" class="img-thumbnail"
+            (click)="selectImage(image)" [class.active]="image === selectedImage" />
         </div>
-        <!-- <p><strong>Type:</strong> {{ pack.type }}</p> -->
+      </div>
+      <hr>
+
+      <!-- <div class="color-samples">
+        <span *ngFor="let color of pack.colors" [style.backgroundColor]="color" class="color-sample"
+          title="{{ color }}"></span>
+      </div> -->
+      <!-- <p><strong>Type:</strong> {{ pack.type }}</p> -->
       <!-- </div> -->
       <div class="input-group mb-3 quantity-input">
-        <span class="input-group-text">Quantité:</span>
+        <span class="input-group-text quantity">Quantité:</span>
         <input type="number" class="form-control" [(ngModel)]="quantity" min="1" (input)="validateQuantity()">
       </div>
       <!-- Error messages -->
@@ -81,6 +79,10 @@
   </div>
 
   <div *ngIf="!pack">
-    <p>Pack non trouvé.</p>
+    <div class="error-page">
+      <div class="error-content">
+        <p>Pack non trouvé.</p>
+      </div>
+    </div>
   </div>
 </div>

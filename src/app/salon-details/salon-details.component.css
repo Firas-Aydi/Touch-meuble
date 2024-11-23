@@ -9,43 +9,59 @@
   border-right: 1px solid #e0e0e0; /* Light border for separation */
   padding-right: 15px; /* Padding for better spacing */
 }
-
-.thumbnails {
+.col-md-8 {
   display: flex;
-  flex-direction: column; /* Align images vertically */
+  flex-direction: column; /* Aligne l'image principale et les miniatures verticalement */
+  align-items: center; /* Centre les éléments horizontalement */
 }
-
-.thumbnails img {
-  height: 100px; /* Set a consistent height for thumbnails */
-  width: 100px; /* Maintain aspect ratio */
-  margin-bottom: 10px; /* Space between images */
-  cursor: pointer;
-  transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition for zoom and shadow */
-  border-radius: 4px; /* Rounded corners */
-}
-
-.thumbnails img:hover {
-  transform: scale(1.05); /* Slight zoom on hover */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow on hover */
-}
-
+/* Image principale */
 .main-image-container {
-  flex: 2;
-  position: relative;
+  margin-bottom: 15px; /* Espace entre l'image principale et les miniatures */
 }
 
 .main-image {
-  width: 100%; /* Make the main image responsive */
-  height: auto; /* Maintain aspect ratio */
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow around the image */
-  transition: transform 0.3s; /* Smooth transition */
+  max-width: 100%; /* L'image principale occupe tout l'espace disponible */
+  height: auto;
+  /* border: 2px solid #ddd; */
+  /* border-radius: 8px; */
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+}
+
+/* Conteneur pour les miniatures */
+.thumbnails-container {
+  display: flex; /* Affiche les miniatures en ligne */
+  gap: 10px; /* Espace entre les miniatures */
+  overflow-x: auto; /* Permet de défiler horizontalement si trop de miniatures */
+  padding: 5px 0;
+}
+
+/* Miniatures */
+.thumbnail-image {
+  width: 80px; /* Taille fixe des miniatures */
+  height: 60px; /* Taille fixe pour une proportion uniforme */
+  object-fit: cover; /* Maintient les proportions des images */
+  border: 2px solid transparent; /* Bordure transparente par défaut */
+  cursor: pointer; /* Curseur "pointer" pour montrer que les miniatures sont cliquables */
+  transition: all 0.3s ease-in-out;
+  /* filter: grayscale(100%); */
+}
+
+.thumbnail-image:hover {
+  border: 2px solid #666; /* Bordure en survol */
+  /* filter: grayscale(50%); */
+}
+
+.thumbnail-image.active {
+  border: 2px solid #333; /* Bordure pour l'image sélectionnée */
+  /* filter: grayscale(0%); */
 }
 
 .salon-title {
-  font-size: 24px; /* Title font size */
-  /* font-weight: bold; */
-  /* margin-bottom: 10px; */
+  font-family: "Tenor Sans"; /* Exemple de police moderne */
+  font-size: 24px; /* Taille supposée */
+  font-weight: 500; /* Semi-gras */
+  color: #333; /* Gris foncé */
+  margin-bottom: 10px;
 }
 
 .salon-info {
@@ -56,10 +72,30 @@
 }
 
 .description,
-.price,
 .dimensions,
-.material {
-  margin-bottom: 10px; /* Space between paragraphs */
+.material,
+.details,
+.quantity {
+  font-family: "Harmonia Sans", sans-serif; /* Exemple de police claire */
+  font-size: 14px; /* Petite taille pour le texte descriptif */
+  font-weight: 400; /* Régulier */
+  line-height: 1.5; /* Espacement pour lisibilité */
+}
+.price {
+  display: flex; /* Utiliser flexbox pour aligner la ligne et le prix */
+  align-items: center; /* Centrer verticalement les éléments */
+  justify-content: flex-end; /* Aligner à droite */
+  font-family: "Harmonia Sans", sans-serif; 
+  font-size: 16px; /* Taille de texte pour le prix */
+  font-weight: bold; /* Mettre le prix en gras */
+  color: #333; /* Couleur du texte */
+}
+
+.price .line {
+  flex-grow: 1; /* Remplit l'espace disponible avant le prix */
+  height: 1px; /* Épaisseur de la ligne */
+  background-color: #444; /* Couleur de la ligne */
+  margin-right: 10px; /* Espacement entre la ligne et le prix */
 }
 
 .color-samples {
@@ -100,19 +136,20 @@
   /* margin-top: 5px;  */
 }
 .custom-btn {
-  background-color: #28a745; /* A vibrant green */
-  color: white; /* Text color */
-  border: none; /* Remove default border */
-  padding: 10px 20px; /* Adjust padding */
+  background-color: #ffffff; /* A vibrant green */
+  color: black; /* Text color */
+  border: 1px solid #ccc;;
+  padding: 10px 10px; /* Adjust padding */
+  font-family: "Harmonia Sans", sans-serif; 
   font-size: 16px; /* Font size */
-  border-radius: 50px; /* Rounded corners for a chic look */
+  border-radius: 0px; 
   transition: background-color 0.3s, transform 0.2s; /* Transition for hover effects */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  */
 }
 
 .custom-btn:hover {
-  background-color: #218838; /* Darker green on hover */
-  transform: translateY(-2px); /* Slight lift effect on hover */
+  background-color: #ccc; /* Darker green on hover */
+  /* transform: translateY(-2px);  */
 }
 
 .custom-btn:focus {

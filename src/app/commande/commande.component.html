@@ -1,8 +1,8 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-6">
-            <h3 class="text-primary mb-4">Passer la Commande</h3>
-            <form #orderForm="ngForm" (ngSubmit)="onSubmit()" class="p-4 border rounded shadow-sm bg-light">
+            <h2 class="">Passer la Commande</h2>
+            <form #orderForm="ngForm" (ngSubmit)="onSubmit()" class="p-4 border bg-light">
                 <div class="mb-3">
                     <label for="firstName" class="form-label">Prénom *</label>
                     <input type="text" id="firstName" class="form-control" required minlength="3"
@@ -99,14 +99,14 @@
                         placeholder="Ajouter des notes supplémentaires..."></textarea>
                 </div>
 
-                <button type="submit" class="btn btn-primary w-100" [disabled]="orderForm.invalid">Confirmer la
+                <button type="submit" class="btn custom-btn w-100" [disabled]="orderForm.invalid">Confirmer la
                     commande</button>
             </form>
         </div>
 
         <div class="col-md-6">
-            <h3 class="text-primary mb-4">Détails de la Commande</h3>
-            <div class="p-4 border rounded shadow-sm bg-light">
+            <h2 class="">Détails de la Commande</h2>
+            <div class="p-4 border bg-light">
                 <table class="table">
                     <thead>
                         <tr>

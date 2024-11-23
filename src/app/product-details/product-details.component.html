@@ -1,29 +1,34 @@
 <div class="container mt-5">
     <div *ngIf="product" class="row align-items-start">
         <!-- Left Section: Sidebar and Main Image -->
-        <div class="col-md-8 d-flex">
-            <div class="sidebar">
-                <div class="thumbnails">
-                    <img *ngFor="let image of product.images" [src]="image" alt="{{ product.name }}"
-                        class="img-thumbnail" (click)="selectImage(image)" [class.active]="image === selectedImage" />
-                </div>
-            </div>
+        <div class="col-md-8 d-flex flex-column">
+
             <div class="main-image-container">
                 <img [src]="selectedImage" alt="{{ product.name }}" class="main-image" />
             </div>
+            <!-- <div class="sidebar"> -->
+            <div class="thumbnails-container d-flex justify-content-center">
+                <img *ngFor="let image of product.images" [src]="image" alt="{{ product.name }}" class="thumbnail-image"
+                    (click)="selectImage(image)" [class.active]="image === selectedImage" />
+            </div>
+            <!-- </div> -->
         </div>
 
         <!-- Right Section: Product Information -->
         <div class="col-md-4">
             <h2 class="product-title">{{ product.name }}</h2>
             <hr>
-            <h3> <strong>
+            <!-- <h3> <strong>
                     <p class="text-success price">
-                        <!-- <strong>Prix:</strong> -->
                         {{ product.price }} TND
                     </p>
                 </strong>
-            </h3>
+            </h3> -->
+            <h6>
+                <p class="price">
+                    <span class="line"></span>{{ product.price }} TND
+                </p>
+            </h6>
             <!-- <div class="product-info mt-3"> -->
             <hr>
             <!-- <div class="chambre-info mt-3"> -->
@@ -31,16 +36,16 @@
                 <strong>Description</strong><br>
                 <!-- {{ chambre.description }} -->
             </p>
-            <p class="dimensions">
-                Dimensions: {{ product.dimensions }}</p>
-            <p class="material">
-                Matières: {{ product.material }}</p>
+            <p class="dimensions">Dimensions: {{ product.dimensions }}</p>
+            <p class="material">Matières: {{ product.material }}</p>
             <hr>
             <div>
-                <strong style="cursor: pointer;" (click)="toggleDetails()">
-                    Détails
-                    <span [ngClass]="{'fa-solid fa-angle-down': !showDetails, 'fa fa-chevron-up': showDetails}"></span>
-                </strong>
+                <p class="details">
+                    <strong style="cursor: pointer;" (click)="toggleDetails()"> Détails
+                        <span [ngClass]="{'fa-solid fa-angle-down': !showDetails, 'fa fa-chevron-up': showDetails}">
+                        </span>
+                    </strong>
+                </p>
 
                 <div class="details-container" [ngClass]="{'show': showDetails}">
                     <img *ngFor="let image of product.details" [src]="image" alt="{{ product.name }}"
@@ -48,15 +53,14 @@
                 </div>
             </div>
             <hr>
-            <div class="color-samples">
-                <!-- <strong>Couleurs:</strong> -->
+            <!-- <div class="color-samples">
                 <span *ngFor="let color of product.colors" [style.backgroundColor]="color" class="color-sample"
                     title="{{ color }}"></span>
-            </div>
+            </div> -->
             <!-- <p><strong>Type:</strong> {{ product.type }}</p> -->
             <!-- </div> -->
             <div class="input-group mb-3 quantity-input">
-                <span class="input-group-text">Quantité:</span>
+                <span class="input-group-text quantity">Quantité:</span>
                 <input type="number" class="form-control" [(ngModel)]="quantity" min="1" max="{{product.stock}}"
                     [disabled]="product.stock === 0" (input)="validateQuantity()">
             </div>
@@ -73,6 +77,10 @@
     </div>
 
     <div *ngIf="!product">
-        <p>Produit non trouvé.</p>
+        <div class="error-page">
+            <div class="error-content">
+                <p>Produit non trouvé.</p>
+            </div>
+        </div>
     </div>
 </div>

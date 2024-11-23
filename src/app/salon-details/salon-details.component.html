@@ -1,29 +1,27 @@
 <div class="container mt-5">
     <div *ngIf="salon" class="row align-items-start">
         <!-- Left Section: Sidebar and Main Image -->
-        <div class="col-md-8 d-flex">
-            <div class="sidebar">
-                <div class="thumbnails">
-                    <img *ngFor="let image of salon.images" [src]="image" alt="{{ salon.name }}" class="img-thumbnail"
-                        (click)="selectImage(image)" [class.active]="image === selectedImage" />
-                </div>
-            </div>
+        <div class="col-md-8 d-flex flex-column">            
             <div class="main-image-container">
                 <img [src]="selectedImage" alt="{{ salon.name }}" class="main-image" />
             </div>
+            <!-- <div class="sidebar"> -->
+                <div class="thumbnails-container d-flex justify-content-center">
+                    <img *ngFor="let image of salon.images" [src]="image" alt="{{ salon.name }}" class="thumbnail-image"
+                        (click)="selectImage(image)" [class.active]="image === selectedImage" />
+                </div>
+            <!-- </div> -->
         </div>
 
         <!-- Right Section: salon Information -->
         <div class="col-md-4">
             <h2 class="salon-title">{{ salon.name }}</h2>
             <hr>
-            <h3> <strong>
-                    <p class="text-success price">
-                        <!-- <strong>Prix:</strong> -->
-                        {{ salon.price }} TND
-                    </p>
-                </strong>
-            </h3>
+            <h6>
+                <p class="price">
+                    <span class="line"></span>{{ salon.price }} TND
+                </p>
+            </h6>
             <hr>
             <!-- <div class="salon-info mt-3"> -->
             <p class="description">
@@ -34,26 +32,25 @@
             <p class="material">Matières: {{ salon.material }}</p>
             <hr>
             <div>
-                <strong style="cursor: pointer;" (click)="toggleDetails()">
+                <p class="details"> <strong style="cursor: pointer;" (click)="toggleDetails()">
                     Détails
                     <span [ngClass]="{'fa-solid fa-angle-down': !showDetails, 'fa fa-chevron-up': showDetails}"></span>
                 </strong>
-
+</p>
                 <div class="details-container" [ngClass]="{'show': showDetails}">
                     <img *ngFor="let image of salon.details" [src]="image" alt="{{ salon.name }}" class="img-thumbnail"
                         (click)="selectImage(image)" [class.active]="image === selectedImage" />
                 </div>
             </div>
             <hr>
-            <div class="color-samples">
-                <!-- <strong>Couleurs:</strong> -->
+            <!-- <div class="color-samples">
                 <span *ngFor="let color of salon.colors" [style.backgroundColor]="color" class="color-sample"
                     title="{{ color }}"></span>
-            </div>
+            </div> -->
             <!-- <p><strong>Type:</strong> {{ salon.type }}</p> -->
             <!-- </div> -->
             <div class="input-group mb-3 quantity-input">
-                <span class="input-group-text">Quantité:</span>
+                <span class="input-group-text quantity">Quantité:</span>
                 <input type="number" class="form-control" [(ngModel)]="quantity" min="1" max="{{salon.stock}}"
                     [disabled]="salon.stock === 0" (input)="validateQuantity()">
             </div>

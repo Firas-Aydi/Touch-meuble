@@ -1,9 +1,6 @@
 .card {
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
-}
-.card {
   border: none;
   border-radius: 0px;
   transition: transform 0.2s;
