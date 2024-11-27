@@ -27,12 +27,11 @@
                         <td>{{ cartItem.item.price | currency:'DT ':'symbol' }}</td>
                         <td>
                             <input type="number" [(ngModel)]="cartItem.quantity"
-                                (change)="updateQuantity(cartItem, cartItem.quantity)"
-                                (change)="calculateTotalPrice()"
-                                [min]="1"
-                                [max]="cartItem.item.stock" class="form-control" style="width: 60px;">
+                                (change)="updateQuantity(cartItem, cartItem.quantity)" (change)="calculateTotalPrice()"
+                                [min]="1" [max]="cartItem.item.stock" class="form-control" style="width: 60px;">
                         </td>
-                        <td class="text-primary">{{ (cartItem.item.price * cartItem.quantity) | currency:'DT ':'symbol' }}</td>
+                        <td class="text-primary">{{ (cartItem.item.price * cartItem.quantity) | currency:'DT ':'symbol'
+                            }}</td>
                         <td>
                             <button class="btn btn-outline-danger" (click)="removeItem(cartItem.itemId, cartItem.type)">
                                 <i class="fa fa-trash"></i>
@@ -52,14 +51,15 @@
                     <strong>{{ totalPrice | currency:'DT ':'symbol' }}</strong>
                 </div>
                 <!-- <div class="d-flex justify-content-between">
-                    <span>Livraison :</span>
-                    <strong>DT 70</strong>
-                </div> -->
+    <span>Frais de livraison :</span>
+    <strong>DT 70</strong>
+</div> -->
                 <hr>
                 <!-- <div class="d-flex justify-content-between">
-                    <span>Total avec livraison :</span>
-                    <strong>{{ (totalPrice + 70) | currency:'DT ':'symbol' }}</strong>
-                </div> -->
+    <span>Total avec livraison :</span>
+    <strong>{{ (totalPrice + 70) | currency:'DT ':'symbol' }}</strong>
+</div> -->
+
 
                 <button class="btn custom-btn mt-3 w-100" (click)="proceedToCheckout()">
                     Passer la commande

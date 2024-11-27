@@ -244,8 +244,10 @@
                     <td>{{ Salle.type }}</td>
                     <td>{{ Salle.price }} TND</td>
                     <!-- <td>{{ Salle.description }}</td> -->
-                    <td><p>Dimensions: {{ Salle.dimensions }}</p>
-                        <p> Matières: {{ Salle.material }}</p></td>
+                    <td>
+                        <p>Dimensions: {{ Salle.dimensions }}</p>
+                        <p> Matières: {{ Salle.material }}</p>
+                    </td>
                     <td>{{ Salle.stock }}</td>
                     <!-- <td>{{ Salle.dimensions }}</td>
                     <td>{{ Salle.material }}</td> -->
@@ -272,9 +274,23 @@
                         <button type="button" class="btn btn-outline-info btn-sm"
                             (click)="editSalle(Salle)">Modifier</button><br><br>
                         <button class="btn btn-outline-danger btn-sm"
-                            (click)="Salle.salleId ? deleteSalle(Salle.salleId) : null">Supprimer</button>
+                            (click)="Salle.salleId ? openConfirmationModal(Salle.salleId) : null">Supprimer</button>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
+    <!-- Modale de confirmation -->
+    <ng-template #confirmationModal let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title">Confirmation</h4>
+            <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+        </div>
+        <div class="modal-body">
+            <p>Êtes-vous sûr de vouloir supprimer cette salle ?</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Annuler</button>
+            <button type="button" class="btn btn-danger" (click)="confirmDelete()">Supprimer</button>
+        </div>
+    </ng-template>

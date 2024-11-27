@@ -123,43 +123,44 @@ export class SalleAmangeComponent implements OnInit {
   }
 
   addToCart(salleAManger: SalleAManger, quantity: number) {
-    // Check if the SalleAManger and quantity are valid
+    // Vérifier si la SalleAManger et la quantité sont valides
     if (salleAManger && quantity > 0 && quantity <= salleAManger.stock) {
-      // Logic to add the item to the cart
-      console.log(`Added ${quantity} of ${salleAManger.name} to the cart.`);
+      // Logique pour ajouter l'article au panier
+      console.log(`Ajouté ${quantity} de ${salleAManger.name} au panier.`);
 
-      // Assuming you have a CartService to manage the cart:
+      // En supposant que vous avez un CartService pour gérer le panier :
       this.cartService.addToCart(salleAManger, 'salle', quantity);
 
-      // Optionally show a success message or notification
-      alert(`${quantity} ${salleAManger.name}(s) added to the cart!`);
+      // Optionnellement afficher un message de succès ou une notification
+      alert(`${quantity} ${salleAManger.name}(s) ajouté(s) au panier !`);
     } else if (quantity <= 0) {
-      // Handle case where the quantity is invalid (e.g., less than 1)
-      alert('Please enter a valid quantity greater than 0.');
+      // Gérer le cas où la quantité est invalide (par exemple, inférieure à 1)
+      alert('Veuillez entrer une quantité valide supérieure à 0.');
     } else if (quantity > salleAManger.stock) {
-      // Handle case where the quantity exceeds the stock
-      alert('The quantity entered exceeds the available stock.');
+      // Gérer le cas où la quantité dépasse le stock disponible
+      alert('La quantité entrée dépasse le stock disponible.');
     } else {
-      // Handle other invalid cases, like if the SalleAManger object is null
-      alert('An error occurred. Please try again.');
+      // Gérer les autres cas invalides, comme si l'objet SalleAManger est nul
+      alert('Une erreur est survenue. Veuillez réessayer.');
     }
   }
 
   validateQuantity() {
-    this.quantityError = null; // Reset error message
+    this.quantityError = null; // Réinitialiser le message d'erreur
 
     if (this.quantity < 1) {
-      this.quantityError = 'Quantity must be at least 1.';
+      this.quantityError = 'La quantité doit être d\'au moins 1.';
     } else if (this.quantity > (this.selectedSalle?.stock || 0)) {
-      this.quantityError = `Quantity cannot exceed stock limit of ${this.selectedSalle?.stock}.`;
+      this.quantityError = `La quantité ne peut pas dépasser la limite de stock de ${this.selectedSalle?.stock}.`;
     } else if (
       this.quantity === null ||
       this.quantity === undefined ||
       this.quantity === 0
     ) {
-      this.quantityError = 'Quantity cannot be empty.';
+      this.quantityError = 'La quantité ne peut pas être vide.';
     }
   }
+
 
   updatePaginatedProducts() {
     const startIndex = (this.currentPage - 1) * this.pageSize;

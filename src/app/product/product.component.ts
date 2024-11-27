@@ -140,32 +140,32 @@ export class ProductComponent implements OnInit {
     this.selectedImage = image;
   }
 
-  addToCart(product: Product, quantity: number) {
+  addToCart(product: Product, quantity: number) { 
     if (product && quantity > 0 && quantity <= product.stock) {
-      console.log(`Added ${quantity} of ${product.name} to the cart.`);
+      console.log(`Ajouté ${quantity} de ${product.name} au panier.`);
       this.cartService.addToCart(product, 'product', quantity);
-      alert(`${quantity} ${product.name}(s) added to the cart!`);
+      alert(`${quantity} ${product.name}(s) ajouté(s) au panier !`);
     } else if (quantity <= 0) {
-      alert('Please enter a valid quantity greater than 0.');
+      alert('Veuillez entrer une quantité valide supérieure à 0.');
     } else if (quantity > product.stock) {
-      alert('The quantity entered exceeds the available stock.');
+      alert('La quantité entrée dépasse le stock disponible.');
     } else {
-      alert('An error occurred. Please try again.');
+      alert('Une erreur est survenue. Veuillez réessayer.');
     }
   }
 
   validateQuantity() {
     this.quantityError = null;
     if (this.quantity < 1) {
-      this.quantityError = 'Quantity must be at least 1.';
+      this.quantityError = 'La quantité doit être d\'au moins 1.';
     } else if (this.quantity > (this.selectedProduct?.stock || 0)) {
-      this.quantityError = `Quantity cannot exceed stock limit of ${this.selectedProduct?.stock}.`;
+      this.quantityError = `La quantité ne peut pas dépasser la limite de stock de ${this.selectedProduct?.stock}.`;
     } else if (
       this.quantity === null ||
       this.quantity === undefined ||
       this.quantity === 0
     ) {
-      this.quantityError = 'Quantity cannot be empty.';
+      this.quantityError = 'La quantité ne peut pas être vide.';
     }
   }
 

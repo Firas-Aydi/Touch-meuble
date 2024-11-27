@@ -70,10 +70,8 @@ export class PackComponent implements OnInit {
     if (this.imageIntervals[packId]) {
       return;
     }
-    
-    const pack = this.paginatedPacks.find(
-      (c) => c.packId === packId
-    );
+
+    const pack = this.paginatedPacks.find((c) => c.packId === packId);
     if (pack) {
       let currentIndex = 0;
       this.imageIntervals[packId] = setInterval(() => {
@@ -92,7 +90,7 @@ export class PackComponent implements OnInit {
     if (!packId) {
       return;
     }
-  
+
     if (this.imageIntervals[packId]) {
       clearInterval(this.imageIntervals[packId]);
       delete this.imageIntervals[packId];
@@ -124,7 +122,7 @@ export class PackComponent implements OnInit {
     if (pack.packId) {
       this.stopImageRotation(pack.packId); // Arrête toute rotation active
     }
-        
+
     this.selectedPack = pack;
     console.log('selectedPack', this.selectedPack);
     this.selectedImage = pack.images[0]; // Set the default selected image
@@ -145,36 +143,36 @@ export class PackComponent implements OnInit {
   }
 
   addPackToCart(pack: Pack, quantity: number) {
-    // Check if the product and quantity are valid
+    // Vérifier si le produit et la quantité sont valides
     if (pack && quantity > 0) {
-      // Logic to add the item to the cart
-      console.log(`Added ${quantity} of ${pack.name} to the cart.`);
+      // Logique pour ajouter l'article au panier
+      console.log(`Ajouté ${quantity} de ${pack.name} au panier.`);
 
-      // Assuming you have a CartService to manage the cart:
+      // Supposons que vous avez un CartService pour gérer le panier :
       this.cartService.addToCart(pack, 'pack', quantity);
 
-      // Optionally show a success message or notification
-      alert(`${quantity} ${pack.name}(s) added to the cart!`);
+      // Optionnellement, afficher un message de succès ou une notification
+      alert(`${quantity} ${pack.name}(s) ajouté(s) au panier !`);
     } else if (quantity <= 0) {
-      // Handle case where the quantity is invalid (e.g., less than 1)
-      alert('Please enter a valid quantity greater than 0.');
+      // Gérer le cas où la quantité est invalide (par exemple, inférieure à 1)
+      alert('Veuillez entrer une quantité valide supérieure à 0.');
     } else {
-      // Handle other invalid cases, like if the product object is null
-      alert('An error occurred. Please try again.');
+      // Gérer d'autres cas invalides, comme si l'objet produit est null
+      alert('Une erreur est survenue. Veuillez réessayer.');
     }
   }
 
   validateQuantity() {
-    this.quantityError = null; // Reset error message
+    this.quantityError = null; // Réinitialiser le message d'erreur
 
     if (this.quantity < 1) {
-      this.quantityError = 'Quantity must be at least 1.';
+      this.quantityError = "La quantité doit être d'au moins 1.";
     } else if (
       this.quantity === null ||
       this.quantity === undefined ||
       this.quantity === 0
     ) {
-      this.quantityError = 'Quantity cannot be empty.';
+      this.quantityError = 'La quantité ne peut pas être vide.';
     }
   }
 

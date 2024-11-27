@@ -9,7 +9,7 @@ import { ProductComponent } from './product/product.component';
 import { CartComponent } from './cart/cart.component';
 import { PackDetailsComponent } from './pack-details/pack-details.component';
 import { ProductManagementComponent } from './product-management/product-management.component';
-import { CategoryManagementComponent } from './category-management/category-management.component';
+
 import { PackManagementComponent } from './pack-management/pack-management.component';
 import { HomeComponent } from './home/home.component';
 import { SalonManagementComponent } from './salon-management/salon-management.component';
@@ -35,7 +35,6 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'resetpassword', component: ResetpasswordComponent },
   { path: 'error', component: ErrorComponent },
-  // { path: 'varify-email', component: VarifyEmailComponent },
   { path: 'search-results', component: SearchResultsComponent },
 
   { path: 'packs', component: PackComponent },
@@ -66,7 +65,6 @@ const routes: Routes = [
   { path: 'commande', component: CommandeComponent },
   { path: 'commandes-management', component: CommandesManagementComponent, canActivate: [AdminGuard] },
 
-  { path: 'categories-management', component: CategoryManagementComponent, canActivate: [AdminGuard] },
   
 ];
 

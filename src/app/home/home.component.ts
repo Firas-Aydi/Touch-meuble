@@ -254,10 +254,9 @@ export class HomeComponent implements OnInit {
     }
 
     if (this.imageIntervals[chambreId]) {
-        clearInterval(this.imageIntervals[chambreId]); // Arrête l'intervalle
-        delete this.imageIntervals[chambreId];
-      
-    } 
+      clearInterval(this.imageIntervals[chambreId]); // Arrête l'intervalle
+      delete this.imageIntervals[chambreId];
+    }
   }
 
   viewSalonDetails(salonId: string | undefined) {
@@ -293,10 +292,9 @@ export class HomeComponent implements OnInit {
     }
 
     if (this.imageIntervals[salonId]) {
-        clearInterval(this.imageIntervals[salonId]); // Arrête l'intervalle
-        delete this.imageIntervals[salonId];
-      
-    } 
+      clearInterval(this.imageIntervals[salonId]); // Arrête l'intervalle
+      delete this.imageIntervals[salonId];
+    }
   }
   viewSalleDetails(salleId: string | undefined) {
     if (salleId) {
@@ -331,10 +329,9 @@ export class HomeComponent implements OnInit {
     }
 
     if (this.imageIntervals[salleId]) {
-        clearInterval(this.imageIntervals[salleId]); // Arrête l'intervalle
-        delete this.imageIntervals[salleId];
-      
-    } 
+      clearInterval(this.imageIntervals[salleId]); // Arrête l'intervalle
+      delete this.imageIntervals[salleId];
+    }
   }
 
   openChambreDetailsModal(chambre: Chambre) {
@@ -343,7 +340,7 @@ export class HomeComponent implements OnInit {
     }
     this.selectedChambre = chambre;
     console.log('selectedchambre', this.selectedChambre);
-    this.selectedImage = chambre.images[0]; 
+    this.selectedImage = chambre.images[0];
     const chambreDetailsModal = new bootstrap.Modal(
       document.getElementById('chambreDetailsModal')
     );
@@ -355,56 +352,58 @@ export class HomeComponent implements OnInit {
   }
 
   addPackToCart(pack: Pack, quantity: number) {
-    // Check if the product and quantity are valid
+    // Vérifier si le produit et la quantité sont valides
     if (pack && quantity > 0) {
-      // Logic to add the item to the cart
-      console.log(`Added ${quantity} of ${pack.name} to the cart.`);
+      // Logique pour ajouter l'article au panier
+      console.log(`Ajouté ${quantity} de ${pack.name} au panier.`);
 
-      // Assuming you have a CartService to manage the cart:
+      // En supposant que vous avez un CartService pour gérer le panier :
       this.cartService.addToCart(pack, 'pack', quantity);
-      alert(`${quantity} ${pack.name}(s) added to the cart!`);
+      alert(`${quantity} ${pack.name}(s) ajoutés au panier !`);
 
-      // Optionally show a success message or notification
-      // alert(`${quantity} ${product.name}(s) added to the cart!`);
+      // Facultativement, afficher un message de succès ou une notification
+      // alert(`${quantity} ${product.name}(s) ajoutés au panier !`);
     } else if (quantity <= 0) {
-      // Handle case where the quantity is invalid (e.g., less than 1)
-      alert('Please enter a valid quantity greater than 0.');
+      // Gérer le cas où la quantité est invalide (par exemple, inférieure ou égale à 0)
+      alert('Veuillez entrer une quantité valide supérieure à 0.');
     } else {
-      // Handle other invalid cases, like if the product object is null
-      alert('An error occurred. Please try again.');
+      // Gérer d'autres cas invalides, comme si l'objet produit est nul
+      alert('Une erreur est survenue. Veuillez réessayer.');
     }
   }
+
   addChambreToCart(chambre: Chambre, quantity: number) {
-    // Check if the product and quantity are valid
+    // Vérifier si le produit et la quantité sont valides
     if (chambre && quantity > 0) {
-      // Logic to add the item to the cart
-      console.log(`Added ${quantity} of ${chambre.name} to the cart.`);
+      // Logique pour ajouter l'article au panier
+      console.log(`Ajouté ${quantity} de ${chambre.name} au panier.`);
 
-      // Assuming you have a CartService to manage the cart:
+      // En supposant que vous avez un CartService pour gérer le panier :
       this.cartService.addToCart(chambre, 'chambre', quantity);
-      alert(`${quantity} ${chambre.name}(s) added to the cart!`);
+      alert(`${quantity} ${chambre.name}(s) ajoutés au panier !`);
 
-      // Optionally show a success message or notification
-      // alert(`${quantity} ${product.name}(s) added to the cart!`);
+      // Facultativement, afficher un message de succès ou une notification
+      // alert(`${quantity} ${product.name}(s) ajoutés au panier !`);
     } else if (quantity <= 0) {
-      // Handle case where the quantity is invalid (e.g., less than 1)
-      alert('Please enter a valid quantity greater than 0.');
+      // Gérer le cas où la quantité est invalide (par exemple, inférieure ou égale à 0)
+      alert('Veuillez entrer une quantité valide supérieure à 0.');
     } else {
-      // Handle other invalid cases, like if the product object is null
-      alert('An error occurred. Please try again.');
+      // Gérer d'autres cas invalides, comme si l'objet produit est nul
+      alert('Une erreur est survenue. Veuillez réessayer.');
     }
   }
+
   validateQuantity() {
-    this.quantityError = null; // Reset error message
+    this.quantityError = null; // Réinitialiser le message d'erreur
 
     if (this.quantity < 1) {
-      this.quantityError = 'Quantity must be at least 1.';
+      this.quantityError = 'La quantité doit être au moins de 1.';
     } else if (
       this.quantity === null ||
       this.quantity === undefined ||
       this.quantity === 0
     ) {
-      this.quantityError = 'Quantity cannot be empty.';
+      this.quantityError = 'La quantité ne peut pas être vide.';
     }
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 import { take } from 'rxjs';
 import { ProductService } from '../services/product.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-salle-amange-management',
@@ -22,14 +23,18 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
   styleUrl: './salle-amange-management.component.css'
 })
 export class SalleAMangeManagementComponent implements OnInit{
-  salleForm: FormGroup;
+  @ViewChild('confirmationModal') confirmationModal: TemplateRef<any> | null =
+  null;
+ salleForm: FormGroup;
   salles: SalleAManger[] = [];
   images: string[] = [];
   isEdit: boolean = false;
   products: Product[] = [];
+  salleToDeleteId: string | null = null;
 
   constructor(
     private fb: FormBuilder,
+    private modalService: NgbModal,
     private firestore: AngularFirestore,
     private salleAMangeService: SalleAMangeService,
     private productService: ProductService
@@ -157,7 +162,17 @@ export class SalleAMangeManagementComponent implements OnInit{
       console.error('salle ID is undefined. Cannot delete salle.');
     }
   }
+  openConfirmationModal(salleId: string) {
+    this.salleToDeleteId = salleId; // Stocke l'ID du pack à supprimer
+    this.modalService.open(this.confirmationModal); // Ouvre le modal
+  }
 
+  confirmDelete() {
+    if (this.salleToDeleteId) {
+      this.deleteSalle(this.salleToDeleteId);
+      this.salleToDeleteId = null;
+    }
+  }
   editSalle(salle: SalleAManger) {
     this.isEdit = true;
     this.salleForm.patchValue(salle);

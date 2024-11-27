@@ -131,14 +131,15 @@
                         <span *ngFor="let color of selectedChambre?.colors" [style.backgroundColor]="color"
                             class="color-sample" title="{{ color }}"></span>
                     </div>
-                    <!-- <p class="card-text"><strong>Stock:</strong>
+                    <!-- <p class="card-text"><strong>Stock :</strong>
                         <span [ngClass]="{
                             'text-success': selectedChambre?.stock! > 0,
                             'text-danger': selectedChambre?.stock! === 0
                         }">
-                            {{ selectedChambre?.stock! > 0 ? 'In Stock' : 'Out of Stock' }}
+                            {{ selectedChambre?.stock! > 0 ? 'En stock' : 'Rupture de stock' }}
                         </span>
                     </p> -->
+                    
                     <div class="input-group mb-3">
                         <span class="input-group-text">Quantité:</span>
                         <input type="number" class="form-control" [(ngModel)]="quantity" min="1"

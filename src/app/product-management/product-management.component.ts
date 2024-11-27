@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from '../services/product.service';
 import { Product } from '../models/product.model';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { take } from 'rxjs/operators';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-product-management',
@@ -14,12 +15,19 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./product-management.component.css'],
 })
 export class ProductManagementComponent implements OnInit {
+  @ViewChild('confirmationModal') confirmationModal: TemplateRef<any> | null =
+    null;
   productForm: FormGroup;
   products: Product[] = [];
   images: string[] = [];
   isEdit: boolean = false;
+  productToDeleteId: string | null = null;
 
-  constructor(private fb: FormBuilder, private productService: ProductService) {
+  constructor(
+    private fb: FormBuilder,
+    private productService: ProductService,
+    private modalService: NgbModal
+  ) {
     this.productForm = this.fb.group({
       productId: [''],
       name: ['', Validators.required],
@@ -206,6 +214,17 @@ export class ProductManagementComponent implements OnInit {
         });
     } else {
       console.error('Product ID is undefined. Cannot delete product.');
+    }
+  }
+  openConfirmationModal(productId: string) {
+    this.productToDeleteId = productId; // Stocke l'ID du pack à supprimer
+    this.modalService.open(this.confirmationModal); // Ouvre le modal
+  }
+
+  confirmDelete() {
+    if (this.productToDeleteId) {
+      this.deleteProduct(this.productToDeleteId);
+      this.productToDeleteId = null;
     }
   }
 }

@@ -48,11 +48,11 @@ export class CartComponent implements OnInit {
     const itemId = cartItem.itemId;
 
     if (quantity < 1) {
-      this.quantityErrors[itemId] = 'Quantity must be at least 1.';
+      this.quantityErrors[itemId] = "La quantité doit être d'au moins 1.";
     } else if (quantity > stock) {
       this.quantityErrors[
         itemId
-      ] = `Quantity cannot exceed stock limit of ${stock}.`;
+      ] = `La quantité ne peut pas dépasser la limite de stock de ${stock}.`;
     } else {
       this.quantityErrors[itemId] = '';
       cartItem.quantity = quantity;
@@ -72,7 +72,7 @@ export class CartComponent implements OnInit {
 
   // Proceed to checkout
   proceedToCheckout() {
-    console.log('Proceeding to checkout with total price: ', this.totalPrice);
+    console.log('Passage à la commande avec un prix total de : ', this.totalPrice);
     this.router.navigate(['/commande']);
   }
 }

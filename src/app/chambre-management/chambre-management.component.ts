@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -13,7 +13,7 @@ import { Chambre } from '../models/chambre.model';
 import { Product } from '../models/product.model';
 import { CommonModule } from '@angular/common';
 import { take } from 'rxjs';
-import { ProductService } from '../services/product.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-chambre-management',
@@ -23,19 +23,22 @@ import { ProductService } from '../services/product.service';
   styleUrl: './chambre-management.component.css',
 })
 export class ChambreManagementComponent implements OnInit {
+  @ViewChild('confirmationModal') confirmationModal: TemplateRef<any> | null =
+    null;
+    
   chambreForm: FormGroup;
   chambres: Chambre[] = [];
   images: string[] = [];
   details: string[] = [];
   isEdit: boolean = false;
-  // products: Product[] = [];
+  chambreToDeleteId: string | null = null;
 
   constructor(
     private fb: FormBuilder,
+    private modalService: NgbModal,
     private firestore: AngularFirestore,
-    private chambreservice: ChambreService
-  ) // private productService: ProductService
-  {
+    private chambreservice: ChambreService // private productService: ProductService
+  ) {
     this.chambreForm = this.fb.group({
       chambreId: [''],
       name: ['', Validators.required],
@@ -58,41 +61,6 @@ export class ChambreManagementComponent implements OnInit {
     this.chambreservice.getChambre().subscribe((data) => {
       this.chambres = data;
     });
-  }
-  // loadProducts() {
-  //   // Assuming you have a ProductService to fetch products
-  //   this.productService.getAllProducts().subscribe((data: Product[]) => {
-  //     this.products = data; // Assign available products
-  //     console.log('Products: ', this.products);
-  //   });
-  // }
-  // getProductById(productId: string): Product | undefined {
-  //   return this.products.find((product) => product.productId === productId);
-  // }
-  // getSelectedProductNames(): string[] {
-  //   const selectedProductIds = this.chambreForm.get('items')?.value || [];
-  //   return selectedProductIds.map(
-  //     (productId: string) =>
-  //       this.products.find((p) => p.productId === productId)?.name ||
-  //       'Unknown Product'
-  //   );
-  // }
-  onProductSelect(event: any, product: Product) {
-    const selectedProducts = this.chambreForm.get('items')?.value || [];
-
-    if (event.target.checked) {
-      // Add product to the selection
-      selectedProducts.push(product.productId);
-    } else {
-      // Remove product from the selection
-      const index = selectedProducts.indexOf(product.productId);
-      if (index > -1) {
-        selectedProducts.splice(index, 1);
-      }
-    }
-
-    // Update the form value
-    this.chambreForm.patchValue({ items: selectedProducts });
   }
 
   addChambre() {
@@ -159,6 +127,17 @@ export class ChambreManagementComponent implements OnInit {
       console.error('chambre ID is undefined. Cannot delete chambre.');
     }
   }
+  openConfirmationModal(chambreId: string) {
+    this.chambreToDeleteId = chambreId; // Stocke l'ID du pack à supprimer
+    this.modalService.open(this.confirmationModal); // Ouvre le modal
+  }
+
+  confirmDelete() {
+    if (this.chambreToDeleteId) {
+      this.deleteChambre(this.chambreToDeleteId);
+      this.chambreToDeleteId = null;
+    }
+  }
 
   editChambre(chambre: Chambre) {
     this.isEdit = true;
@@ -167,22 +146,27 @@ export class ChambreManagementComponent implements OnInit {
 
   onFileChange(event: any) {
     const files: FileList = event.target.files;
-    const chambreId =
-      this.chambreForm.value.chambreId || this.generateUniqueId(); // Utiliser un ID unique
+    const chambreId = this.chambreForm.value.chambreId || this.generateUniqueId(); // Utiliser un ID unique
 
     const imagesArray: string[] = [];
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
 
       // Téléchargement de l'image dans Firebase Storage
-      this.chambreservice
-        .uploadImage(file, chambreId)
-        .subscribe((imageUrl: string) => {
-          imagesArray.push(imageUrl); // Ajoute l'URL de l'image après le téléchargement
-          this.chambreForm.patchValue({ images: imagesArray }); // Met à jour le formulaire avec les URLs
-        });
+      this.chambreservice.uploadImage(file, chambreId).subscribe((imageUrl: string) => {
+        console.log('Image téléchargée : ', imageUrl); // Log de l'URL
+        imagesArray.push(imageUrl); // Ajoute l'URL de l'image après le téléchargement
+
+        // Log de l'état du tableau images
+        console.log('Array d\'images après ajout : ', imagesArray);
+
+        // Met à jour le formulaire avec les URLs
+        this.chambreForm.patchValue({ images: imagesArray });
+        this.chambreForm.get('images')?.updateValueAndValidity(); // Met à jour la validation du champ
+      });
     }
   }
+
 
   onFileDetailsChange(event: any) {
     const files: FileList = event.target.files;
@@ -250,15 +234,4 @@ export class ChambreManagementComponent implements OnInit {
       this.chambreForm.patchValue({ details: imagesArray }); // Met à jour le FormGroup
     }
   }
-  // removeProduct(categoryName: string) {
-  //   const currentItems = this.chambreForm.get('items')?.value || [];
-
-  //   // Find the index of the category to remove based on the name
-  //   const updatedItems = currentItems.filter(
-  //     (item: string) => this.getProductById(item)?.name !== categoryName
-  //   );
-
-  //   // Update the form with the new list
-  //   this.chambreForm.get('items')?.setValue(updatedItems);
-  // }
 }

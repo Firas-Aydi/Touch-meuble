@@ -256,6 +256,7 @@ export class NavbarComponent implements OnInit {
             this.route.navigate(['/search-results']);
           } else {
             console.warn('Aucun résultat trouvé pour la recherche.');
+            this.route.navigate(['/error']);
           }
         });
     }

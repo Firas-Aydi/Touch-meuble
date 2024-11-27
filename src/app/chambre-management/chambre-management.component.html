@@ -245,8 +245,10 @@
                     <td>{{ Chambre.type }}</td>
                     <td>{{ Chambre.price }} TND</td>
                     <!-- <td>{{ Chambre.description }}</td> -->
-                    <td><p>Dimensions: {{ Chambre.dimensions }}</p>
-                    <p> Matières: {{ Chambre.material }}</p></td>
+                    <td>
+                        <p>Dimensions: {{ Chambre.dimensions }}</p>
+                        <p> Matières: {{ Chambre.material }}</p>
+                    </td>
                     <td>{{ Chambre.stock }}</td>
                     <!-- <td>{{ Chambre.material }}</td> -->
                     <td>
@@ -272,9 +274,28 @@
                         <button type="button" class="btn btn-outline-info btn-sm"
                             (click)="editChambre(Chambre)">Modifier</button><br><br>
                         <button class="btn btn-outline-danger btn-sm"
-                            (click)="Chambre.chambreId ? deleteChambre(Chambre.chambreId) : null">Supprimer</button>
+                            (click)="Chambre.chambreId ? openConfirmationModal(Chambre.chambreId) : null">Supprimer</button>
                     </td>
+                    <!-- <td>
+                        <button type="button" class="btn btn-outline-info btn-sm" (click)="editChambre(Chambre)">Modifier</button><br><br>
+                        <button type="button" class="btn btn-outline-danger btn-sm" (click)="confirmDelete(Chambre.chambreId!)">Supprimer</button>
+                    </td> -->
                 </tr>
             </tbody>
         </table>
     </div>
+
+    <!-- Modale de confirmation -->
+    <ng-template #confirmationModal let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title">Confirmation</h4>
+            <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+        </div>
+        <div class="modal-body">
+            <p>Êtes-vous sûr de vouloir supprimer cette chambre ?</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Annuler</button>
+            <button type="button" class="btn btn-danger" (click)="confirmDelete()">Supprimer</button>
+        </div>
+    </ng-template>

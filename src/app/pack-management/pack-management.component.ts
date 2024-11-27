@@ -338,7 +338,7 @@ export class PackManagementComponent implements OnInit {
   confirmDelete() {
     if (this.packToDeleteId) {
       this.deletePack(this.packToDeleteId);
-      this.packToDeleteId = null; // Réinitialise l'ID après la suppression
+      this.packToDeleteId = null;
     }
   }
 }
