@@ -59,7 +59,7 @@ export class SearchResultsComponent implements OnInit {
       console.log('search-results: ', results);
       this.results = results;
       if (this.results.length === 0) {
-        // console.error('No results found for the search term.');
+        console.error('No results found for the search term.');
       }
     });
     // this.loadPacks();
