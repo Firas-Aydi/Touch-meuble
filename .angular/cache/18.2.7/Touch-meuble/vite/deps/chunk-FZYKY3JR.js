@@ -1,7 +1,7 @@
 import {
   VERSION as VERSION2,
   ɵzoneWrap
-} from "./chunk-GEVHBNB7.js";
+} from "./chunk-KPB3VO3E.js";
 import {
   deleteApp,
   getApp,
@@ -11,7 +11,7 @@ import {
   onLog,
   registerVersion,
   setLogLevel
-} from "./chunk-4DY6MUNU.js";
+} from "./chunk-U33BDZAB.js";
 import {
   Inject,
   InjectionToken,
@@ -103,4 +103,4 @@ export {
   FirebaseApp,
   FirebaseApps
 };
-//# sourceMappingURL=chunk-C7YTF3IW.js.map
+//# sourceMappingURL=chunk-FZYKY3JR.js.map

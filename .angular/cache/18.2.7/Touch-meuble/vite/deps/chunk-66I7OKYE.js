@@ -17,7 +17,7 @@ import {
   onLog,
   registerVersion,
   setLogLevel
-} from "./chunk-4DY6MUNU.js";
+} from "./chunk-U33BDZAB.js";
 
 // node_modules/@firebase/app-compat/dist/esm/index.esm2017.js
 var FirebaseAppImpl = class {
@@ -290,4 +290,4 @@ export {
    * limitations under the License.
    *)
 */
-//# sourceMappingURL=chunk-VXWY3GT5.js.map
+//# sourceMappingURL=chunk-66I7OKYE.js.map

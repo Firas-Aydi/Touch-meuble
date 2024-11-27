@@ -29,7 +29,7 @@
   top: 50%;
   left: -10px;
   font-size: 14px;
-  background-color: #fff;
+  background-color: transparent;
   border: none;
   z-index: 1100; /* Toujours au-dessus */
   color: black;

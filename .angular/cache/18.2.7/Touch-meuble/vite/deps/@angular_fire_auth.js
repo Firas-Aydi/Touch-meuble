@@ -83,11 +83,11 @@ import {
   validatePassword,
   verifyBeforeUpdateEmail,
   verifyPasswordResetCode
-} from "./chunk-GUO4QV6A.js";
+} from "./chunk-N5DFZE5R.js";
 import {
   FirebaseApp,
   FirebaseApps
-} from "./chunk-C7YTF3IW.js";
+} from "./chunk-FZYKY3JR.js";
 import {
   VERSION,
   ɵAngularFireSchedulers,
@@ -95,10 +95,10 @@ import {
   ɵgetAllInstancesOf,
   ɵgetDefaultInstanceOf,
   ɵzoneWrap
-} from "./chunk-GEVHBNB7.js";
+} from "./chunk-KPB3VO3E.js";
 import {
   registerVersion
-} from "./chunk-4DY6MUNU.js";
+} from "./chunk-U33BDZAB.js";
 import {
   InjectionToken,
   Injector,

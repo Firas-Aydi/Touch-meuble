@@ -14,7 +14,7 @@
         <tr *ngFor="let commande of commandes" [ngClass]="getCommandeRowClass(commande.etat)">
           <td>{{ commande.firstName }} {{ commande.lastName }}</td>
           <td>{{ commande.totalPrice | currency:'DT ':'symbol' }}</td>
-          <td>{{ commande.timestamp?.toDate() | date:'short' }}</td>
+          <td>{{ commande.timestamp?.toDate() | date:'dd-MM-yyyy HH:mm' }}</td>
           <td>{{ commande.etat }}</td>
           <td>
             <button class="btn btn-info btn-sm text-light" (click)="openDetailsModal(commande)">Détails</button>
@@ -47,7 +47,7 @@
                         <p><strong>Notes :</strong> {{ selectedCommande?.notes }}</p>
                         <p><strong>Total :</strong> {{ selectedCommande?.totalPrice | currency:'DT ':'symbol' }}</p>
                         <!-- <p><strong>État :</strong> {{ selectedCommande?.etat }}</p> -->
-                        <p><strong>Date :</strong> {{ selectedCommande?.timestamp?.toDate() | date:'short' }}</p>
+                        <p><strong>Date :</strong> {{ selectedCommande?.timestamp?.toDate() | date:'dd-MM-yyyy HH:mm' }}</p>
                     </div>
 
                     <!-- Colonne pour les articles commandés -->

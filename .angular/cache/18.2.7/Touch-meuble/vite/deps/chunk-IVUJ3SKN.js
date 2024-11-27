@@ -1,9 +1,9 @@
 import {
   firebase
-} from "./chunk-VXWY3GT5.js";
+} from "./chunk-66I7OKYE.js";
 import {
   VERSION as VERSION2
-} from "./chunk-GEVHBNB7.js";
+} from "./chunk-KPB3VO3E.js";
 import {
   Inject,
   InjectionToken,
@@ -181,4 +181,4 @@ export {
   AngularFireModule,
   ɵcacheInstance
 };
-//# sourceMappingURL=chunk-P5WCSQHX.js.map
+//# sourceMappingURL=chunk-IVUJ3SKN.js.map

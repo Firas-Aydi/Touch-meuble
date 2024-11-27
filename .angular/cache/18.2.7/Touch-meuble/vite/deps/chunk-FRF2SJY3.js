@@ -1,6 +1,6 @@
 import {
   firebase
-} from "./chunk-VXWY3GT5.js";
+} from "./chunk-66I7OKYE.js";
 
 // node_modules/firebase/compat/app/dist/esm/index.esm.js
 var name = "firebase";
@@ -26,4 +26,4 @@ firebase/compat/app/dist/esm/index.esm.js:
    * limitations under the License.
    *)
 */
-//# sourceMappingURL=chunk-W6R5MHSY.js.map
+//# sourceMappingURL=chunk-FRF2SJY3.js.map

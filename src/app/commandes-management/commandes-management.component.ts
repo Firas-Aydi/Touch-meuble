@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { CommandeService } from '../services/commande.service'; // Assurez-vous que le chemin est correct
+import { CommandeService } from '../services/commande.service'; 
 import { Commande } from '../models/commande.model';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Timestamp } from 'firebase/firestore';  // Utilisation de l'import modulaire de Timestamp
 declare var bootstrap: any;
 
 @Component({
@@ -25,9 +26,35 @@ export class CommandesManagementComponent implements OnInit {
 
   loadCommandes() {
     this.commandeService.getAllCommandes().subscribe((data: Commande[]) => {
-      this.commandes = data;
+      console.log("Données reçues : ", data);
+  
+      // Filtrage des commandes avec un timestamp valide
+      this.commandes = data.filter(commande => {
+        const timestamp = commande.timestamp;
+  
+        // Vérification si le timestamp est une instance de Firebase Timestamp
+        if (timestamp instanceof Timestamp) {  // Utilisation de Timestamp de Firebase v9
+          const validTimestamp = !isNaN(timestamp.toDate().getTime());
+          console.log(`Commande ${commande.commandeId} a un timestamp valide ? ${validTimestamp}`);
+          return validTimestamp;
+        }
+  
+        // Si le timestamp n'est pas un Timestamp de Firebase, vérifiez s'il est valide au format Date
+        const validTimestamp = timestamp && !isNaN(new Date(timestamp).getTime());
+        console.log(`Commande ${commande.commandeId} a un timestamp valide ? ${validTimestamp}`);
+        return validTimestamp;
+      }).sort((a, b) => {
+        const dateA = a.timestamp instanceof Timestamp ? a.timestamp.toDate().getTime() : new Date(a.timestamp).getTime();
+        const dateB = b.timestamp instanceof Timestamp ? b.timestamp.toDate().getTime() : new Date(b.timestamp).getTime();
+        return dateB - dateA; // Tri du plus récent au plus ancien
+      });
+  
+      console.log("Commandes après filtrage et tri : ", this.commandes);
+    }, error => {
+      console.error('Erreur lors de la récupération des commandes :', error);
     });
   }
+  
   getCommandeRowClass(etat: string): string {
     switch (etat) {
       case 'acceptée':
@@ -39,6 +66,7 @@ export class CommandesManagementComponent implements OnInit {
         return 'table-warning';
     }
   }
+
   openDetailsModal(commande: Commande) {
     this.selectedCommande = commande;
     const modalElement = document.getElementById('commandeDetailsModal');
@@ -47,14 +75,13 @@ export class CommandesManagementComponent implements OnInit {
       modal.show();
     }
   }
-  // Méthode pour accepter une commande
+
   accepterCommande(commandeId: string) {
     this.commandeService.updateCommandeStatus(commandeId, 'acceptée').then(() => {
       console.log('Commande acceptée');
     });
   }
 
-  // Méthode pour refuser une commande
   refuserCommande(commandeId: string) {
     this.commandeService.updateCommandeStatus(commandeId, 'refusée').then(() => {
       console.log('Commande refusée');
