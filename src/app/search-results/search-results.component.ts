@@ -25,7 +25,7 @@ export class SearchResultsComponent implements OnInit {
   // salon: any[] = [];
   // salles: any[] = [];
   testimonials: any[] = [];
-  
+
   // products: Product[] = [];
   // packs: Pack[] = [];
   quantity: number = 1;
@@ -70,21 +70,17 @@ export class SearchResultsComponent implements OnInit {
   }
 
   getItemId(item: any): string {
-    console.log('item:', item)
-    if(item.chambreId){
-      this.viewChambreDetails(item.chambreId) 
-    }
-    else if(item.salonId){
-      this.viewSalonDetails(item.salonId)
-    }
-    else if(item.salleId){
-      this.viewSalleDetails(item.salleId)
-    }
-    else if(item.productId){
-      this.viewProductDetails(item.productId)
-    }
-    else if(item.packId){
-      this.viewPackDetails(item.packId)
+    console.log('item:', item);
+    if (item.chambreId) {
+      this.viewChambreDetails(item.chambreId);
+    } else if (item.salonId) {
+      this.viewSalonDetails(item.salonId);
+    } else if (item.salleId) {
+      this.viewSalleDetails(item.salleId);
+    } else if (item.productId) {
+      this.viewProductDetails(item.productId);
+    } else if (item.packId) {
+      this.viewPackDetails(item.packId);
     }
     return (
       item.chambreId ||
@@ -95,131 +91,127 @@ export class SearchResultsComponent implements OnInit {
       'ID non trouvé'
     );
   }
-// Load packs from the pack service
-// loadPacks(): void {
-//   this.packService.getAllPacks().subscribe((data: any[]) => {
-//     this.packs = data;
-//   });
-// }
+  // Load packs from the pack service
+  // loadPacks(): void {
+  //   this.packService.getAllPacks().subscribe((data: any[]) => {
+  //     this.packs = data;
+  //   });
+  // }
 
-// loadChambres(): void {
-//   this.chambreService.getChambre().subscribe((data: any[]) => {
-//     this.chambres = data;
-//   });
-// }
-// loadSalles(): void {
-//   this.salleService.getSalle().subscribe((data: any[]) => {
-//     this.salles = data;
-//   });
-// }
-// loadSalon(): void {
-//   this.salonService.getSalons().subscribe((data: any[]) => {
-//     this.salon = data;
-//   });
-// }
-// loadProducts(): void {
-//   this.productService.getAllProducts().subscribe((data: any[]) => {
-//     this.products = data;
-//   });
-// }
+  // loadChambres(): void {
+  //   this.chambreService.getChambre().subscribe((data: any[]) => {
+  //     this.chambres = data;
+  //   });
+  // }
+  // loadSalles(): void {
+  //   this.salleService.getSalle().subscribe((data: any[]) => {
+  //     this.salles = data;
+  //   });
+  // }
+  // loadSalon(): void {
+  //   this.salonService.getSalons().subscribe((data: any[]) => {
+  //     this.salon = data;
+  //   });
+  // }
+  // loadProducts(): void {
+  //   this.productService.getAllProducts().subscribe((data: any[]) => {
+  //     this.products = data;
+  //   });
+  // }
 
-viewProductDetails(productId: string | undefined) {
-  if (productId) {
-    this.router.navigate(['/products', productId]);
-  } else {
-    console.error(
-      'Product ID is undefined. Cannot navigate to product details.'
+  viewProductDetails(productId: string | undefined) {
+    if (productId) {
+      this.router.navigate(['/products', productId]);
+    } else {
+      console.error(
+        'Product ID is undefined. Cannot navigate to product details.'
+      );
+    }
+  }
+  viewPackDetails(packId: string | undefined) {
+    if (packId) {
+      this.router.navigate(['/packs', packId]);
+    } else {
+      console.error('Pack ID is undefined. Cannot navigate to pack details.');
+    }
+  }
+  viewChambreDetails(chambreId: string | undefined) {
+    if (chambreId) {
+      this.router.navigate(['/chambres', chambreId]);
+    } else {
+      console.error('Pack ID is undefined. Cannot navigate to pack details.');
+    }
+  }
+  viewSalonDetails(salonId: string | undefined) {
+    if (salonId) {
+      this.router.navigate(['/salons', salonId]);
+    } else {
+      console.error('Pack ID is undefined. Cannot navigate to pack details.');
+    }
+  }
+  viewSalleDetails(salleId: string | undefined) {
+    if (salleId) {
+      this.router.navigate(['/salles', salleId]);
+    } else {
+      console.error('Pack ID is undefined. Cannot navigate to pack details.');
+    }
+  }
+
+  loadItemDetails(chambreId: string, salleId: string, salonId: string) {
+    // Charger le nom de la chambre
+    if (chambreId) {
+      this.chambreService.getChambreById(chambreId).subscribe((chambre) => {
+        this.selectedChambreName = chambre ? chambre.name : 'Chambre inconnue';
+      });
+    }
+
+    // Charger le nom de la salle
+    if (salleId) {
+      this.salleService.getSalleById(salleId).subscribe((salle) => {
+        this.selectedSalleName = salle ? salle.name : 'Salle inconnue';
+      });
+    }
+
+    // Charger le nom du salon
+    if (salonId) {
+      this.salonService.getSalonById(salonId).subscribe((salon) => {
+        this.selectedSalonName = salon ? salon.name : 'Salon inconnu';
+      });
+    }
+  }
+
+  openItemDetailsModal(item: any): string {
+    console.log('item:', item);
+    if (item.chambreId) {
+      this.openChambreDetailsModal(item);
+    } else if (item.salonId) {
+      this.openChambreDetailsModal(item);
+    } else if (item.salleId) {
+      this.openChambreDetailsModal(item);
+    } else if (item.productId) {
+      this.openProductDetailsModal(item);
+    } else if (item.packId) {
+      this.openPackDetailsModal(item);
+    }
+    return (
+      item.chambreId ||
+      item.salonId ||
+      item.salleId ||
+      item.packId ||
+      item.productId ||
+      'ID non trouvé'
     );
   }
-}
-viewPackDetails(packId: string | undefined) {
-  if (packId) {
-    this.router.navigate(['/packs', packId]);
-  } else {
-    console.error('Pack ID is undefined. Cannot navigate to pack details.');
-  }
-}
-viewChambreDetails(chambreId: string | undefined) {
-  if (chambreId) {
-    this.router.navigate(['/chambres', chambreId]);
-  } else {
-    console.error('Pack ID is undefined. Cannot navigate to pack details.');
-  }
-}
-viewSalonDetails(salonId: string | undefined) {
-  if (salonId) {
-    this.router.navigate(['/salons', salonId]);
-  } else {
-    console.error('Pack ID is undefined. Cannot navigate to pack details.');
-  }
-}
-viewSalleDetails(salleId: string | undefined) {
-  if (salleId) {
-    this.router.navigate(['/salles', salleId]);
-  } else {
-    console.error('Pack ID is undefined. Cannot navigate to pack details.');
-  }
-}
 
-loadItemDetails(chambreId: string, salleId: string, salonId: string) {
-  // Charger le nom de la chambre
-  if (chambreId) {
-    this.chambreService.getChambreById(chambreId).subscribe((chambre) => {
-      this.selectedChambreName = chambre ? chambre.name : 'Chambre inconnue';
-    });
-  }
+  openProductDetailsModal(product: Product) {
+    this.selectedProduct = product;
+    this.selectedImage = product.images[0];
 
-  // Charger le nom de la salle
-  if (salleId) {
-    this.salleService.getSalleById(salleId).subscribe((salle) => {
-      this.selectedSalleName = salle ? salle.name : 'Salle inconnue';
-    });
+    const productDetailsModal = new bootstrap.Modal(
+      document.getElementById('productDetailsModal')
+    );
+    productDetailsModal.show();
   }
-
-  // Charger le nom du salon
-  if (salonId) {
-    this.salonService.getSalonById(salonId).subscribe((salon) => {
-      this.selectedSalonName = salon ? salon.name : 'Salon inconnu';
-    });
-  }
-}
-
-openItemDetailsModal(item: any): string {
-  console.log('item:', item)
-  if(item.chambreId){
-    this.openChambreDetailsModal(item) 
-  }
-  else if(item.salonId){
-    this.openChambreDetailsModal(item)
-  }
-  else if(item.salleId){
-    this.openChambreDetailsModal(item)
-  }
-  else if(item.productId){
-    this.openProductDetailsModal(item)
-  }
-  else if(item.packId){
-    this.openPackDetailsModal(item)
-  }
-  return (
-    item.chambreId ||
-    item.salonId ||
-    item.salleId ||
-    item.packId ||
-    item.productId ||
-    'ID non trouvé'
-  );
-}
-
-openProductDetailsModal(product: Product) {
-  this.selectedProduct = product;
-  this.selectedImage = product.images[0];
-
-  const productDetailsModal = new bootstrap.Modal(
-    document.getElementById('productDetailsModal')
-  );
-  productDetailsModal.show();
-}
   openChambreDetailsModal(chambre: any) {
     console.log('chambre', chambre);
     this.selectedPack = chambre;
@@ -252,49 +244,52 @@ openProductDetailsModal(product: Product) {
   }
 
   addPackToCart(pack: Pack, quantity: number) {
-    // Check if the product and quantity are valid
+    // Vérifier si le produit et la quantité sont valides
     if (pack && quantity > 0) {
-      // Logic to add the item to the cart
-      console.log(`Added ${quantity} of ${pack.name} to the cart.`);
+      // Logique pour ajouter l'article au panier
+      console.log(`Ajouté ${quantity} de ${pack.name} au panier.`);
 
-      // Assuming you have a CartService to manage the cart:
+      // En supposant que vous avez un CartService pour gérer le panier :
       this.cartService.addToCart(pack, 'pack', quantity);
-      alert(`${quantity} ${pack.name}(s) added to the cart!`);
+      alert(`${quantity} ${pack.name}(s) ajouté(s) au panier !`);
 
-      // Optionally show a success message or notification
-      // alert(`${quantity} ${product.name}(s) added to the cart!`);
+      // Optionnellement afficher un message ou une notification de succès
+      // alert(`${quantity} ${product.name}(s) ajouté(s) au panier !`);
     } else if (quantity <= 0) {
-      // Handle case where the quantity is invalid (e.g., less than 1)
-      alert('Please enter a valid quantity greater than 0.');
+      // Gérer le cas où la quantité est invalide (par exemple, inférieure à 1)
+      alert('Veuillez entrer une quantité valide supérieure à 0.');
     } else {
-      // Handle other invalid cases, like if the product object is null
-      alert('An error occurred. Please try again.');
+      // Gérer d'autres cas invalides, comme si l'objet produit est nul
+      alert('Une erreur est survenue. Veuillez réessayer.');
     }
   }
+
   addToCart(product: Product, quantity: number) {
+    // Vérifier si le produit et la quantité sont valides
     if (product && quantity > 0 && quantity <= product.stock) {
-      console.log(`Added ${quantity} of ${product.name} to the cart.`);
+      console.log(`Ajouté ${quantity} de ${product.name} au panier.`);
       this.cartService.addToCart(product, 'product', quantity);
-      alert(`${quantity} ${product.name}(s) added to the cart!`);
+      alert(`${quantity} ${product.name}(s) ajouté(s) au panier !`);
     } else if (quantity <= 0) {
-      alert('Please enter a valid quantity greater than 0.');
+      alert('Veuillez entrer une quantité valide supérieure à 0.');
     } else if (quantity > product.stock) {
-      alert('The quantity entered exceeds the available stock.');
+      alert('La quantité entrée dépasse le stock disponible.');
     } else {
-      alert('An error occurred. Please try again.');
+      alert('Une erreur est survenue. Veuillez réessayer.');
     }
   }
+
   validateQuantity() {
-    this.quantityError = null; // Reset error message
+    this.quantityError = null; // Réinitialiser le message d'erreur
 
     if (this.quantity < 1) {
-      this.quantityError = 'Quantity must be at least 1.';
+      this.quantityError = "La quantité doit être d'au moins 1.";
     } else if (
       this.quantity === null ||
       this.quantity === undefined ||
       this.quantity === 0
     ) {
-      this.quantityError = 'Quantity cannot be empty.';
+      this.quantityError = 'La quantité ne peut pas être vide.';
     }
   }
 }

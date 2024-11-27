@@ -11,7 +11,7 @@ import { PackService } from '../services/pack.service';
 import { Pack } from '../models/pack.model';
 import { CommonModule } from '@angular/common';
 import { Category } from '../models/category.model';
-import { CategoryService } from '../services/category.service';
+// import { CategoryService } from '../services/category.service';
 import { ChambreService } from '../services/chambre.service';
 import { Chambre } from '../models/chambre.model';
 import { SalleAMangeService } from '../services/salle-amange.service';

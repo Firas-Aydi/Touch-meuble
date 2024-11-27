@@ -124,41 +124,41 @@ export class SalonComponent implements OnInit{
   }
 
   addToCart(salon: Salon, quantity: number) {
-    // Check if the Salon and quantity are valid
+    // Vérifier si le salon et la quantité sont valides
     if (salon && quantity > 0 && quantity <= salon.stock) {
-      // Logic to add the item to the cart
-      console.log(`Added ${quantity} of ${salon.name} to the cart.`);
+      // Logique pour ajouter l'article au panier
+      console.log(`Ajouté ${quantity} de ${salon.name} au panier.`);
 
-      // Assuming you have a CartService to manage the cart:
-      this.cartService.addToCart(salon,'salon', quantity);
+      // En supposant que vous avez un CartService pour gérer le panier :
+      this.cartService.addToCart(salon, 'salon', quantity);
 
-      // Optionally show a success message or notification
-      alert(`${quantity} ${salon.name}(s) added to the cart!`);
+      // Optionnellement afficher un message de succès ou une notification
+      alert(`${quantity} ${salon.name}(s) ajouté(s) au panier !`);
     } else if (quantity <= 0) {
-      // Handle case where the quantity is invalid (e.g., less than 1)
-      alert('Please enter a valid quantity greater than 0.');
+      // Gérer le cas où la quantité est invalide (par exemple, inférieure à 1)
+      alert('Veuillez entrer une quantité valide supérieure à 0.');
     } else if (quantity > salon.stock) {
-      // Handle case where the quantity exceeds the stock
-      alert('The quantity entered exceeds the available stock.');
+      // Gérer le cas où la quantité dépasse le stock
+      alert('La quantité entrée dépasse le stock disponible.');
     } else {
-      // Handle other invalid cases, like if the Salon object is null
-      alert('An error occurred. Please try again.');
+      // Gérer d'autres cas invalides, comme si l'objet salon est nul
+      alert('Une erreur est survenue. Veuillez réessayer.');
     }
   }
 
   validateQuantity() {
-    this.quantityError = null; // Reset error message
+    this.quantityError = null; // Réinitialiser le message d'erreur
 
     if (this.quantity < 1) {
-      this.quantityError = 'Quantity must be at least 1.';
+      this.quantityError = 'La quantité doit être d\'au moins 1.';
     } else if (this.quantity > (this.selectedSalon?.stock || 0)) {
-      this.quantityError = `Quantity cannot exceed stock limit of ${this.selectedSalon?.stock}.`;
+      this.quantityError = `La quantité ne peut pas dépasser la limite de stock de ${this.selectedSalon?.stock}.`;
     } else if (
       this.quantity === null ||
       this.quantity === undefined ||
       this.quantity === 0
     ) {
-      this.quantityError = 'Quantity cannot be empty.';
+      this.quantityError = 'La quantité ne peut pas être vide.';
     }
   }
 

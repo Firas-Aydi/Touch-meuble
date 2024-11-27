@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 import { take } from 'rxjs';
 import { ProductService } from '../services/product.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-salon',
@@ -22,14 +23,19 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
   styleUrl: './salon-management.component.css',
 })
 export class SalonManagementComponent implements OnInit {
-  salonForm: FormGroup;
+  @ViewChild('confirmationModal') confirmationModal: TemplateRef<any> | null =
+  null;
+  
+ salonForm: FormGroup;
   salons: Salon[] = [];
   images: string[] = [];
   isEdit: boolean = false;
   products: Product[] = [];
+  salonToDeleteId: string | null = null;
 
   constructor(
     private fb: FormBuilder,
+    private modalService: NgbModal,
     private firestore: AngularFirestore,
     private salonService: SalonService,
     private productService: ProductService
@@ -154,6 +160,17 @@ export class SalonManagementComponent implements OnInit {
         });
     } else {
       console.error('salon ID is undefined. Cannot delete salon.');
+    }
+  }
+  openConfirmationModal(salonId: string) {
+    this.salonToDeleteId = salonId; // Stocke l'ID du pack à supprimer
+    this.modalService.open(this.confirmationModal); // Ouvre le modal
+  }
+
+  confirmDelete() {
+    if (this.salonToDeleteId) {
+      this.deleteSalon(this.salonToDeleteId);
+      this.salonToDeleteId = null;
     }
   }
 
