@@ -1,10 +1,12 @@
 /* Footer principal */
 footer {
     background-color: beige; /* Couleur de fond sombre pour le footer */
-    font-family: "Harmonia Sans", sans-serif; /* Police pour un look moderne */
+    font-family: "Harmonia Sans", sans-serif; 
+    padding: 20px 0; /* Ajouter de l'espace à l'intérieur du footer */
+    width: 100%; /* Assurer que le footer occupe toute la largeur */
+    position: relative; /* Position relative pour éviter qu'il ne soit flottant */
+    bottom: 0;
 }
-
-
 
 footer p {
     margin: 0 0 10px; /* Espacement entre les paragraphes */
