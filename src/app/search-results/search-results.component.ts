@@ -42,6 +42,8 @@ export class SearchResultsComponent implements OnInit {
   selectedSalleName: string | null = null;
   selectedSalonName: string | null = null;
 
+  imageIntervals: { [key: string]: any } = {}; 
+
   constructor(
     private searchService: SearchService,
     private productService: ProductService,
@@ -62,13 +64,36 @@ export class SearchResultsComponent implements OnInit {
         console.warn('No results found for the search term.');
       }
     });
-    // this.loadPacks();
-    // this.loadChambres();
-    // this.loadSalles();
-    // this.loadSalon();
-    // this.loadProducts();
   }
-
+  ngOnDestroy(): void {
+    for (const packId in this.imageIntervals) {
+      if (this.imageIntervals.hasOwnProperty(packId)) {
+        clearInterval(this.imageIntervals[packId]);
+      }
+    }
+    for (const chambreId in this.imageIntervals) {
+      if (this.imageIntervals.hasOwnProperty(chambreId)) {
+        clearInterval(this.imageIntervals[chambreId]);
+      }
+    }
+    for (const salonId in this.imageIntervals) {
+      if (this.imageIntervals.hasOwnProperty(salonId)) {
+        clearInterval(this.imageIntervals[salonId]);
+      }
+    }
+    for (const salleId in this.imageIntervals) {
+      if (this.imageIntervals.hasOwnProperty(salleId)) {
+        clearInterval(this.imageIntervals[salleId]);
+      }
+    }
+    for (const productId in this.imageIntervals) {
+      if (this.imageIntervals.hasOwnProperty(productId)) {
+        clearInterval(this.imageIntervals[productId]);
+      }
+    }
+    this.imageIntervals = {};
+    console.info('Tous les intervalles ont été arrêtés.');
+  }
   getItemId(item: any): string {
     console.log('item:', item);
     if (item.chambreId) {
@@ -91,33 +116,6 @@ export class SearchResultsComponent implements OnInit {
       'ID non trouvé'
     );
   }
-  // Load packs from the pack service
-  // loadPacks(): void {
-  //   this.packService.getAllPacks().subscribe((data: any[]) => {
-  //     this.packs = data;
-  //   });
-  // }
-
-  // loadChambres(): void {
-  //   this.chambreService.getChambre().subscribe((data: any[]) => {
-  //     this.chambres = data;
-  //   });
-  // }
-  // loadSalles(): void {
-  //   this.salleService.getSalle().subscribe((data: any[]) => {
-  //     this.salles = data;
-  //   });
-  // }
-  // loadSalon(): void {
-  //   this.salonService.getSalons().subscribe((data: any[]) => {
-  //     this.salon = data;
-  //   });
-  // }
-  // loadProducts(): void {
-  //   this.productService.getAllProducts().subscribe((data: any[]) => {
-  //     this.products = data;
-  //   });
-  // }
 
   viewProductDetails(productId: string | undefined) {
     if (productId) {

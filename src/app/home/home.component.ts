@@ -36,7 +36,6 @@ export class HomeComponent implements OnInit {
   selectedSalonName: string | null = null;
 
   imageIntervals: { [key: string]: any } = {};
-  // rotationDuration = 1000;
 
   constructor(
     // private cartService: CartService,
