@@ -1,6 +1,6 @@
 /* Footer principal */
 footer {
-    background-color: beige; /* Couleur de fond sombre pour le footer */
+    background-color: black; 
     font-family: "Harmonia Sans", sans-serif; 
     padding: 20px 0; /* Ajouter de l'espace à l'intérieur du footer */
     width: 100%; /* Assurer que le footer occupe toute la largeur */
@@ -8,13 +8,17 @@ footer {
     bottom: 0;
 }
 
+footer h6 {
+    color: white; 
+}
 footer p {
+    color: white; 
     margin: 0 0 10px; /* Espacement entre les paragraphes */
     font-size: 14px; /* Taille de police modérée */
 }
 
 footer a {
-    color: #000; /* Couleur des liens */
+    color: white; 
     transition: color 0.3s ease-in-out;
 }
 
@@ -25,7 +29,7 @@ footer a:hover {
 
 footer i {
     margin-right: 10px; /* Espace entre l'icône et le texte */
-    color: #000; /* Couleur des icônes */
+    color: white; 
     font-size: 18px;
 }
 

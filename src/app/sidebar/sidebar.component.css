@@ -14,7 +14,20 @@
   z-index: 1000; /* Assurez-vous qu'elle est au-dessus du contenu */
   padding: 10px; 
 }
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+}
+.navbar-logo {
+  width: 90px;
+  transition: transform 0.3s ease-in-out;
+}
 
+.navbar-logo:hover {
+  transform: scale(1.1);
+}
 .custom-sidebar.active {
   transform: translateX(0);
   /* margin: 60; */
