@@ -3,7 +3,7 @@
     "rules": "storage.rules"
   },
   "hosting": {
-    "public": "dist/browser",
+    "public": "dist",
     "ignore": [
       "firebase.json",
       "**/.*",

@@ -39,7 +39,7 @@ body {
 
 /* Image Section */
 .bg-image-section {
-    background-image: url('../../assets/Login2.jpg');
+    /* background-image: url('../../assets/Login2.jpg'); */
     background-size: cover;
     background-position: center;
     min-height: 100%;
