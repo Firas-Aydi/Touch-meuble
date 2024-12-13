@@ -37,7 +37,7 @@ export class ChambreManagementComponent implements OnInit {
     private fb: FormBuilder,
     private modalService: NgbModal,
     private firestore: AngularFirestore,
-    private chambreservice: ChambreService // private productService: ProductService
+    private chambreservice: ChambreService 
   ) {
     this.chambreForm = this.fb.group({
       chambreId: [''],
